@@ -1,2 +1,2 @@
-# -humane-shelf-7123
+# humane-shelf-7123
 Tata 1mg clone
