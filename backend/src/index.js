@@ -15,8 +15,8 @@ app.get("/", (req, res) => {
 });
 
 // database name needs to change
-mongoose.connect(config.get("db.url")).then(() => {
-  app.listen(config.get("port"), () => {
-    console.log("server is started on port" + config.get("port"));
+mongoose.connect("mongodb://localhost:27017/tata1mg").then(() => {
+  app.listen(5000, () => {
+    console.log("server is started on port 5000");
   });
 });

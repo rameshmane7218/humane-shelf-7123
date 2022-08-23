@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "NODE_ENV=dev nodemon src/index.js",
-    "prod": "NODE_ENV=prod nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "prod": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
@@ -21,5 +21,8 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.19"
+  },
+  "optionalDependencies": {
+    "win-node-env": "^0.6.1"
   }
 }
