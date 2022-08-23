@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import Auth from "../components/Payment/Auth";
 
 const Payment = () => {
+  
   return (
-    <div>Payment</div>
-  )
-}
+    <div>
+      Payment
+      <Auth />
+    </div>
+  );
+};
 
-export default Payment
+export default Payment;

@@ -7,6 +7,8 @@ import {
   IconStory,
   IconWrite,
   IconSave,
+  IconFacebook,
+  IconTwitter,
 } from ".";
 import IconCart from "./cart";
 
@@ -18,12 +20,12 @@ const icons = ({ name, fill, cursor }) => {
       return <IconHome fill={fill} />;
     case "Notification":
       return <IconNotification fill={fill} />;
-    case "List":
-      return <IconList fill={fill} />;
+    case "Twitter":
+      return <IconTwitter fill={fill} />;
     case "Story":
       return <IconStory fill={fill} />;
-    case "Write":
-      return <IconWrite fill={fill} />;
+    case "Facebook":
+      return <IconFacebook fill={fill} />;
     case "Cart":
       return <IconCart cursor={cursor} />;
     case "Save":
