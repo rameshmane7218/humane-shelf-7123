@@ -2,6 +2,7 @@ import { Container } from "@chakra-ui/react";
 import { Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import Auth from "./components/Navbar/Auth";
 import Cart from "./pages/Cart";
 import Home from "./pages/Home";
 import Payment from "./pages/Payment";
@@ -24,6 +25,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/products" element={<Products />} />
         </Routes>

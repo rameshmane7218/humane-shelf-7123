@@ -11,14 +11,20 @@ import pic_five from "../../assets/Navbar/auth/five.png";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
+import Slider from "react-slick";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
 import { useState } from "react";
 
 const AuthSlider = () => {
   const [data, setData] = useState(sliderData);
-
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 100,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
   return (
     <Box>
       <Swiper
@@ -37,20 +43,36 @@ const AuthSlider = () => {
         className="mySwiper"
       >
         {data.map((item, index) => (
-          <SwiperSlide key={item.id}>
-            <Image src={item.imgUrl} height="auto" />
-            {/* <Box>
+          <Box key={index}>
+            <SwiperSlide>
               <Box>
-                <Image src={item.imgUrl} height="auto" />
+                <Box>
+                  <Image src={item.imgUrl} height="auto" />
+                </Box>
+                <Box>
+                  <Heading>{item.title}</Heading>
+                </Box>
+                <Box>{item.text}</Box>
               </Box>
-              <Box>
-                <Heading>{item.title}</Heading>
-              </Box>
-              <Box>{item.text}</Box>
-            </Box> */}
-          </SwiperSlide>
+            </SwiperSlide>
+          </Box>
         ))}
       </Swiper>
+
+      {/* <Box> Text</Box> */}
+      {/* <Slider {...settings}>
+        {data.map((item, index) => (
+          <Box key={item.id}>
+            <Box>
+              <Image src={item.imgUrl} height="auto" />
+            </Box>
+            <Box>
+              <Heading>{item.title}</Heading>
+            </Box>
+            <Box>{item.text}</Box>
+          </Box>
+        ))}
+      </Slider> */}
     </Box>
   );
 };
