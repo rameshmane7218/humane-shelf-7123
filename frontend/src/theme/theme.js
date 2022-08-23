@@ -2,8 +2,8 @@ import { extendTheme } from "@chakra-ui/react";
 
 export const theme = extendTheme({
   fonts: {
-    heading: "Roboto",
-    body: "Roboto",
+    heading: "Open Sans",
+    body: "Open Sans",
   },
   styles: {
     global: {

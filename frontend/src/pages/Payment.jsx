@@ -1,5 +1,5 @@
 import React from "react";
-import Auth from "../components/Payment/Auth";
+import Auth from "../components/Navbar/Auth";
 
 const Payment = () => {
   
