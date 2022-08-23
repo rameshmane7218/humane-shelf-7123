@@ -1,0 +1,10 @@
+{
+  "db": {
+    "url": "mongodb://localhost:27017/prodtata1mg"
+  },
+  "jwt": {
+    "SECRET_KEY": "SECRET_PROD",
+    "REFRESH_SECRET_KEY": "REFRESHSECRETKEY_PROD"
+  },
+  "port": 8000
+}

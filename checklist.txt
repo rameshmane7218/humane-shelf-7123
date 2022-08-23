@@ -1,0 +1,5 @@
+1. Homepage - @Shristi
+2. Login/signup
+3. Products page - @Himanshu 
+4. cart page
+5. Payment page
