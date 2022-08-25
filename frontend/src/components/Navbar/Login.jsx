@@ -7,41 +7,20 @@ import {
   FormLabel,
   Heading,
   HStack,
-  Image,
   Input,
   InputGroup,
   InputLeftAddon,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
   PinInput,
   PinInputField,
   Text,
   useToast,
 } from "@chakra-ui/react";
-import AuthSlider from "./AuthSlider";
-import { v4 as uuidv4 } from "uuid";
-import { Swiper, SwiperSlide } from "swiper/react";
-import pic_one from "../../assets/Navbar/auth/one.png";
-import pic_two from "../../assets/Navbar/auth/two.png";
-import pic_three from "../../assets/Navbar/auth/three.png";
-import pic_four from "../../assets/Navbar/auth/four.png";
-import pic_five from "../../assets/Navbar/auth/five.png";
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import Slider from "react-slick";
+
 // import required modules
-import { Autoplay, Pagination, Navigation } from "swiper";
 import { useState } from "react";
 import { auth } from "../../firebase/config";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
-const Login = ({ setMethod, initialRef, finalRef }) => {
+const Login = ({ setMethod, initialRef, finalRef, setSuccessful }) => {
   const [stage, setStage] = useState(1);
   const [userNumber, setUserNumber] = useState("");
   const [result, setResult] = useState();
@@ -60,7 +39,12 @@ const Login = ({ setMethod, initialRef, finalRef }) => {
             finalRef={finalRef}
           />
         ) : stage == 2 ? (
-          <Stage2 userNumber={userNumber} setStage={setStage} result={result} />
+          <Stage2
+            userNumber={userNumber}
+            setStage={setStage}
+            result={result}
+            setSuccessful={setSuccessful}
+          />
         ) : (
           <Box>SignUp</Box>
         )}
@@ -76,13 +60,11 @@ const Stage1 = ({
   setUserNumber,
   setStage,
   setMethod,
-  result,
   setResult,
   initialRef,
 }) => {
   const [loading, setLoading] = useState(false);
   const [invalid, setInvalid] = useState(false);
-  const toast = useToast();
   const handleOnchange = (e) => {
     setInvalid(false);
     const { value } = e.target;
@@ -103,21 +85,6 @@ const Stage1 = ({
       }
     }
   };
-  const sendOtp = (delay) => {
-    setLoading(true);
-    setTimeout(() => {
-      toast({
-        title: `${generateOTP()} is your OTP.`,
-        description: ` valid for 1 min`,
-        status: "info",
-        position: "top-right",
-        duration: 7000,
-        isClosable: true,
-      });
-      setLoading(false);
-      setStage(2);
-    }, delay);
-  };
 
   const setupRecaptcha = () => {
     window.recaptchaVerifier = new RecaptchaVerifier(
@@ -134,7 +101,7 @@ const Stage1 = ({
   };
   const onSignInSubmit = (e) => {
     // e.preventDefault();
-    setupRecaptcha();
+    // setupRecaptcha();
     const phoneNumber = `+91${userNumber}`;
     const appVerifier = window.recaptchaVerifier;
     signInWithPhoneNumber(auth, phoneNumber, appVerifier)
@@ -145,26 +112,18 @@ const Stage1 = ({
         // ...
         setResult(confirmationResult);
         setStage(2);
-        // const code = window.prompt();
-        // confirmationResult
-        //   .confirm(code)
-        //   .then((result) => {
-        //     // User signed in successfully.
-        //     const user = result.user;
-        //     // ...
-        //     console.log("sign in successful", user);
-        //   })
-        //   .catch((error) => {
-        //     // User couldn't sign in (bad verification code?)
-        //     // ...
-        //     console.log("sign in error", error);
-        //   });
       })
       .catch((error) => {
         // Error; SMS not sent
         // ...
+        setInvalid(true);
+        setLoading(false);
+        console.log("error11", error);
       });
   };
+  useEffect(() => {
+    setupRecaptcha();
+  }, []);
 
   return (
     <Box>
@@ -273,7 +232,7 @@ const Stage1 = ({
     </Box>
   );
 };
-const Stage2 = ({ userNumber, setStage, result }) => {
+const Stage2 = ({ userNumber, setStage, result, setSuccessful }) => {
   const [loading, setLoading] = useState(false);
   const [invalid, setInvalid] = useState(false);
   const [userOtp, setUserOtp] = useState("");
@@ -287,20 +246,12 @@ const Stage2 = ({ userNumber, setStage, result }) => {
   const toast = useToast();
   const handleOnchange = (value) => {
     setInvalid(false);
-
     setUserOtp(value);
-    // console.log("user is typing otp", value);
   };
+
   const handleVeriryOtp = (e) => {
     e.preventDefault();
-    // console.log(userOtp);
-    // let actualOtp = localStorage.getItem("MobileOtp");
-    // if (userOtp == actualOtp) {
-    //   console.log("Login successful");
-    // } else {
-    //   setInvalid(true);
-    // }
-    // const code = window.prompt();
+    setLoading(true);
     result
       .confirm(userOtp)
       .then((result) => {
@@ -308,26 +259,18 @@ const Stage2 = ({ userNumber, setStage, result }) => {
         const user = result.user;
         // ...
         console.log("sign in successful", user);
+
+        setSuccessful(true);
       })
       .catch((error) => {
         // User couldn't sign in (bad verification code?)
         // ...
+        setInvalid(true);
         console.log("sign in error", error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-  };
-  const ResendOtp = (delay) => {
-    setLoading(true);
-    setTimeout(() => {
-      toast({
-        title: `${generateOTP()} is your OTP.`,
-        description: ` valid for 1 min`,
-        status: "info",
-        position: "top-right",
-        duration: 7000,
-        isClosable: true,
-      });
-      setLoading(false);
-    }, delay);
   };
 
   return (
@@ -400,7 +343,7 @@ const Stage2 = ({ userNumber, setStage, result }) => {
                 fontWeight={"bold"}
                 cursor="pointer"
                 display={invalid ? "visible" : "none"}
-                onClick={() => ResendOtp(1000)}
+                // onClick={() => ResendOtp(1000)}
               >
                 Resend OTP
               </Text>
@@ -411,7 +354,7 @@ const Stage2 = ({ userNumber, setStage, result }) => {
               type={"submit"}
               width={"100%"}
               isLoading={loading}
-              loadingText="Sending..."
+              loadingText="Verifying..."
               colorScheme="orange"
             >
               DONE
@@ -431,16 +374,4 @@ const Stage2 = ({ userNumber, setStage, result }) => {
       </form>
     </Box>
   );
-};
-
-const generateOTP = () => {
-  let digits = "0123456789";
-  let otpLength = 6;
-  let otp = "";
-  for (let i = 1; i <= otpLength; i++) {
-    let index = Math.floor(Math.random() * digits.length);
-    otp = otp + digits[index];
-  }
-  localStorage.setItem("MobileOtp", otp);
-  return otp;
 };
