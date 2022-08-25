@@ -3,11 +3,14 @@ import {
   Box,
   Button,
   Flex,
+  FormControl,
   FormLabel,
   Heading,
   HStack,
   Image,
   Input,
+  InputGroup,
+  InputLeftAddon,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -38,7 +41,7 @@ import { Autoplay, Pagination, Navigation } from "swiper";
 import { useState } from "react";
 import { auth } from "../../firebase/config";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
-const Login = ({ setMethod }) => {
+const Login = ({ setMethod, initialRef, finalRef }) => {
   const [stage, setStage] = useState(1);
   const [userNumber, setUserNumber] = useState("");
   const [result, setResult] = useState();
@@ -53,6 +56,8 @@ const Login = ({ setMethod }) => {
             setMethod={setMethod}
             result={result}
             setResult={setResult}
+            initialRef={initialRef}
+            finalRef={finalRef}
           />
         ) : stage == 2 ? (
           <Stage2 userNumber={userNumber} setStage={setStage} result={result} />
@@ -73,6 +78,7 @@ const Stage1 = ({
   setMethod,
   result,
   setResult,
+  initialRef,
 }) => {
   const [loading, setLoading] = useState(false);
   const [invalid, setInvalid] = useState(false);
@@ -181,14 +187,21 @@ const Stage1 = ({
               </Text>
             </Box>
             <Box>
-              <FormLabel color={"#616161"}>Enter Mobile Number</FormLabel>
-              <Input
-                value={userNumber}
-                type={"text"}
-                maxLength="10"
-                onChange={handleOnchange}
-                required
-              />
+              <FormControl>
+                <FormLabel color={"#616161"}>Enter Mobile Number</FormLabel>
+                <InputGroup>
+                  <InputLeftAddon children="+91" />
+                  {/* <Input type="tel" placeholder="phone number" /> */}
+                  <Input
+                    ref={initialRef}
+                    value={userNumber}
+                    type={"text"}
+                    maxLength="10"
+                    onChange={handleOnchange}
+                    required
+                  />
+                </InputGroup>
+              </FormControl>
               <Text
                 fontSize={"12px"}
                 color="#d50000"
