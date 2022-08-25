@@ -40,6 +40,8 @@ const Auth = () => {
   } = useDisclosure();
 
   const [method, setMethod] = useState(true);
+  const initialRef = React.useRef(null);
+  const finalRef = React.useRef(null);
   return (
     <div>
       Auth
@@ -59,7 +61,12 @@ const Auth = () => {
       >
         Open Signup
       </Button>
-      <Modal isOpen={isOpenAuth} onClose={onCloseAuth}>
+      <Modal
+        isOpen={isOpenAuth}
+        onClose={onCloseAuth}
+        initialRef={initialRef}
+        finalRef={finalRef}
+      >
         <ModalOverlay />
         <ModalContent maxW={"900px"} minH="440px">
           <ModalCloseButton onClick={onCloseAuth} />
@@ -104,7 +111,15 @@ const Auth = () => {
                 p="0 50px"
                 mt="16px"
               >
-                {method ? <Login setMethod={setMethod}/> : <Box>SignUp</Box>}
+                {method ? (
+                  <Login
+                    setMethod={setMethod}
+                    initialRef={initialRef}
+                    finalRef={finalRef}
+                  />
+                ) : (
+                  <Box>SignUp</Box>
+                )}
               </Box>
             </Flex>
           </ModalBody>
