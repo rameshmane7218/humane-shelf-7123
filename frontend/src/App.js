@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Auth from "./components/Navbar/Auth";
+import Slider from "./components/Home/slider";
 import Cart from "./pages/Cart";
 import Home from "./pages/Home";
 import Payment from "./pages/Payment";
@@ -12,7 +13,8 @@ function App() {
   return (
     <Container className="App" maxW={"none"} p={0}>
       <nav>
-        <Navbar />
+     
+        {/* <Navbar/> */}
       </nav>
 
       <Container
@@ -24,6 +26,7 @@ function App() {
       >
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/slider" element={<Slider/>} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/payment" element={<Payment />} />
@@ -32,7 +35,7 @@ function App() {
       </Container>
 
       <footer>
-        <Footer />
+        {/* <Footer /> */}
       </footer>
     </Container>
   );

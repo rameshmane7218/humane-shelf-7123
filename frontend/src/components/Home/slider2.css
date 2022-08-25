@@ -1,0 +1,85 @@
+.swiper {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 3%;
+  }
+  
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+  
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+  }
+  
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .swiper-button-prev {
+    background-image: url("https://www.1mg.com/images/prev-round.svg");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-position: center;
+  }
+  
+  .swiper-button-prev::after {
+    display: none;
+  }
+  .swiper-button-next {
+    background-image: url("https://www.1mg.com/images/next-round.svg");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-position: center;
+  }
+  
+  .swiper-button-next::after {
+    display: none;
+  }
+  
+  .swiperProducts {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem !important;
+    height:200px
+  }
+  .swiperProductsWithDetails {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1rem !important;
+    /* height: 300px !important; */
+  }
+  .swiperProducts:hover {
+    /* border: 1.5px solid #d0cdcd; */
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    border-radius: 10px;
+  }
+  
+  .slideProductBigTitle {
+    color: #212121;
+    margin-bottom: 3px;
+    height: 44px;
+    word-wrap: break-word;
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  
