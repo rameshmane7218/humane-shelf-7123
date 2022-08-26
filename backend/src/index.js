@@ -3,6 +3,9 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const config = require("config");
 require("dotenv").config();
+const mongodb_url =
+  process.env.MONGODB_URL || "mongodb://localhost:27017/tata1mg";
+
 const UserRouter = require("./Router/User.router");
 const Razorpay = require("razorpay");
 const PaymentRouter = require("./Router/Payment.router");
@@ -40,7 +43,7 @@ app.post("/create/orderId", (req, res) => {
 });
 
 // database name needs to change
-mongoose.connect("mongodb://localhost:27017/tata1mg").then(() => {
+mongoose.connect(mongodb_url).then(() => {
   app.listen(5000, () => {
     console.log("server is started on port 5000");
   });

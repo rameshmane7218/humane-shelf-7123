@@ -1,11 +1,11 @@
-import { Button, useToast } from "@chakra-ui/react";
+import { Button, useDisclosure, useToast } from "@chakra-ui/react";
 import React from "react";
 import Auth from "../components/Navbar/Auth";
 import axios from "axios";
 import { useSelector } from "react-redux";
 const Payment = () => {
   const toast = useToast();
-
+  const { require } = useSelector((store) => store.auth);
   const handleCheckout = () => {
     axios
       .post("http://localhost:5000/pay", {
@@ -36,8 +36,9 @@ const Payment = () => {
   return (
     <div>
       Payment
-      <Auth />
+      {/* <Auth /> */}
       <Button onClick={handleCheckout}>Payment</Button>
+      
     </div>
   );
 };

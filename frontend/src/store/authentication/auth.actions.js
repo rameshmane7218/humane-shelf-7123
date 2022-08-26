@@ -139,4 +139,13 @@ const userGetProfileAPI = (payload) => (dispatch) => {
     .catch((e) => dispatch(userGetProfileError(e.data)));
 };
 
-export { userLoginAPI, userSignupAPI, userLogoutAPI, userGetProfileAPI };
+const requireAuth = (payload) => (dispatch) => {
+  dispatch({ type: types.USER_REQUIRE_AUTH, payload });
+};
+export {
+  userLoginAPI,
+  userSignupAPI,
+  userLogoutAPI,
+  userGetProfileAPI,
+  requireAuth,
+};

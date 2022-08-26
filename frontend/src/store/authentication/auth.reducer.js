@@ -24,6 +24,9 @@ const initialState = {
     loading: false,
     error: false,
   },
+  require: {
+    open: "",
+  },
 };
 
 export const authReducer = (state = initialState, { type, payload }) => {
@@ -150,6 +153,14 @@ export const authReducer = (state = initialState, { type, payload }) => {
         logout: {
           loading: false,
           error: true,
+        },
+      };
+
+    case types.USER_REQUIRE_AUTH:
+      return {
+        ...state,
+        require: {
+          open: payload,
         },
       };
     default:
