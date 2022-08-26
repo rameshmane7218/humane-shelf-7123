@@ -14,7 +14,8 @@ import {
   Image,
   Input,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { CheckCircleIcon } from "@chakra-ui/icons";
+import React, { useEffect, useState } from "react";
 import Login from "./Login";
 import Signup from "./Signup";
 import { v4 as uuidv4 } from "uuid";
@@ -33,6 +34,7 @@ import Slider from "react-slick";
 import { Autoplay, Pagination, Navigation } from "swiper";
 const Auth = () => {
   const [data, setData] = useState(sliderData);
+  const [successful, setSuccessful] = useState(false);
   const {
     isOpen: isOpenAuth,
     onOpen: onOpenAuth,
@@ -42,6 +44,14 @@ const Auth = () => {
   const [method, setMethod] = useState(true);
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
+  useEffect(() => {
+    if (successful) {
+      setTimeout(() => {
+        onCloseAuth();
+        setSuccessful(false);
+      }, 3000);
+    }
+  }, [successful]);
   return (
     <div>
       Auth
@@ -66,62 +76,85 @@ const Auth = () => {
         onClose={onCloseAuth}
         initialRef={initialRef}
         finalRef={finalRef}
+        isCentered
       >
         <ModalOverlay />
-        <ModalContent maxW={"900px"} minH="440px">
-          <ModalCloseButton onClick={onCloseAuth} />
+        <ModalContent
+          maxW={successful ? "400px" : "900px"}
+          minH={successful ? "" : "440px"}
+        >
+          {!successful && <ModalCloseButton onClick={onCloseAuth} />}
 
           <ModalBody>
-            <Flex>
-              <Swiper
-                spaceBetween={30}
-                centeredSlides={true}
-                loop={true}
-                autoplay={{
-                  delay: 3000,
-                  disableOnInteraction: false,
-                }}
-                pagination={{
-                  clickable: true,
-                }}
-                navigation={false}
-                modules={[Autoplay, Pagination, Navigation]}
-                className="mySwiper"
-              >
-                {data.map((item, index) => (
-                  <Box key={uuidv4()}>
-                    <SwiperSlide key={uuidv4()}>
-                      <Box textAlign={"center"}>
-                        <Flex justifyContent={"center"}>
-                          <Image src={item.imgUrl} height="auto" />
-                        </Flex>
-                        <Box>
-                          <Heading fontSize={"20px"}>{item.title}</Heading>
+            {!successful ? (
+              <Flex>
+                <Swiper
+                  style={{
+                    height: "200px !important",
+                    // border: "1px solid blue",
+                  }}
+                  spaceBetween={30}
+                  centeredSlides={true}
+                  loop={true}
+                  autoplay={{
+                    delay: 3000,
+                    disableOnInteraction: false,
+                  }}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  navigation={false}
+                  modules={[Autoplay, Pagination, Navigation]}
+                  className="mySwiper"
+                >
+                  {data.map((item, index) => (
+                    <Box key={uuidv4()}>
+                      <SwiperSlide key={uuidv4()}>
+                        <Box textAlign={"center"}>
+                          <Flex justifyContent={"center"}>
+                            <Image src={item.imgUrl} height="auto" />
+                          </Flex>
+                          <Box>
+                            <Heading fontSize={"20px"}>{item.title}</Heading>
+                          </Box>
+                          <Box fontSize={"14px"}>{item.text}</Box>
                         </Box>
-                        <Box fontSize={"14px"}>{item.text}</Box>
-                      </Box>
-                    </SwiperSlide>
-                  </Box>
-                ))}
-              </Swiper>
+                      </SwiperSlide>
+                    </Box>
+                  ))}
+                </Swiper>
 
-              <Box
-                width={"50%"}
-                borderLeft={"1px solid gray"}
-                p="0 50px"
-                mt="16px"
-              >
-                {method ? (
-                  <Login
-                    setMethod={setMethod}
-                    initialRef={initialRef}
-                    finalRef={finalRef}
-                  />
-                ) : (
-                  <Box>SignUp</Box>
-                )}
+                <Box
+                  width={"50%"}
+                  borderLeft={"1px solid gray"}
+                  p="0 50px"
+                  mt="16px"
+                >
+                  {method ? (
+                    <Login
+                      setMethod={setMethod}
+                      initialRef={initialRef}
+                      finalRef={finalRef}
+                      setSuccessful={setSuccessful}
+                    />
+                  ) : (
+                    <Signup
+                      setMethod={setMethod}
+                      initialRef={initialRef}
+                      finalRef={finalRef}
+                      setSuccessful={setSuccessful}
+                    />
+                  )}
+                </Box>
+              </Flex>
+            ) : (
+              <Box textAlign="center" py={10} px={6}>
+                <CheckCircleIcon boxSize={"70px"} color={"green.400"} />
+                <Text fontWeight={500} fontSize={"22px"} pt={"20px"}>
+                  Login Successful
+                </Text>
               </Box>
-            </Flex>
+            )}
           </ModalBody>
         </ModalContent>
       </Modal>
