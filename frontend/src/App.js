@@ -8,6 +8,7 @@ import Cart from "./pages/Cart";
 import Home from "./pages/Home";
 import Payment from "./pages/Payment";
 import Products from "./pages/Products";
+import SingleProd from "./components/Products/SingleProd";
 
 function App() {
   return (
@@ -28,10 +29,16 @@ function App() {
           <Route path="/auth" element={<Auth />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/products" element={<Products />} />
+          <Route path={`/products/:id`} element={<SingleProd />} />
         </Routes>
       </Container>
 
-      <footer>{/* <Footer /> */}</footer>
+
+      <footer>
+       <Footer/>
+       
+      </footer>
+
     </Container>
   );
 }

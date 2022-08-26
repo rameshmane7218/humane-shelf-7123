@@ -34,7 +34,7 @@ const Slider = () => {
 
         </Box>
         <Box >
-          <Image height="100%" src="https://onemg.gumlet.io/a_ignore,w_480,h_200,c_fit,q_auto,f_auto/rohm7mk20fc4mairgjg0.png" />
+          <Image  src="https://onemg.gumlet.io/a_ignore,w_480,h_200,c_fit,q_auto,f_auto/rohm7mk20fc4mairgjg0.png" />
         </Box>
       </Flex>
       <Center>
