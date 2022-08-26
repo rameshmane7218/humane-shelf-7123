@@ -35,7 +35,8 @@ function App() {
       </Container>
 
       <footer>
-        {/* <Footer /> */}
+       <Footer/>
+       
       </footer>
     </Container>
   );
