@@ -13,10 +13,7 @@ import SingleProd from "./components/Products/SingleProd";
 function App() {
   return (
     <Container className="App" maxW={"none"} p={0}>
-      <nav>
-     
-        {/* <Navbar/> */}
-      </nav>
+      <nav>{/* <Navbar/> */}</nav>
 
       <Container
         style={{ padding: "20px 0 0 0" }}
@@ -27,7 +24,7 @@ function App() {
       >
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/slider" element={<Slider/>} />
+          <Route path="/slider" element={<Slider />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/payment" element={<Payment />} />
@@ -36,10 +33,12 @@ function App() {
         </Routes>
       </Container>
 
+
       <footer>
        <Footer/>
        
       </footer>
+
     </Container>
   );
 }

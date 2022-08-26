@@ -32,9 +32,13 @@ import "swiper/css/navigation";
 import Slider from "react-slick";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
-import { useDispatch } from "react-redux";
-import { userLogoutAPI } from "../../store/authentication/auth.actions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  requireAuth,
+  userLogoutAPI,
+} from "../../store/authentication/auth.actions";
 const Auth = () => {
+  
   const dispatch = useDispatch();
   const [data, setData] = useState(sliderData);
   const [successful, setSuccessful] = useState(false);
@@ -55,6 +59,9 @@ const Auth = () => {
       }, 3000);
     }
   }, [successful]);
+  useEffect(() => {
+    dispatch(requireAuth(onOpenAuth));
+  }, []);
   return (
     <div>
       Auth
