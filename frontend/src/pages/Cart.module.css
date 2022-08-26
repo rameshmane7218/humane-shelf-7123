@@ -1,34 +1,20 @@
 *{
-    padding: 0%;
     margin: 0%;
+    padding: 0%;
 }
-.BlogContainer{
+.BlogContainer {
+    padding: 0% 8%;
     display: grid;
-    grid-template-columns: 60% 40% ;
-    gap: 5%;
-    padding:  5% 10% 5% 0%;
-    background-color: whitesmoke;
-    font-family: "Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    grid-template-columns: 55% 45%;
+    gap:8%
 }
-.BlogLeftContainer{
-    border: 1px solid;
-}
-.BlogRightContainer{
-    /* border: 1px solid; */
+.leftcart {
+    /* width:55%; */
 }
 
-.leftcart {
-    width:100%;
-    /* border: 1px solid; */
-    justify-content: left;
-    
-}
-.leftcart>div {
-    margin-left: 18%;
-}
 .cartdata {
-    width:100%;
-    height: 100%;
+    width:auto;
+    height: auto;
     background-color: #ffffff;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
@@ -38,7 +24,7 @@
     color: #35383c;
     justify-content: space-between;
     margin: 5px 10px;
-    padding-top: 25px;
+    /* padding-top: 25px; */
 }
 .cartdata>div:nth-child(2) {
     display: flex;
@@ -54,124 +40,130 @@
     font-size: 12px;
     color: #9fa1a4;
     justify-content: space-between;
+    padding: 0% 0% 2% 2%;
     margin: 30px 10px;
 }
 .deleteCart {
     display: flex;
-    gap: 10px;
+    gap: 5px;
     cursor: pointer;
+    /* border: 1px solid blue; */
 }
-.deletecart {
+.removebuttondiv{
+    /* border: 1px solid orange; */
+    /* padding: auto; */
+    height: auto;
+}
+.Countcart {
     display: flex;
     gap: 10px;
     cursor: pointer;
+
+    /* border: 1px solid  #ff6f61; */
+    width: auto;
+  
+}
+.deleteCart>img{
+    width: 25px;
+    height: 25px;
+    margin-top: 10%;
 }
 .deleteCart>p {
     padding-top: 10px; 
+    /* border: 1px solid  red; */
 }
-.deletecart>p {
-    padding-top: 10px;
-    color: black;
-    font-size: 15px;
+.Countcart>p {
+    padding-top: 5px;
+    font-size: 12px rgba(0, 0, 0, 0.226);
     font-weight: 500; 
+    text-align: center;
+    /* border: 1px solid  green; */
 }
 .rightcart {
    width: 35%;
 }
 .careplan {
-    margin: 0%;
     background-color: #ffffff;
+
+    margin-top: 10px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    padding: 2.5% 3%;
+    padding: 15px 15px;
 }
 .careplan>p:nth-child(2){
     color: #20868d;
     font-size: 17px;
     font-weight: 600;
-    margin-top: 4px;
-    padding-bottom: 0%;
+    margin-top: 10px;
 }
 .careplan>h4{
     color:#6b605c;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 600;
-    margin-top: 0.5%;
+    margin-top: 10px;
 }
 .careplan>p:nth-child(4){
     color: #91959e;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 400;
     margin-top: 8px;
 }
 .careplan>div {
     display: flex;
-    gap: 10%;
+    gap: 100px;
     margin: 20px 0px;
 }
 .knowmore>div:nth-child(1) {
-    width: 45%;
-    height: 25px;
-    border: 2px solid #ff736994;
+    width: 180px;
+    height: 40px;
+    border: 2px solid #ff7469;
     border-radius: 5px;
     text-align: center;
     padding-top: 10px;
     color: #ff7469;
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
 }
 .knowmore>div:nth-child(2) {
-    width: 45%;
-    height: 25px;
+    width: 180px;
+    height: 40px;
     border: 2px solid #ff7469;
     background-color: #ff7469;
     border-radius: 5px;
     text-align: center;
     padding-top: 10px;
     color: #ffff;
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
 }
 .coupon {
     display: flex;
     justify-content: space-between;
-    margin: 0%;
-    text-align: center;
 }
 .coupon>div:nth-child(1) {
     display: flex;
     gap:10px;
     width:100%;
-    text-align: center;
 }
 .health {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     height: 200px;
 }
-.BlogCutPrice{
-    text-decoration: line-through;
-}
+
 .health>div:nth-child(1) {
     margin-top: 20px;
      background-color: #fffcf8;
      padding: 15px 15px;
-     font-size: 16px;
-     font-weight: 100;
+     font-size: 18px;
 }
 .health>div:nth-child(2) {
     background-color: #ffffff;
     padding: 15px 15px;
-    font-size: 16px;
 }
 .health>div:nth-child(2)>label {
     display: flex;
     gap: 10px;
-    font-size: 14px;
-}
-.Bloghealthpara{
-    font-size: 11px;
-    color: #434646;
 }
 .health>div>p:nth-child(2) {
    font-size: 13px;
@@ -181,10 +173,11 @@
 }
 .health>div>p:nth-child(3) {
     font-size: 15px;
-    width:250px;
+    /* width:250px; */
+    /* text-align: center; */
     padding-left: 25px;
-    padding-top: 8px;
-    padding-bottom: -10px;
+    /* padding-top: 8px; */
+  
     color: #59c067;
 }
 .coins {
@@ -217,7 +210,6 @@
 }
 .neucoins>p:nth-child(2){
     font-weight: 700;
-  padding-top: 5px;
   font-size: 13px;
   text-align: center;
   color:  #934347;  
@@ -269,7 +261,7 @@
 }
 .deliverylocation {
     background-color: #ffffff;
-    height: 100px;
+    height: auto;
     width:100%;
     margin-top:20px ;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -281,28 +273,41 @@
     display: flex;
     justify-content: space-between;
     font-size: 13px;
+    
+    
+    
 }
 .location>p:nth-child(2){
     color:#ff7461 ;
     font-size: 15px;
     font-weight: 600;
+    
 }
 .location1{
    padding-left: 12px;
+   padding-bottom: 10%;
+  
 }
 
 .address {
     width:45%;
-    margin: 50px 10%;
+    margin: 0% 10%;
 }
 .addressform {
+    /* border: 1px solid ; */
     margin-top: 10px;
+    padding-bottom: 2%;
     width: 100%;
     background-color: #ffff;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
+.addressPTag{
+    color: rgba(0, 0, 0, 0.514);
+}
 .form {
-    margin: 12px
+    padding: 8px 12px 0px 12px;
+    margin-bottom: 0%;
+    /* border: 1px solid red; */
 }
 .form>input {
    width:98%;
@@ -310,7 +315,10 @@
    margin: 12px 0px;
    border-radius: 5px;
    border-color: #b2b2b2;
-
+   padding-left: 2%;
+   outline: grey;
+   border: 1px solid #b2b2b2;
+    font-size: 14px;
 }
 .form>input:nth-child(1){
     height: 60px;
@@ -319,8 +327,7 @@
     display: flex;
     justify-content: right;
     margin: 12px 25px;
-    gap: 20px;
-
+    gap: 9%;
 }
 .savedata>p:nth-child(1){
     color:#ff6f61 ;
@@ -329,26 +336,25 @@
     cursor: pointer;
 }
 .savedata>p:nth-child(2){
-    margin-top: -8px;
     background-color:#ff6f61 ;
-    width: 110px;
-    font-size: 5mm;
-    font-weight: 400;
+    font-size: 15px;
     color: #ffff;
-    padding: 10px 30px;
-    margin-bottom: 20px;
+    padding:1% 5%;
     border-radius: 5px;
     cursor: pointer;
+    text-align: center;
 }
 .addressdata {
     margin-top: 10px;
     width:45%;
+    height: auto;
     margin: 50px 10%;
+    /* border: 1px solid; */
    
 }
 .addressdata1 {
     padding-top: 20px;
-    height: 130px;
+    height: auto;
     background-color: #ffff;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; 
 }
@@ -370,7 +376,7 @@
      border: 1px solid #ff6f61;
      width: 100%;
      height: 50px;
-     margin-top: 20px;
+     margin-top: 5%;
      text-align: center;
      padding-top: 15px;
      color: #ff6f61;
@@ -534,10 +540,111 @@
  }
  .office {
      display: flex;
+     gap: 3%;
  }
+ .office>p{
+    font-size:14px;
+    color: #8c94a0;
+ }
+ .addressfromCheckBox{
+    width: 0.8em;
+    height: 0.8em;
+    background-color: white;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid  #ff6f61;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+    margin-right: 2px;
+
+ }
+ .addressfromCheckBox:checked {
+    background-color: #ff6f61;
+    width: 0.6em;
+    height: 0.6em;
+    outline-style: double;
  
+}
+/* medium */
+@media all and (min-width: 381px) and (max-width: 800px) {
+.BlogContainer {
+    padding: 0% 8%;
+    display: grid;
+    grid-template-columns: 100%;
+    /* gap:8% */
+}
+.neucoins>p:nth-child(2){
+    font-weight: 700;
+  font-size: 11px;
+  text-align: center;
+  color:  #934347;  
+  background-color: #ffe0cc;
+  height: auto;
+  width: auto;
+  margin-top: 10px;
+}
+}
+/* small */
+@media all and (min-width: 0px) and (max-width: 380px) {
+    .BlogContainer {
+        /* padding: 0% 8%; */
+        display: grid;
+        grid-template-columns: 100%;
+        /* gap:8% */
+    }
+    .neucoins>p:nth-child(2){
+        font-weight: 700;
+      font-size: 11px;
+      text-align: center;
+      color:  #934347;  
+      background-color: #ffe0cc;
+      height: auto;
+      width: auto;
+      padding-right: 2%;
+      margin-top: 10px;
+    }
+  }
+/* address detail */
+@media all and (min-width: 381px) and (max-width: 700px) {
+    .addressdata {
+        margin-top: 10px;
+        width:auto;
+        height: auto;
+        margin: 50px 10%; 
+        /* /* border: 1px solid; */
+       
+    }
+  
+  }
+  /* small*/
+  @media all and (min-width: 0px) and (max-width: 380px) {
+    .addressdata {
+        margin-top: 10px;
+        width:auto;
+        height: auto;
+        margin: 50px 10%;
+        /* border: 1px solid; */
+       
+    }
+  }
 
-
+/* address form */
+@media all and (min-width: 381px) and (max-width: 700px) {
+    .address {
+        width:90%;
+        margin: 0% 0%;
+    }
+  
+  }
+  /* small*/
+  @media all and (min-width: 0px) and (max-width: 380px) {
+    .address {
+        width:95%;
+        margin: 0% 0%;
+    }
+  }
 
 
 

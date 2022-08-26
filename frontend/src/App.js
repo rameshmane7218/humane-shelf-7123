@@ -8,6 +8,7 @@ import Cart from "./pages/Cart";
 import Home from "./pages/Home";
 import Payment from "./pages/Payment";
 import Products from "./pages/Products";
+import Address from "./pages/Address";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/auth" element={<Auth />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/address" element={<Address />} />
         </Routes>
       </Container>
 
