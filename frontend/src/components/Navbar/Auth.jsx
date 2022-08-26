@@ -32,7 +32,10 @@ import "swiper/css/navigation";
 import Slider from "react-slick";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
+import { useDispatch } from "react-redux";
+import { userLogoutAPI } from "../../store/authentication/auth.actions";
 const Auth = () => {
+  const dispatch = useDispatch();
   const [data, setData] = useState(sliderData);
   const [successful, setSuccessful] = useState(false);
   const {
@@ -71,6 +74,15 @@ const Auth = () => {
       >
         Open Signup
       </Button>
+      <Button
+        onClick={() => {
+          dispatch(
+            userLogoutAPI(JSON.parse(localStorage.getItem("currentLogin"))._id)
+          );
+        }}
+      >
+        Logout
+      </Button>
       <Modal
         isOpen={isOpenAuth}
         onClose={onCloseAuth}
@@ -80,18 +92,20 @@ const Auth = () => {
       >
         <ModalOverlay />
         <ModalContent
-          maxW={successful ? "400px" : "900px"}
+          maxW={successful ? "400px" : ["400px", "400px", "900px"]}
           minH={successful ? "" : "440px"}
         >
           {!successful && <ModalCloseButton onClick={onCloseAuth} />}
 
-          <ModalBody>
+          <ModalBody padding={"10px"}>
             {!successful ? (
               <Flex>
                 <Swiper
                   style={{
-                    height: "200px !important",
+                    maxHeight: "200px !important",
                     // border: "1px solid blue",
+
+                    // visibility: "hidden",
                   }}
                   spaceBetween={30}
                   centeredSlides={true}
@@ -109,15 +123,21 @@ const Auth = () => {
                 >
                   {data.map((item, index) => (
                     <Box key={uuidv4()}>
-                      <SwiperSlide key={uuidv4()}>
+                      <SwiperSlide
+                        key={uuidv4()}
+                        style={{ maxHeight: "170px" }}
+                        className={"mySwiper-slider"}
+                      >
                         <Box textAlign={"center"}>
                           <Flex justifyContent={"center"}>
                             <Image src={item.imgUrl} height="auto" />
                           </Flex>
-                          <Box>
+                          <Box mt={"45px"}>
                             <Heading fontSize={"20px"}>{item.title}</Heading>
                           </Box>
-                          <Box fontSize={"14px"}>{item.text}</Box>
+                          <Box fontSize={"14px"} mt={"25px"} p={"0 20px"}>
+                            {item.text}
+                          </Box>
                         </Box>
                       </SwiperSlide>
                     </Box>
@@ -125,9 +145,9 @@ const Auth = () => {
                 </Swiper>
 
                 <Box
-                  width={"50%"}
-                  borderLeft={"1px solid gray"}
-                  p="0 50px"
+                  width={["100%", "100%", "50%"]}
+                  borderLeft={["", "", "1px solid gray"]}
+                  p={["10px 10px", "20px 20px", "20px 50px"]}
                   mt="16px"
                 >
                   {method ? (
