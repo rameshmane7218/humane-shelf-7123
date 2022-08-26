@@ -6,12 +6,14 @@ require("dotenv").config();
 const UserRouter = require("./Router/User.router");
 const Razorpay = require("razorpay");
 const PaymentRouter = require("./Router/Payment.router");
+const ProductRouter = require("./Router/Product.router");
 const app = express();
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use("/product", ProductRouter);
 app.use("/", PaymentRouter);
 app.use("/user", UserRouter);
 app.get("/", (req, res) => {

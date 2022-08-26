@@ -1,8 +1,11 @@
-import { Button } from "@chakra-ui/react";
+import { Button, useToast } from "@chakra-ui/react";
 import React from "react";
 import Auth from "../components/Navbar/Auth";
 import axios from "axios";
+import { useSelector } from "react-redux";
 const Payment = () => {
+  const toast = useToast();
+
   const handleCheckout = () => {
     axios
       .post("http://localhost:5000/pay", {
@@ -14,7 +17,17 @@ const Payment = () => {
       })
       .then((res) => {
         console.log(res);
-        window.location.href = res.data.payment_request.longurl;
+        if (res.data.success === true) {
+          window.location.href = res.data.payment_request.longurl;
+        } else {
+          toast({
+            title: "Something went wrong",
+            status: "error",
+            position: "top-right",
+            duration: 3000,
+            isClosable: true,
+          });
+        }
       })
       .catch((err) => {
         console.log(err);

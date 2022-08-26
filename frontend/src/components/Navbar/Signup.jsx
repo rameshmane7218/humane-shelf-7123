@@ -20,13 +20,18 @@ import {
 import { useState } from "react";
 import { auth } from "../../firebase/config";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { userSignupAPI } from "../../store/authentication/auth.actions";
 const Signup = ({ setMethod, initialRef, finalRef, setSuccessful }) => {
+ 
   const [stage, setStage] = useState(1);
   const [userDetails, setUserDetails] = useState({
     firstName: "",
     lastName: "",
     mobile: "",
     email: "",
+    token: "",
   });
   const [userNumber, setUserNumber] = useState("");
   const [result, setResult] = useState();
@@ -81,8 +86,14 @@ const Stage1 = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [invalid, setInvalid] = useState(false);
+  const [message, setMessage] = useState("");
   const handleOnchange = (e) => {
-    setInvalid(false);
+    if (invalid) {
+      setInvalid(false);
+    }
+    if (message.length) {
+      setMessage("");
+    }
     const { value } = e.target;
     setUserNumber(value);
     setUserDetails({ ...userDetails, ["mobile"]: value });
@@ -98,7 +109,20 @@ const Stage1 = ({
       } else {
         // sendOtp(2000);
         setLoading(true);
-        onSignInSubmit();
+        axios
+          .post("/user/checkmobile", { mobile: userDetails.mobile })
+          .then((res) => {
+            if (res.data.status == true) {
+              setMessage(res.data.message);
+              setInvalid(true);
+              setLoading(false);
+            } else {
+              onSignInSubmit();
+            }
+          })
+          .catch(() => {
+            setLoading(false);
+          });
       }
     }
   };
@@ -135,7 +159,7 @@ const Stage1 = ({
         // ...
         setInvalid(true);
         setLoading(false);
-        console.log("error11", error);
+        console.log("error11 is:", error);
       });
   };
   useEffect(() => {
@@ -185,7 +209,9 @@ const Stage1 = ({
                 color="#d50000"
                 display={invalid ? "visible" : "none"}
               >
-                Please enter a valid 10 digit Mobile Number
+                {message
+                  ? message
+                  : "Please enter a valid 10 digit Mobile Number"}
               </Text>
             </Box>
           </Box>
@@ -396,9 +422,11 @@ const Stage2 = ({
 };
 
 const Stage3 = ({ setSuccessful, userDetails, setUserDetails }) => {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [invalid, setInvalid] = useState(false);
-
+  const { isAuth, userData, signUpData } = useSelector((state) => state.auth);
+  console.log(isAuth, userData);
   const handleOnchange = (e) => {
     setInvalid(false);
     const { name, value } = e.target;
@@ -408,9 +436,13 @@ const Stage3 = ({ setSuccessful, userDetails, setUserDetails }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log(userDetails);
-    setSuccessful(true);
+    dispatch(userSignupAPI(userDetails));
+
+    setTimeout(() => {
+      setSuccessful(true);
+    }, 2000);
   };
+  // console.log(signUpData);
 
   return (
     <Box>

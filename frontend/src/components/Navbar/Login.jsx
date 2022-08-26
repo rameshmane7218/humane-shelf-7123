@@ -15,8 +15,11 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
+import axios from "axios";
 
 // import required modules
+import { useDispatch, useSelector } from "react-redux";
+import { userLoginAPI } from "../../store/authentication/auth.actions";
 import { useState } from "react";
 import { auth } from "../../firebase/config";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
@@ -65,8 +68,15 @@ const Stage1 = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [invalid, setInvalid] = useState(false);
+  const [message, setMessage] = useState("");
+
   const handleOnchange = (e) => {
-    setInvalid(false);
+    if (invalid) {
+      setInvalid(false);
+    }
+    if (message.length) {
+      setMessage("");
+    }
     const { value } = e.target;
     setUserNumber(value);
     // console.log("user is typing", value);
@@ -81,7 +91,21 @@ const Stage1 = ({
       } else {
         // sendOtp(2000);
         setLoading(true);
-        onSignInSubmit();
+
+        axios
+          .post("/user/checkmobile", { mobile: userNumber })
+          .then((res) => {
+            if (res.data.status != true) {
+              setMessage(res.data.message);
+              setInvalid(true);
+              setLoading(false);
+            } else {
+              onSignInSubmit();
+            }
+          })
+          .catch(() => {
+            setLoading(false);
+          });
       }
     }
   };
@@ -166,7 +190,9 @@ const Stage1 = ({
                 color="#d50000"
                 display={invalid ? "visible" : "none"}
               >
-                Please enter a valid 10 digit Mobile Number
+                {message
+                  ? message
+                  : "Please enter a valid 10 digit Mobile Number"}
               </Text>
             </Box>
           </Box>
@@ -233,9 +259,11 @@ const Stage1 = ({
   );
 };
 const Stage2 = ({ userNumber, setStage, result, setSuccessful }) => {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [invalid, setInvalid] = useState(false);
   const [userOtp, setUserOtp] = useState("");
+
   // const [count, setCount] = useState(30);
 
   // useEffect(() => {
@@ -245,7 +273,9 @@ const Stage2 = ({ userNumber, setStage, result, setSuccessful }) => {
   // }, []);
   const toast = useToast();
   const handleOnchange = (value) => {
-    setInvalid(false);
+    if (invalid) {
+      setInvalid(false);
+    }
     setUserOtp(value);
   };
 
@@ -259,8 +289,10 @@ const Stage2 = ({ userNumber, setStage, result, setSuccessful }) => {
         const user = result.user;
         // ...
         console.log("sign in successful", user);
-
-        setSuccessful(true);
+        dispatch(userLoginAPI({ mobile: userNumber, token: user.accessToken }));
+        setTimeout(() => {
+          setSuccessful(true);
+        }, 2000);
       })
       .catch((error) => {
         // User couldn't sign in (bad verification code?)
