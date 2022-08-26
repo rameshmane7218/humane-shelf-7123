@@ -1,18 +1,15 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-// import  "./slider2.css"
-
+import "./slider2.css";
 
 import { Navigation } from "swiper";
 import { Box, Heading, Text, Image, Stack } from "@chakra-ui/react";
 
-
-
-export const Slider2 = ({items}) => {
+export const Slider2 = ({ items }) => {
   // console.log(items);
   return (
-    <Box boxShadow='base'    height="200px" mb="3%">
+    <Box boxShadow="base" height="200px" mb="3%">
       <Swiper
         slidesPerView={6}
         spaceBetween={10}
@@ -46,19 +43,18 @@ export const Slider2 = ({items}) => {
         }}
         navigation={true}
         modules={[Navigation]}
-        className="mySwiper"
+        className="mainSwiper"
       >
         {items?.map((d, i) => {
           {
             if (d.title) {
               return (
-                <SwiperSlide key={i}   className="swiperProducts">
+                <SwiperSlide key={i} className="swiperProducts">
                   <Box
                     rounded={"lg"}
                     p={"1rem"}
                     pos={"relative"}
                     height={"160px"}
-                    
                   >
                     <Image
                       rounded={"lg"}
@@ -66,6 +62,7 @@ export const Slider2 = ({items}) => {
                       width={212}
                       objectFit={"cover"}
                       src={d.img}
+                      className={"swiperImage"}
                     />
                   </Box>
                   <Stack align={"center"} pb={4}>
@@ -79,7 +76,7 @@ export const Slider2 = ({items}) => {
                   </Stack>
                 </SwiperSlide>
               );
-            } 
+            }
           }
         })}
       </Swiper>

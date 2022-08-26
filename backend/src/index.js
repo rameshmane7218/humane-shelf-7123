@@ -5,12 +5,14 @@ const config = require("config");
 require("dotenv").config();
 const UserRouter = require("./Router/User.router");
 const Razorpay = require("razorpay");
+const PaymentRouter = require("./Router/Payment.router");
 const app = express();
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use("/", PaymentRouter);
 app.use("/user", UserRouter);
 app.get("/", (req, res) => {
   res.send("Homepage");
