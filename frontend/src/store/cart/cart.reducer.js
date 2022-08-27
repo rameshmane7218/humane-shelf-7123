@@ -44,21 +44,16 @@ export const cartReducer = (state = cartInitalState, { type, payload }) => {
           loading: false,
           error: false,
           withoutDiscountPrice: payload.reduce((acc, el) => {
-            if (el.strikePrice) {
-              acc += Number(el.strikePrice) * Number(el.count);
+            if (el.strikedPrice) {
+              acc += Number(el.strikedPrice) * Number(el.count);
             } else {
               acc += Number(el.price) * Number(el.count);
             }
-            return acc;
+            return Math.round(acc);
           }, 0),
           withDiscountPrice: payload.reduce((acc, el) => {
-            if (el.strikePrice) {
-              let save = el.strikePrice - el.price;
-              acc += Number(el.strikePrice) * Number(el.count) - save;
-            } else {
-              acc += Number(el.price) * Number(el.count);
-            }
-            return acc;
+            acc += Number(el.price) * Number(el.count);
+            return Math.round(acc);
           }, 0),
         },
         data: payload,
