@@ -71,7 +71,7 @@ The application is available as a web portal– www.1mg.com and as mobile app ac
  <ul>
  <ol>◉ Ramesh Mane</ol>
  <ol>◉ Rahul Singh</ol>
- <ol>◉ Shristi</ol>
- <ol>◉ Himanshu</ol>
+ <ol>◉ Shristi Kumari</ol>
+ <ol>◉ Himanshu Sharma</ol>
  </ul>
 </div>
