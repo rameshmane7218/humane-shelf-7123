@@ -13,6 +13,7 @@ import Address from "./pages/Address";
 import OrderSummary from "./pages/OrderSummary";
 
 import SingleProd from "./components/Products/SingleProd";
+import ProductNew from "./pages/ProductNew";
 
 
 function App() {
@@ -33,7 +34,8 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/payment" element={<Payment />} />
-          <Route path="/products" element={<Products />} />
+          {/* <Route path="/products" element={<Products />} /> */}
+          <Route path="/prod" element={<ProductNew />} />
 
           <Route path="/address" element={<Address />} />
           <Route path="/ordersummary" element={<OrderSummary />} />
@@ -45,7 +47,7 @@ function App() {
 
 
       <footer>
-       <Footer/>
+       {/* <Footer/> */}
        
       </footer>
 

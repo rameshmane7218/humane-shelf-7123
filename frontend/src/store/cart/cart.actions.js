@@ -26,7 +26,7 @@ const getCartItemError = (payload) => {
 const getCartItemAPI = (payload) => (dispatch) => {
   dispatch(getCartItemLoading(payload));
 
-  let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+  let cartItems = JSON.parse(localStorage.getItem("cartItem")) || [];
   dispatch(getCartItemSuccess(cartItems));
 };
 
@@ -55,14 +55,14 @@ const addItemToCartAPI = (payload) => (dispatch) => {
 
   setTimeout(() => {
     console.log("add Item...");
-    let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    let cartItems = JSON.parse(localStorage.getItem("cartItem")) || [];
     payload = { ...payload, _id: uuidv4(), createdAt: new Date().toJSON() };
     cartItems.push(payload);
     cartItems = cartItems.sort((a, b) => {
       if (a.createdAt > b.createdAt) return 1;
       if (a.createdAt < b.createdAt) return -1;
     });
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    localStorage.setItem("cartItem", JSON.stringify(cartItems));
     dispatch(addItemToCartSuccess(payload));
     dispatch(getCartItemAPI());
   }, 250);
@@ -93,7 +93,7 @@ const updateCartItemAPI = (payload) => (dispatch) => {
 
   setTimeout(() => {
     console.log("fetch details...");
-    let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    let cartItems = JSON.parse(localStorage.getItem("cartItem")) || [];
     if (cartItems.length > 0) {
       let updated = cartItems.filter((item) => {
         if (item._id === payload.cartId) {
@@ -106,7 +106,7 @@ const updateCartItemAPI = (payload) => (dispatch) => {
         if (a.createdAt > b.createdAt) return 1;
         if (a.createdAt < b.createdAt) return -1;
       });
-      localStorage.setItem("cartItems", JSON.stringify(updated));
+      localStorage.setItem("cartItem", JSON.stringify(updated));
       dispatch(updateCartItemSuccess(updated));
       dispatch(getCartItemAPI());
     }
@@ -138,7 +138,7 @@ const removeItemFromCartAPI = (payload) => (dispatch) => {
   dispatch(removeItemFromCartLoading(payload));
 
   setTimeout(() => {
-    let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    let cartItems = JSON.parse(localStorage.getItem("cartItem")) || [];
     if (cartItems.length > 0) {
       let updated = cartItems.filter((item) => item._id !== payload);
 
@@ -146,7 +146,7 @@ const removeItemFromCartAPI = (payload) => (dispatch) => {
         if (a.createdAt > b.createdAt) return 1;
         if (a.createdAt < b.createdAt) return -1;
       });
-      localStorage.setItem("cartItems", JSON.stringify(updated));
+      localStorage.setItem("cartItem", JSON.stringify(updated));
       dispatch(removeItemFromCartSuccess(updated));
       dispatch(getCartItemAPI());
     }

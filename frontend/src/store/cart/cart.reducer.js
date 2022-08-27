@@ -22,7 +22,7 @@ const cartInitalState = {
     loading: false,
     error: false,
   },
-  data: JSON.parse(localStorage.getItem("cartItems")) || [],
+  data: JSON.parse(localStorage.getItem("cartItem")) || [],
 };
 export const cartReducer = (state = cartInitalState, { type, payload }) => {
   switch (type) {

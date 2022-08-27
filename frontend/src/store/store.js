@@ -9,11 +9,13 @@ import thunk from "redux-thunk";
 import { authReducer } from "./authentication/auth.reducer";
 
 import { cartReducer } from "./cart/cart.reducer";
+import { newProductsReducer } from "./newProduct/products.reducer";
 
 import { porductsReducer } from "./products/products.reducer";
 
 const rootReducer = combineReducers({
-  products: porductsReducer,
+  products: newProductsReducer,
+  // products: porductsReducer,
 
   auth: authReducer,
 
@@ -25,8 +27,8 @@ const composeEnhancers =
         // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
       })
     : compose;
-    const enhancer = composeEnhancers(
-      applyMiddleware(thunk)
-      // other store enhancers if any
-    );
+const enhancer = composeEnhancers(
+  applyMiddleware(thunk)
+  // other store enhancers if any
+);
 export const store = createStore(rootReducer, enhancer);
