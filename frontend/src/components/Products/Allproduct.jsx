@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { Link } from "react-router-dom";
 import {
   Box,
@@ -13,6 +13,9 @@ import { StarIcon } from '@chakra-ui/icons'
 import { BiRupee } from "react-icons/bi";
 import styled from "styled-components";
 
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { fetchdes, AddToCart } from "../../store/products/products.actions";
 
 const ToolTip = styled.i`
   font-size: 12px;
@@ -80,6 +83,16 @@ const CardCount = styled.div`
 
 const AllProduct = ({ product }) => {
   const [countValue, setCountValue] = useState(0);
+  const { id } = useParams();
+  
+  let username = useSelector((state) => state.name);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchdes(id));
+  }, [id, dispatch]);
+  
+
+  
   return (
 
     <Box
@@ -170,6 +183,15 @@ const AllProduct = ({ product }) => {
                 {countValue == 0 ? (
                   <AddToCartBtn
                     // key={product.id}
+
+                    onClick={() => {
+                      dispatch(
+                        AddToCart({
+                          name: username,
+                          _id: product._id,
+                        })
+                      );
+                    }}
                     // onClick={() => handleAddToCart(product)}
                   >
                     {/* {addCartItem.loading && addCartItem._id === product._id ? (

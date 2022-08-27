@@ -1,28 +1,41 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Flex, Box, Image, Text, Select,Button, useMediaQuery } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import alldata from "./alldata"
 import { StarIcon } from '@chakra-ui/icons'
 import { BiRupee } from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
+
+import { fetchdes, AddToCart } from "../../store/products/products.actions";
 const SingleProd = () => {
-    const {isLoading,setIsloading} = useState(false)
-    const { id } = useParams();
-    var data = alldata.data
-    data = data.filter((el) => el._id == id)
-    const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
     
-    console.log(data)
+    const { id } = useParams();
+    // var data = alldata.data
+    // data = data.filter((el) => el._id == id)
+    const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
+    let prod = useSelector((state) => state.desData);
+  let username = useSelector((state) => state.username);
+  console.log("prodss",username);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchdes(id));
+  }, [id, dispatch]);
+  console.log("prod",prod);
+
+  let random = Math.floor(Math.random() * 150) + 50;
+  const quantarr = Array.from({ length: 30 }, (_, index) => index + 1);
+    // console.log(data)
     return (
         <div>
            
             
             <Flex direction={isLargerThan768 ? "row" : "column"} position={"relative"} bg={"white"} left="0"  justifyContent="space-between" alignItems={"center"}>
                 <Flex bg={"white"} h={"400px"} w={"400px"} justifyContent="center" alignItems={"center"}>
-                    <Image src={data[0].imageUrl} h={"400px"} w={"300px"} p="50" m={"50"}></Image>
+                    <Image src={prod.imageUrl} h={"400px"} w={"300px"} p="50" m={"50"}></Image>
                 </Flex>
                 <Box bg={"white"} h={"400px"} w={"400px"}>
-                    <Text marginTop={"30px"} marginLeft={"10px"} fontSize="20px" fontWeight={"bold"} lineHeight="22px" color={"#212121"}>{data[0].productName}</Text>
-                    <Text marginTop={"10px"} marginLeft={"10px"} fontSize="12px" fontWeight={"400"} lineHeight="17px" color={"#ff6f61"}>{data[0].brand}</Text>
+                    <Text marginTop={"30px"} marginLeft={"10px"} fontSize="20px" fontWeight={"bold"} lineHeight="22px" color={"#212121"}>{prod.productName}</Text>
+                    <Text marginTop={"10px"} marginLeft={"10px"} fontSize="12px" fontWeight={"400"} lineHeight="17px" color={"#ff6f61"}>{prod.brand}</Text>
                     <Flex marginTop={"10px"} left="0" flexDirection={"row"} justifyContent="flex-start" alignItems={"center"}>
                         <Box
                             marginLeft={"10px"}
@@ -35,14 +48,14 @@ const SingleProd = () => {
                             color={"white"}
                             fontWeight={"bold"}
                             fontSize="14px"
-                        >{data[0].ratings}
+                        >{prod.ratings}
                             <StarIcon marginTop={"-3px"} color={"white"} fontSize="12px" />
-                        </Box><Text marginLeft={3} fontSize="12px" color={"#1aab2a"}>{data[0].numberOfRatings}</Text>
+                        </Box><Text marginLeft={3} fontSize="12px" color={"#1aab2a"}>{prod.numberOfRatings}</Text>
 
                     </Flex>
                     <Box>
                         <Text marginTop={"10px"} marginLeft={"10px"} fontSize="18px" fontWeight={"bold"} lineHeight="22px" color={"#212121"}>Product highlights</Text>
-                        {data[0].prodHighlights.split("\n").map((el, i) => {
+                        {prod.prodHighlights.split("\n").map((el, i) => {
                             return (
                                 <Text
                                     marginTop={"10px"}
@@ -72,21 +85,21 @@ const SingleProd = () => {
 
                     </Flex>
                     <Flex justifyContent={"flex-start"} alignItems={"center"} fontFamily={"Clear Sans"} mt={"10px"}>
-                        <input style={{ marginLeft: "15px", height: "20px", width: "20px" }} name="pcheck" value={data[0].price} type="radio" />
+                        <input style={{ marginLeft: "15px", height: "20px", width: "20px" }} name="pcheck" value={prod.price} type="radio" />
                         <BiRupee color={"#3b3b3b"} fontWeight={"500"} lineHeight={"33px"} fontSize={"23px"} ml={"10px"} />
-                        <Text color={"#3b3b3b"} fontWeight={"500"} lineHeight={"33px"} fontSize={"23px"}>{data[0].price}</Text>
-                        <Text color={"#666666"} textDecoration={"line-through"} fontWeight={"400"} lineHeight={"23px"} fontSize={"16px"} ml={"10px"}>{data[0].strikedPrice}</Text>
-                        <Text bg={"#edf9ee"} color={"#1aab2a"} fontWeight={"400"} lineHeight={"23px"} fontSize={"16px"} ml={"10px"}>{data[0].discount}% off</Text>
+                        <Text color={"#3b3b3b"} fontWeight={"500"} lineHeight={"33px"} fontSize={"23px"}>{prod.price}</Text>
+                        <Text color={"#666666"} textDecoration={"line-through"} fontWeight={"400"} lineHeight={"23px"} fontSize={"16px"} ml={"10px"}>{prod.strikedPrice}</Text>
+                        <Text bg={"#edf9ee"} color={"#1aab2a"} fontWeight={"400"} lineHeight={"23px"} fontSize={"16px"} ml={"10px"}>{prod.discount}% off</Text>
                     </Flex>
                     <Flex justifyContent={"flex-start"} alignItems={"center"} fontFamily={"Clear Sans"} mt={"10px"}>
                         <Box>
-                            <input style={{ marginLeft: "15px", height: "20px", width: "20px" }} type="radio" name="pcheck" value={data[0].price} />
+                            <input style={{ marginLeft: "15px", height: "20px", width: "20px" }} type="radio" name="pcheck" value={prod.price} />
                         </Box>
                         <Box>
 
                             <Flex justifyContent={"flex-start"} alignItems={"center"} font-family={"Clear Sans"} mt={"10px"}>
                                 <BiRupee color={"#3b3b3b"} fontWeight={"500"} lineHeight={"33px"} fontSize={"23px"} ml={"10px"} />
-                                <Text color={"#3b3b3b"} fontWeight={"500"} lineHeight={"33px"} fontSize={"23px"}>{data[0].price}</Text>
+                                <Text color={"#3b3b3b"} fontWeight={"500"} lineHeight={"33px"} fontSize={"23px"}>{prod.price}</Text>
                                 <Text color={"#666666"} fontWeight={"400"} lineHeight={"23px"} fontSize={"16px"} ml={"10px"}> + free shipping and 5% Extra</Text>
                             </Flex>
                             <Flex>
@@ -104,7 +117,7 @@ const SingleProd = () => {
                             <option value='3'>3 Quentity</option>
                         </Select>
                         <Flex>
-                        {data[0].shortDesc.split(" ").map((el, i) => {
+                        {prod.shortDesc.split(" ").map((el, i) => {
                             if(i>=1){
                             return (
                                 
@@ -125,7 +138,15 @@ const SingleProd = () => {
                         </Flex>
                     </Flex>
                     <Flex justifyContent={"center"} alignItems={"center"}>
-                    <Button  bottom={"10"}  color={"white"} position={"absolute"} bg={"#ff6f61"} w={"25%"}>ADD TO CART</Button>
+                    <Button 
+                    onClick={() => {
+                      dispatch(
+                        AddToCart({
+                          username: username,
+                          _id: prod._id,
+                        })
+                      );
+                    }}  bottom={"10"}  color={"white"} position={"absolute"} bg={"#ff6f61"} w={"25%"}>ADD TO CART</Button>
                     </Flex>
                 </Box>
 
