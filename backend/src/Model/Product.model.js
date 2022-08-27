@@ -1,24 +1,19 @@
-const mongoose=require("mongoose")
+const mongoose = require("mongoose");
 
+const productSchema = mongoose.Schema({
+  productName: String,
+  price: Number,
+  strikedPrice: Number,
+  imageUrl: String,
+  prodHighlights: String,
+  longDesc: String,
+  shortDesc: String,
+  ratings: Number,
+  numberOfRatings: String,
+  discount: Number,
+  brand: String,
+});
 
+const Prod = mongoose.model("tataprod", productSchema);
 
-
-const productSchema=mongoose.Schema({
-    prodHighlights:String,
-    longDesc:String,
-    imageUrl:String,
-    productName:String,
-    shortDesc:String,
-    ratings:Number,
-    numberOfRatings:String,
-    strikedPrice:String,
-    price:Number,
-    discount:Number,
-    brand:String
-
-})
-
-const Prod=mongoose.model("tataprod",productSchema)
-
-
-module.exports=Prod
+module.exports = Prod;

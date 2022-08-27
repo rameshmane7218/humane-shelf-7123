@@ -1,6 +1,6 @@
-import React, { useState ,useEffect} from "react";
-import { Box, Grid,Flex,Text } from "@chakra-ui/react";
-import alldata from "../assets/alldata"
+import React, { useState, useEffect } from "react";
+import { Box, Grid, Flex, Text } from "@chakra-ui/react";
+import alldata from "../assets/alldata";
 import Allproduct from "../components/Products/Allproduct";
 
 import prodstyles from "./products.module.css";
@@ -14,7 +14,6 @@ import {
   sortproducts,
   fetchfilterbrand,
   fetchfilterdiscount,
-  
 } from "../store/products/products.actions";
 const Products = () => {
   // let products = alldata.data;
@@ -25,21 +24,19 @@ const Products = () => {
   //let name = useSelector((state) => state.name);
 
   //get all products
-  
 
   let dispatch = useDispatch();
   // console.log("hiiii")
   //   dispatch(fetchdata())
- 
+
   const products = useSelector((state) => state.productsData);
   const allproducts = useSelector((state) => state.allproducts);
-  dispatch(fetchdata());
-   console.log("j",allproducts);
-   useEffect(() => {
-    
+
+  console.log("j", allproducts);
+  useEffect(() => {
     dispatch(fetchdata());
-  }, [products,allproducts]);
- // filter by brand
+  }, [products, allproducts]);
+  // filter by brand
   let obj1 = {};
   allproducts.map((el) => {
     if (obj1[el.brand] === undefined) {
@@ -47,7 +44,7 @@ const Products = () => {
     } else {
       obj1[el.brand] += 1;
     }
-});
+  });
   let brands = Object.keys(obj1);
   let numbrands = Object.values(obj1);
 
@@ -129,11 +126,11 @@ const Products = () => {
     }
   };
 
-
-  return <div>
-    <Flex>
-      <Box>
-      <div className={prodstyles.prodpagediv}>
+  return (
+    <div>
+      <Flex>
+        <Box>
+          <div className={prodstyles.prodpagediv}>
             {/* FILTERS */}
             <div className={prodstyles.filterdiv}>
               <div
@@ -233,74 +230,74 @@ const Products = () => {
                 })}
               </div>
             </div>
+          </div>
+        </Box>
+        <Box>
+          <Text>All Products</Text>
+          <div className={prodstyles.prodsortdiv}>
+            <p>Sort By &nbsp;</p>
+            <div>
+              <select onChange={handleSort} className={prodstyles.sortselect}>
+                <option value="rel">Relevance</option>
+                <option value="plth">Price: Low to High</option>
+                <option value="phtl">Price: High to Low</option>
+                <option value="rlth">Rating: Low to High</option>
+                <option value="rhtl">Rating: High to Low</option>
+              </select>
             </div>
-      </Box>
-       <Box>
-       <Text>All Products</Text>
-       <div className={prodstyles.prodsortdiv}>
-                  <p>Sort By &nbsp;</p>
-                  <div>
-                    <select
-                      onChange={handleSort}
-                      className={prodstyles.sortselect}
-                    >
-                      <option value="rel">Relevance</option>
-                      <option value="plth">Price: Low to High</option>
-                      <option value="phtl">Price: High to Low</option>
-                      <option value="rlth">Rating: Low to High</option>
-                      <option value="rhtl">Rating: High to Low</option>
-                    </select>
-                  </div>
-                </div>
-              
-       
-      <Grid
-        width={"100%"}
-        // border={"1px solid orange"}
-        templateColumns={["repeat(2, 1fr)", "repeat(3, 1fr)", "repeat(4, 1fr)"]}
-        gap={4}
-      >
-        {prodarr.map((el) => (
-        // {data.map((product) => (
+          </div>
 
-          <Allproduct product={el} key={el._id} />
-        ))}
-      </Grid>
-      <div
-                style={{
-                  backgroundColor: "white",
-                  boxShadow: "rgba(0, 0, 0, 0.07) 0px 0px 7px 0px",
-                }}
-              >
-                <div className={prodstyles.pagination}>
-                  <div onClick={decrpage} className={prodstyles.othernum}>
-                    Previous
-                  </div>
-                  {pageno.map((el) => {
-                    return (
-                      <div>
-                        {el == page ? (
-                          <div className={prodstyles.numcolor}>{el}</div>
-                        ) : (
-                          <div
-                            onClick={() => setpage(el)}
-                            className={prodstyles.othernum}
-                          >
-                            {el}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                  <div onClick={incrpage} className={prodstyles.othernum}>
-                    Next
-                  </div>
-                </div>
+          <Grid
+            width={"100%"}
+            // border={"1px solid orange"}
+            templateColumns={[
+              "repeat(2, 1fr)",
+              "repeat(3, 1fr)",
+              "repeat(4, 1fr)",
+            ]}
+            gap={4}
+          >
+            {prodarr.map((el) => (
+              // {data.map((product) => (
+
+              <Allproduct product={el} key={el._id} />
+            ))}
+          </Grid>
+          <div
+            style={{
+              backgroundColor: "white",
+              boxShadow: "rgba(0, 0, 0, 0.07) 0px 0px 7px 0px",
+            }}
+          >
+            <div className={prodstyles.pagination}>
+              <div onClick={decrpage} className={prodstyles.othernum}>
+                Previous
               </div>
-          
-      </Box>
-    </Flex>
-  </div>;
+              {pageno.map((el) => {
+                return (
+                  <div>
+                    {el == page ? (
+                      <div className={prodstyles.numcolor}>{el}</div>
+                    ) : (
+                      <div
+                        onClick={() => setpage(el)}
+                        className={prodstyles.othernum}
+                      >
+                        {el}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+              <div onClick={incrpage} className={prodstyles.othernum}>
+                Next
+              </div>
+            </div>
+          </div>
+        </Box>
+      </Flex>
+    </div>
+  );
 };
 
 export default Products;

@@ -1,49 +1,124 @@
-import React from 'react'
+import React from "react";
 // import axios from "axios"
-import { useState,useEffect } from 'react'
-import styles from "./Cart.module.css"
+import { useState, useEffect } from "react";
+import styles from "./Cart.module.css";
 import { Total } from "../components/CartComponents/Total";
 import Button from "../components/CartComponents/Button";
-import { useNavigate } from "react-router-dom";
 
 
 
+import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getCartItemAPI,
+  removeItemFromCartAPI,
+  updateCartItemAPI,
+} from "../store/cart/cart.actions";
+import { Box, Flex, Spinner, Text, Tooltip } from "@chakra-ui/react";
+import styled from "styled-components";
+const ToolTip = styled.i`
+  font-size: 12px;
+  cursor: pointer;
+  color: #828282;
+`;
+const CartPlusIcon = styled.i`
+  margin-right: 5px;
+`;
+const AddToCartBtn = styled.button`
+  border-radius: 15px;
+  background-color: #fff;
+  color: #4fbb90;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+  padding: 6px 16px;
+  outline: 0;
+  border: 1px solid #4fbb90;
+  min-width: 80px;
+  &:hover {
+    background-color: #4fbb90;
+    color: #fff;
+  }
+`;
 
-const cartdata =[
-    {
-        _id : 1,
-        productName:"Paracetamol",
-        price: 4564,
-        shortDesc: 451,
-        strikedPrice : 5452,
 
-    },
-    {
-        _id : 2,
-        productName:"ABCd",
-        price: 456,
-        shortDesc: 451,
-        strikedPrice : 545,
-
-    }
-]
+const CartDec = styled.button`
+  background-color: #fff;
+  outline: 0;
+  font-size: 10px;
+  padding: 5px 7px 4px 9px;
+  color: #4fbb90;
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+  border: 1px solid #4fbb90;
+  &:hover {
+    background-color: #4fbb90;
+    color: #fff;
+  }
+`;
+const CartInc = styled.button`
+  background-color: #fff;
+  outline: 0;
+  font-size: 10px;
+  padding: 5px 9px 4px 7px;
+  color: #4fbb90;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border: 1px solid #4fbb90;
+  &:hover {
+    background-color: #4fbb90;
+    color: #fff;
+  }
+`;
+const CardCount = styled.div`
+  width: 30px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  padding-top: 4px;
+  text-align: center;
+`;
+// const cartdata = [
+//   {
+//     _id: 1,
+//     productName: "Paracetamol",
+//     price: 4564,
+//     shortDesc: 451,
+//     strikedPrice: 5452,
+//   },
+//   {
+//     _id: 2,
+//     productName: "ABCd",
+//     price: 456,
+//     shortDesc: 451,
+//     strikedPrice: 545,
+//   },
+// ];
 const Cart = () => {
-  const navigate = useNavigate()
 
-  
-    const handleCheckout = ()=>{
-        navigate("/address");
-        
-    }
-    const button = {
-        bg: "#ff6f61",
-        text: "CHECKOUT",
-        width: "98%",
-        br: "0px",
-        color: "#ffffff",
-        height: "50px",
-        fontSize: "18px",
-      };
+  const { data: cartData, getCartItems } = useSelector((state) => state.cart);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  console.log("total:", getCartItems.withoutDiscountPrice);
+  // console.log("discount:", getCartItems.withDiscountPrice);
+  useEffect(() => {
+    dispatch(getCartItemAPI());
+  }, [dispatch, getCartItemAPI]);
+
+  const handleCheckout = () => {
+    // navigate("/address");
+    // localStorage.setItem("subtotal",JSON.stringify(subTotal))
+  };
+  const button = {
+    bg: "#ff6f61",
+    text: "CHECKOUT",
+    width: "98%",
+    br: "0px",
+    color: "#ffffff",
+    height: "50px",
+    fontSize: "18px",
+  };
+
 
   return (
 
@@ -52,67 +127,18 @@ const Cart = () => {
 
 
     <div className={styles.BlogContainer}>
-        
-        {/* left side */}
-        
-        <div className={styles.leftcart}>
+      {/* left side */}
+
+      <div className={styles.leftcart}>
         <div>
-          <p>Items NOT Requiring Prescription ({cartdata.length})</p>
-          {cartdata.map((el)=>(
-          <div key={el._id} className={styles.cartdata}>
-            <div>
-              <h3>{el.productName}</h3>
-              <h3>{el.price}</h3>
-            </div>
-            <div>
-              <p>{el.shortDesc}</p>
-              <s>MRP:{el.strikedPrice}</s>
-            </div>
-            <div className={styles.removebuttondiv}>
-              <div 
-            //   onClick={()=>{
-            //     let obj={_id:el._id,username:state.username,obj:el._id}
-            //     dispatch(removecart(obj))
-            //   axios.post("https://unit-6projectbackend.herokuapp.com/removequant",
-            //   {_id:el._id,username:state.username,obj:el._id})
-            //   .then((data)=>{
-            //     setCartData(data.data[0].cats)
-            //     setfalse(true)
-            //   })  
-            //   }    
-            //  } 
-              
-              className={styles.deleteCart}>
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/1214/1214428.png"
-                />
-               
-                <p>Remove</p>
-              </div>
-
-              <div className={styles.Countcart}>
-                <img
-                //   onClick={() =>{setCount({...count,[el._id]:count[el._id]-1})
-                // }}
-                  src="https://www.1mg.com/images/minus-cart.svg"
-                />
-                <p>COUNT</p>
-                <img
-            //     onClick={() =>{setCount({...count,[el._id]:count[el._id]+1})
-            //   }}
-                  src="https://www.1mg.com/images/plus-cart.svg"
-                />
-              </div>
-            </div>
-          </div>
-           ))}
+          <p>Items NOT Requiring Prescription ({cartData.length})</p>
+          {cartData.length &&
+            cartData.map((el, i) => <CartComponent cartItem={el} key={i} />)}
         </div>
-       
       </div>
-        
 
-        {/* right side */}
-        <div className={styles.BlogRightContainer}>
+      {/* right side */}
+      <div className={styles.BlogRightContainer}>
         <div className={styles.careplan}>
           <img
             width={"100px"}
@@ -120,7 +146,10 @@ const Cart = () => {
           />
           <p>You can save extra ₹23 on this order</p>
           <h4>Become a member</h4>
-          <p>Care plan membership <span className={styles.BlogCutPrice} >₹165</span> ₹549 / 3 months</p>
+          <p>
+            Care plan membership{" "}
+            <span className={styles.BlogCutPrice}>₹165</span> ₹549 / 3 months
+          </p>
           <div className={styles.knowmore}>
             <div>
               <p>Know More</p>
@@ -178,21 +207,124 @@ const Cart = () => {
             <p>Add care plan to cart</p>
           </div>
         </div>
-        <div><Total/></div>
+        <div>
+          <Total />
+        </div>
         <div className={styles.deliverylocation}>
           <div className={styles.location}>
             <p>Your delivery location</p>
             <p>New Delhi</p>
           </div>
           <div className={styles.location1}>
-          <Button styles={button} onClick={handleCheckout}/>
+            <Button styles={button} onClick={handleCheckout} />
           </div>
         </div>
       </div>
+    </div>
+  );
+};
 
+export default Cart;
 
+const CartComponent = ({ cartItem }) => {
+  const dispatch = useDispatch();
+  const {
+    data: cartData,
+    getCartItems,
+    addCartItem,
+    updateCartItem,
+  } = useSelector((state) => state.cart);
+  // console.log("cart items:", cartItem);
+
+  const handleUpdate = (id, value) => {
+    console.log("update state", id, value);
+    // let update = cartData.filter((data) => data.productId == id);
+    // console.log("update state", id, value, update);
+    // console.log("update state",cartData,cartItem);
+
+    if (value == 0) {
+      dispatch(removeItemFromCartAPI(id));
+    } else {
+      const payload = {
+        cartId: id,
+        _productId: id,
+        newCount: value,
+      };
+      dispatch(updateCartItemAPI(payload));
+    }
+  };
+
+  const handleRemoveFromCart = (id) => {
+    dispatch(removeItemFromCartAPI(id));
+  };
+
+  useEffect(() => {
+    dispatch(getCartItemAPI());
+  }, []);
+  return (
+    <Box>
+      <div key={cartItem._id} className={styles.cartdata}>
+        <Box mt="10px" pt={"5px"}>
+          <Text fontWeight={600} fontSize={"16px"}>
+            {cartItem.productName}
+          </Text>
+          <h3>{cartItem.price}</h3>
+        </Box>
+        <div>
+          <p>{cartItem.shortDesc}</p>
+          <s>MRP:{cartItem.strikedPrice}</s>
         </div>
-  )
-}
+        <div className={styles.removebuttondiv}>
+          <div
+            onClick={() => handleRemoveFromCart(cartItem._id)}
+            className={styles.deleteCart}
+          >
+            <img src="https://cdn-icons-png.flaticon.com/512/1214/1214428.png" />
 
-export default Cart
+            <p>Remove</p>
+          </div>
+
+          {/* <div className={styles.Countcart}> */}
+          <Flex>
+            <CartDec
+              onClick={() =>
+                handleUpdate(cartItem?._id, Number(cartItem?.count) - 1)
+              }
+            >
+              <i className="fa-solid fa-minus"></i>
+            </CartDec>
+            <Tooltip
+              hasArrow
+              label={`Max Qty 5`}
+              bg="#666"
+              opacity={"0.5"}
+              color="white"
+              placement="top"
+              fontWeight={400}
+              fontSize="12px"
+            >
+              {updateCartItem?.loading &&
+              updateCartItem?._id === cartItem?._id ? (
+                <CardCount>
+                  <Spinner speed="0.65s" size="xs" />
+                </CardCount>
+              ) : (
+                <CardCount>{cartItem?.count}</CardCount>
+              )}
+            </Tooltip>
+
+            <CartInc
+              disabled={cartItem?.count >= 5}
+              onClick={() => {
+                handleUpdate(cartItem?._id, Number(cartItem?.count) + 1);
+              }}
+            >
+              <i className="fa-solid fa-plus"></i>
+            </CartInc>
+          </Flex>
+          {/* </div> */}
+        </div>
+      </div>
+    </Box>
+  );
+};
