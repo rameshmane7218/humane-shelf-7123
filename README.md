@@ -37,6 +37,41 @@ The application is available as a web portal– www.1mg.com and as mobile app ac
   <ol>◉ Address Page</ol>
   <ol>◉ Order Summary Page</ol>
  <ol>◉ Payment Page</ol>
-  <hr/>
 </ul>
-
+<hr/>
+<div>
+ <h2>Home Page</h2>
+</div>
+<div>
+ <h2>Signup</h2>
+</div>
+<div>
+ <h2>Signin</h2>
+</div>
+<div>
+ <h2>Products Page</h2>
+</div>
+<div>
+ <h2>Product Page</h2>
+</div>
+<div>
+ <h2>Cart Page</h2>
+</div>
+<div>
+ <h2>Address Page</h2>
+</div>
+<div>
+ <h2>Order Summary Page</h2>
+</div>
+<div>
+ <h2>Payment Page</h2>
+</div>
+<hr/>
+<h2>Contributors name:</h2>
+ <ul>
+ <ol>◉ Ramesh Mane</ol>
+ <ol>◉ Rahul Singh</ol>
+ <ol>◉ Shristi</ol>
+ <ol>◉ Himanshu</ol>
+ </ul>
+</div>
