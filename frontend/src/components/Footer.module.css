@@ -14,3 +14,13 @@
     align-items: flex-start;
     
   }
+
+  .footerSection {
+    background-color: #fff;
+    padding: 1rem 2rem;
+    border-bottom: 2px solid #e6e9f0;
+  }
+  .lastSectionText {
+    font-weight: 600;
+    color: #1a1a1a;
+  }

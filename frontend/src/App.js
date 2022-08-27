@@ -19,7 +19,12 @@ import ProductNew from "./pages/ProductNew";
 function App() {
   return (
     <Container className="App" maxW={"none"} p={0}>
-      <nav>{/* <Navbar/> */}</nav>
+
+      <nav>
+     
+        <Navbar/>
+      </nav>
+
 
       <Container
         style={{ padding: "20px 0 0 0" }}
