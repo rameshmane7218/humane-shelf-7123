@@ -149,6 +149,8 @@ export default function Navbar() {
       {/* ************************************ */}
 
       <Stack
+        maxW="container.xl"
+        margin={"auto"}
         display={{ base: "none", xl: "flex" }}
         flexDirection="row"
         justifyContent="space-between"
@@ -272,26 +274,20 @@ const MobileNav = () => {
     <Stack
       bg={useColorModeValue("white", "gray.800")}
       p={4}
-
-      display={{ md: 'none' }}>
-  
-        <Box display="flex" gap={2}>
-        <Box>
-          
-          <Image src="https://onemg.gumlet.io/ujhc0ajudwhuebwt5zsr.svg"/>
-          
-          </Box>
-          <Box pt="4px">
-           
-            <Heading as='h6' size='sm'> Hi There!</Heading>
-            <Text fontSize='xs'>Login/Signup</Text>
-           
-          </Box>
-            
-        </Box>
-      
-
+      display={{ md: "none" }}
     >
+      <Box display="flex" gap={2}>
+        <Box>
+          <Image src="https://onemg.gumlet.io/ujhc0ajudwhuebwt5zsr.svg" />
+        </Box>
+        <Box pt="4px">
+          <Heading as="h6" size="sm">
+            {" "}
+            Hi There!
+          </Heading>
+          <Text fontSize="xs">Login/Signup</Text>
+        </Box>
+      </Box>
 
       {NAV_ITEMS.map((el) => (
         <MobileNavItem el={el} key={uuidv4()} />

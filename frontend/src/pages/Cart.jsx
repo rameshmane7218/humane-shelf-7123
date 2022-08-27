@@ -3,10 +3,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import styles from "./Cart.module.css";
 import { Total } from "../components/CartComponents/Total";
-import Button from "../components/CartComponents/Button";
-
-
-
+import Buttons from "../components/CartComponents/Button";
+import emptyCart from "../assets/empty-cart-icon.svg";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -14,7 +12,17 @@ import {
   removeItemFromCartAPI,
   updateCartItemAPI,
 } from "../store/cart/cart.actions";
-import { Box, Flex, Spinner, Text, Tooltip } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  Heading,
+  Image,
+  Spinner,
+  Text,
+  Tooltip,
+} from "@chakra-ui/react";
 import styled from "styled-components";
 const ToolTip = styled.i`
   font-size: 12px;
@@ -27,32 +35,31 @@ const CartPlusIcon = styled.i`
 const AddToCartBtn = styled.button`
   border-radius: 15px;
   background-color: #fff;
-  color: #4fbb90;
+  color: #ff6f61;
   font-size: 12px;
   font-weight: 500;
   line-height: 15px;
   padding: 6px 16px;
   outline: 0;
-  border: 1px solid #4fbb90;
+  border: 1px solid #ff6f61;
   min-width: 80px;
   &:hover {
-    background-color: #4fbb90;
+    background-color: #ff6f61;
     color: #fff;
   }
 `;
-
 
 const CartDec = styled.button`
   background-color: #fff;
   outline: 0;
   font-size: 10px;
   padding: 5px 7px 4px 9px;
-  color: #4fbb90;
+  color: #ff6f61;
   border-top-left-radius: 50%;
   border-bottom-left-radius: 50%;
-  border: 1px solid #4fbb90;
+  border: 1px solid #ff6f61;
   &:hover {
-    background-color: #4fbb90;
+    background-color: #ff6f61;
     color: #fff;
   }
 `;
@@ -61,12 +68,12 @@ const CartInc = styled.button`
   outline: 0;
   font-size: 10px;
   padding: 5px 9px 4px 7px;
-  color: #4fbb90;
+  color: #ff6f61;
   border-top-right-radius: 50%;
   border-bottom-right-radius: 50%;
-  border: 1px solid #4fbb90;
+  border: 1px solid #ff6f61;
   &:hover {
-    background-color: #4fbb90;
+    background-color: #ff6f61;
     color: #fff;
   }
 `;
@@ -95,18 +102,17 @@ const CardCount = styled.div`
 //   },
 // ];
 const Cart = () => {
-
   const { data: cartData, getCartItems } = useSelector((state) => state.cart);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log("total:", getCartItems.withoutDiscountPrice);
+  // console.log("total:", getCartItems.withoutDiscountPrice);
   // console.log("discount:", getCartItems.withDiscountPrice);
   useEffect(() => {
     dispatch(getCartItemAPI());
   }, [dispatch, getCartItemAPI]);
 
   const handleCheckout = () => {
-    // navigate("/address");
+    navigate("/cart/address-page");
     // localStorage.setItem("subtotal",JSON.stringify(subTotal))
   };
   const button = {
@@ -119,13 +125,31 @@ const Cart = () => {
     fontSize: "18px",
   };
 
+  if (!cartData.length) {
+    return (
+      <Container width={"100%"}>
+        <Box textAlign="center" mt={"50px"}>
+          <Image src={emptyCart} m={"auto"} height={"150px"} />
+          <Heading fontSize={"22px"} mt="10px">
+            Oops!
+          </Heading>
+          <Text mt="10px">Looks like there is no item in your cart yet.</Text>
+          <Button
+            mt="10px"
+            background={"#ff6f61"}
+            color={"white"}
+            _hover={{ backgroundColor: "#ff6f61" }}
+            _active={{ backgroundColor: "#ff6f61" }}
+            onClick={() => navigate("/products")}
+          >
+            ADD MEDICINES
+          </Button>
+        </Box>
+      </Container>
+    );
+  }
 
   return (
-
-
-
-
-
     <div className={styles.BlogContainer}>
       {/* left side */}
 
@@ -177,7 +201,7 @@ const Cart = () => {
           <div>
             <p>Check the health of your vital organs</p>
           </div>
-          <div >
+          <div>
             <label>
               <input type="checkbox" />
               Book Good Health Silver Package for just ₹649
@@ -208,7 +232,7 @@ const Cart = () => {
           </div>
         </div>
         <div>
-          <Total />
+          <Total getCartItems={getCartItems} />
         </div>
         <div className={styles.deliverylocation}>
           <div className={styles.location}>
@@ -216,7 +240,7 @@ const Cart = () => {
             <p>New Delhi</p>
           </div>
           <div className={styles.location1}>
-            <Button styles={button} onClick={handleCheckout} />
+            <Buttons styles={button} onClick={handleCheckout} />
           </div>
         </div>
       </div>
@@ -268,7 +292,7 @@ const CartComponent = ({ cartItem }) => {
           <Text fontWeight={600} fontSize={"16px"}>
             {cartItem.productName}
           </Text>
-          <h3>{cartItem.price}</h3>
+          <h3>{Number(cartItem.price) * Number(cartItem?.count)}</h3>
         </Box>
         <div>
           <p>{cartItem.shortDesc}</p>
