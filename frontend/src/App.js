@@ -15,7 +15,7 @@ function App() {
     <Container className="App" maxW={"none"} p={0}>
       <nav>
      
-        {/* <Navbar/> */}
+        <Navbar/>
       </nav>
 
       <Container

@@ -24,7 +24,7 @@ import {
   AccordionItem,
 } from "@chakra-ui/react";
 import { useState } from "react";
-
+import Upperfooter from "./Upperfooter"
 import { CheckIcon } from "@chakra-ui/icons";
 import { FaMedium, FaTwitterSquare, FaYoutubeSquare } from "react-icons/fa";
 import { GrFacebook, GrLinkedin } from "react-icons/gr";
@@ -73,7 +73,7 @@ const Footer = () => {
 
 
     >
-
+<Upperfooter/>
       <Stack>
         <Flex flexDirection={"column"} className={style.footerStack}>
           <Center>
@@ -118,10 +118,10 @@ const Footer = () => {
         bg={useColorModeValue("gray.50", "gray.900")}
         color={useColorModeValue("gray.700", "gray.200")}
       >
-        <Container as={Stack} maxW={"10xl"} pl={"6rem"} py={10}>
+        <Container as={Stack} maxW={"10xl"}  py={10}>
           <SimpleGrid
             columns={{ base: 1, sm: 2, md: 5 }}
-            textAlign="left"
+            // textAlign="left"
             spacing={15}
           >
             <Stack align={"flex-start"}>
@@ -177,7 +177,7 @@ const Footer = () => {
             </Stack>
           </SimpleGrid>
         </Container>
-        <Container as={Stack} maxW={"10xl"} pl={"6rem"} py={10} borderY="1px solid #D3D3D3">
+        <Container as={Stack} maxW={"10xl"} py={8} borderY="1px solid #D3D3D3">
           <SimpleGrid
             columns={{ base: 1, sm: 2, md: 3 }}
             // textAlign="left"
