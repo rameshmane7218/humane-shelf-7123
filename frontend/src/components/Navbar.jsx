@@ -24,65 +24,77 @@ import {
   InputRightElement,
   PopoverArrow,
   PopoverCloseButton,
-  PopoverAnchor
-} from '@chakra-ui/react';
+  PopoverAnchor,
+} from "@chakra-ui/react";
 import {
   HamburgerIcon,
-
   CloseIcon,
   ChevronDownIcon,
   ChevronRightIcon,
-} from '@chakra-ui/icons';
-
-import { BsPerson, BsCart } from 'react-icons/bs';
+} from "@chakra-ui/icons";
+import { v4 as uuidv4 } from "uuid";
+import { BsPerson, BsCart } from "react-icons/bs";
 import { SiGooglemaps } from "react-icons/si";
 import { FiSearch } from "react-icons/fi";
 import { BiCurrentLocation } from "react-icons/bi";
 import style from "./navbar.module.css";
-import { IconCart } from './icons';
+import { IconCart } from "./icons";
 
-const navdata = ["Health Resource Center", "Vitamins & Nutrition", "Diabetes", "Healthcare Devices", "Personal Care"]
+const navdata = [
+  "Health Resource Center",
+  "Vitamins & Nutrition",
+  "Diabetes",
+  "Healthcare Devices",
+  "Personal Care",
+];
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Box zIndex={"sticky"}
+    <Box
+      zIndex={"sticky"}
       bg={"white"}
-      w={"100%"} position={"fixed"}
+      w={"100%"}
+      position={"fixed"}
       top={0}
       left={0}
-      right={0}>
+      right={0}
+    >
       <Box
         borderBottom={1}
-        borderStyle={'solid'}
-        borderColor={useColorModeValue('gray.200', 'gray.900')}>
-
+        borderStyle={"solid"}
+        borderColor={useColorModeValue("gray.200", "gray.900")}
+      >
         <Flex
           maxW="container.xl"
           m={"auto"}
-          bg={useColorModeValue('white', 'gray.800')}
-          color={useColorModeValue('gray.600', 'white')}
-          minH={'60px'}
+          bg={useColorModeValue("white", "gray.800")}
+          color={useColorModeValue("gray.600", "white")}
+          minH={"60px"}
           py={{ base: 2 }}
           px={{ base: 4 }}
-
-          align={'center'}>
-
+          align={"center"}
+        >
           <Flex
             // flex={{ base: 1, md: 'auto' }}
             ml={{ base: -2 }}
-            display={{ base: 'block', md: 'none' }}>
+            display={{ base: "block", md: "none" }}
+          >
             <IconButton
               onClick={onToggle}
               icon={
-                isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
+                isOpen ? (
+                  <CloseIcon w={3} h={3} />
+                ) : (
+                  <HamburgerIcon w={5} h={5} />
+                )
               }
-              variant={'ghost'}
-              aria-label={'Toggle Navigation'}
+              variant={"ghost"}
+              aria-label={"Toggle Navigation"}
             />
           </Flex>
-          <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+          <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
             <Box>
               <img
                 src="https://www.1mg.com/images/tata_1mg_logo.svg"
@@ -90,30 +102,32 @@ export default function Navbar() {
               />
             </Box>
 
-            <Flex display={{ base: 'none', md: 'flex' }} ml={10} >
+            <Flex display={{ base: "none", md: "flex" }} ml={10}>
               <DesktopNav />
             </Flex>
           </Flex>
-          <Box display={{ base: 'block', md: 'none' }}>
-              <IconCart/>
-         
-            </Box>
+          <Box display={{ base: "block", md: "none" }}>
+            <IconCart />
+          </Box>
 
           <Stack
-            display={{ base: 'none', md: 'flex' }}
+            display={{ base: "none", md: "flex" }}
             flex={{ base: 1, md: 0 }}
-            justify={'flex-end'}
-            direction={'row'}
-
-            spacing={6}>
-            <Popover trigger={"hover"} >
+            justify={"flex-end"}
+            direction={"row"}
+            spacing={6}
+          >
+            <Popover trigger={"hover"}>
               <PopoverTrigger>
                 <Box>
-                  <BsPerson fontSize="1.5rem" borderradius={"5px"} color="black" />
+                  <BsPerson
+                    fontSize="1.5rem"
+                    borderradius={"5px"}
+                    color="black"
+                  />
                 </Box>
               </PopoverTrigger>
-              <PopoverContent width="100%" >
-
+              <PopoverContent width="100%">
                 <PopoverBody>Hii, there</PopoverBody>
                 <hr />
                 <PopoverBody>View Profile</PopoverBody>
@@ -124,7 +138,6 @@ export default function Navbar() {
             <Text fontSize="sm">Offers</Text>
             <BsCart fontSize="1.5rem" borderradius={"5px"} color="black" />
             <Text fontSize="sm">Need.help?</Text>
-
           </Stack>
         </Flex>
 
@@ -135,7 +148,7 @@ export default function Navbar() {
       {/* ************************************ */}
 
       <Stack
-        display={{ base: 'none', xl: "flex" }}
+        display={{ base: "none", xl: "flex" }}
         flexDirection="row"
         justifyContent="space-between"
         borderBottom="1px solid rgb(238, 235, 235)"
@@ -147,7 +160,13 @@ export default function Navbar() {
               pointerEvents="none"
               children={<SiGooglemaps color="gray" />}
             />
-            <Input type="text" bg={"#f1f3f9"} placeholder="Gaya" _placeholder={{ opacity: 1, color: 'black' }} focusBorderColor='none' />
+            <Input
+              type="text"
+              bg={"#f1f3f9"}
+              placeholder="Gaya"
+              _placeholder={{ opacity: 1, color: "black" }}
+              focusBorderColor="none"
+            />
             <InputRightElement
               pointerEvents="none"
               children={<BiCurrentLocation color="gray" />}
@@ -157,8 +176,8 @@ export default function Navbar() {
             <Input
               type="text"
               bg={"#f1f3f9"}
-              _placeholder={{ opacity: 1, color: 'grey', fontSize: "sm" }}
-              focusBorderColor='none'
+              _placeholder={{ opacity: 1, color: "grey", fontSize: "sm" }}
+              focusBorderColor="none"
               placeholder="Search for Medicines and Health Products"
             />
             <InputRightElement
@@ -167,28 +186,26 @@ export default function Navbar() {
             />
           </InputGroup>
 
-          <Flex minWidth='max-content' alignItems='center' gap='2'>
-            <Box p='2'>
-              <Text fontSize='xs' fontWeight="bold" color="grey">QUICK BUY! Get 25% off on medicines*</Text>
+          <Flex minWidth="max-content" alignItems="center" gap="2">
+            <Box p="2">
+              <Text fontSize="xs" fontWeight="bold" color="grey">
+                QUICK BUY! Get 25% off on medicines*
+              </Text>
             </Box>
             {/* <Spacer /> */}
 
-
             <Button
-              size='md'
-              height='40px'
-              width='150px'
+              size="md"
+              height="40px"
+              width="150px"
               bg="#ff6f61"
               color="white"
               mb="2%"
             >
               Quick Order
             </Button>
-
           </Flex>
-
         </Flex>
-
       </Stack>
       {/* ************************************************ */}
 
@@ -205,66 +222,59 @@ export default function Navbar() {
 }
 
 const DesktopNav = () => {
-
-
   return (
-    <Stack direction={'row'} spacing={3} mt="1%">
+    <Stack direction={"row"} spacing={3} mt="1%">
       {NAV_ITEMS.map((navItem) => (
         <Box key={navItem}>
-          <Popover trigger={'hover'} placement={'bottom-start'}>
+          <Popover trigger={"hover"} placement={"bottom-start"}>
             <PopoverTrigger>
               <Link
                 p={2}
-                href={navItem.href ?? '#'}
-                fontSize={{ md: 'md' }}
+                href={navItem.href ?? "#"}
+                fontSize={{ md: "md" }}
                 fontWeight={700}
                 color="black"
                 _hover={{
-                  textDecoration: 'none',
+                  textDecoration: "none",
                   color: "#ff6f61",
-                }}>
+                }}
+              >
                 {navItem}
               </Link>
             </PopoverTrigger>
-
-
           </Popover>
         </Box>
       ))}
-  // Button from facebook.com
+      // Button from facebook.com
       <Box
-        as='button'
-        height='24px'
-        lineHeight='1.2'
-        transition='all 0.2s cubic-bezier(.08,.52,.52,1)'
-        border='1px'
-        px='8px'
-        borderRadius='2px'
-        fontSize='12px'
-        fontWeight='bold'
-        bg='#ff6f61'
-        borderColor='none'
-        color='white'
-
+        as="button"
+        height="24px"
+        lineHeight="1.2"
+        transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
+        border="1px"
+        px="8px"
+        borderRadius="2px"
+        fontSize="12px"
+        fontWeight="bold"
+        bg="#ff6f61"
+        borderColor="none"
+        color="white"
       >
         save more
       </Box>
-
-
     </Stack>
   );
 };
 
-
-
 const MobileNav = () => {
   return (
     <Stack
-      bg={useColorModeValue('white', 'gray.800')}
+      bg={useColorModeValue("white", "gray.800")}
       p={4}
-      display={{ md: 'none' }}>
+      display={{ md: "none" }}
+    >
       {NAV_ITEMS.map((el) => (
-        <MobileNavItem el={el} />
+        <MobileNavItem el={el} key={uuidv4()} />
       ))}
     </Stack>
   );
@@ -278,37 +288,38 @@ const MobileNavItem = ({ el, children, href }) => {
       <Flex
         py={2}
         as={Link}
-        href={href ?? '#'}
-        justify={'space-between'}
-        align={'center'}
+        href={href ?? "#"}
+        justify={"space-between"}
+        align={"center"}
         _hover={{
-          textDecoration: 'none',
-        }}>
+          textDecoration: "none",
+        }}
+      >
         <Text
           fontWeight={600}
-          color={useColorModeValue('gray.600', 'gray.200')}>
+          color={useColorModeValue("gray.600", "gray.200")}
+        >
           {el}
         </Text>
         {children && (
           <Icon
             as={ChevronDownIcon}
-            transition={'all .25s ease-in-out'}
-            transform={isOpen ? 'rotate(180deg)' : ''}
+            transition={"all .25s ease-in-out"}
+            transform={isOpen ? "rotate(180deg)" : ""}
             w={6}
             h={6}
           />
         )}
       </Flex>
-
-
     </Stack>
   );
 };
 
-
-
 const NAV_ITEMS = [
-
-  'Medicines', "Lab Tests", "Consult Doctors", "Covid-19", "Ayurveda", "Careplan"
-
-]
+  "Medicines",
+  "Lab Tests",
+  "Consult Doctors",
+  "Covid-19",
+  "Ayurveda",
+  "Careplan",
+];
