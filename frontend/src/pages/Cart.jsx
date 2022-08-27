@@ -141,7 +141,7 @@ const Cart = () => {
           <div>
             <p>Check the health of your vital organs</p>
           </div>
-          <div>
+          <div >
             <label>
               <input type="checkbox" />
               Book Good Health Silver Package for just ₹649
