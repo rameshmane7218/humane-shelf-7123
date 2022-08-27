@@ -7,7 +7,11 @@ import { BrowserRouter } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "./theme/theme";
 import { Provider } from "react-redux";
-import { store } from "./store/store";
+import { store } from "./store/store.js";
+import axios from "axios";
+// default url
+axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.headers["Content-Type"] = "application/json";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

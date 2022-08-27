@@ -1,0 +1,16 @@
+.footerStack {
+    padding: 0 4rem;
+  }
+  .footerLine {
+    height: 1px;
+    border: 1px solid #eaeaea;
+    z-index: 9999;
+    width: 90%;
+    margin: 24px auto;
+    left: 5%;
+  }
+  .footerStamp {
+    display: flex;
+    align-items: flex-start;
+    
+  }
