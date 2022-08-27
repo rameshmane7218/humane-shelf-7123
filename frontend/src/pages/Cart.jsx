@@ -4,6 +4,7 @@ import { useState,useEffect } from 'react'
 import styles from "./Cart.module.css"
 import { Total } from "../components/CartComponents/Total";
 import Button from "../components/CartComponents/Button";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -27,10 +28,11 @@ const cartdata =[
     }
 ]
 const Cart = () => {
+  const navigate = useNavigate()
 
+  
     const handleCheckout = ()=>{
-        // navigate("/address");
-        // localStorage.setItem("subtotal",JSON.stringify(subTotal))
+        navigate("/address");
         
     }
     const button = {
@@ -44,6 +46,11 @@ const Cart = () => {
       };
 
   return (
+
+
+
+
+
     <div className={styles.BlogContainer}>
         
         {/* left side */}
