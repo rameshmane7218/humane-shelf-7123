@@ -59,9 +59,9 @@ const Cart = () => {
             </div>
             <div>
               <p>{el.shortDesc}</p>
-              <s>MRP{el.strikedPrice}</s>
+              <s>MRP:{el.strikedPrice}</s>
             </div>
-            <div>
+            <div className={styles.removebuttondiv}>
               <div 
             //   onClick={()=>{
             //     let obj={_id:el._id,username:state.username,obj:el._id}
@@ -77,14 +77,13 @@ const Cart = () => {
               
               className={styles.deleteCart}>
                 <img
-                  width={"5%"}
-                  height={"80%"}
                   src="https://cdn-icons-png.flaticon.com/512/1214/1214428.png"
                 />
+               
                 <p>Remove</p>
               </div>
 
-              <div className={styles.deletecart}>
+              <div className={styles.Countcart}>
                 <img
                 //   onClick={() =>{setCount({...count,[el._id]:count[el._id]-1})
                 // }}
