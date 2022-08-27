@@ -178,6 +178,7 @@
   /* padding-top: 8px; */
 
   color: #59c067;
+
 }
 .coins {
   background-color: #ffffff;
@@ -383,6 +384,7 @@
   padding-top: 15px;
   color: #ffff;
   cursor: pointer;
+
 }
 .choose {
   margin-left: 12%;
@@ -695,3 +697,54 @@
   font-weight: bolder;
   margin-top: 1%;
 }
+
+.changeAddress{
+    font-size: 11px;
+    font-weight: 0;
+    color: rgba(0, 0, 0, 0.863);
+    padding: 2%;
+    background-color: #ffff;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    
+    
+}
+.OrderSummarydataMapDiv{
+    display: grid;
+    grid-template-columns: 10% 60% 30%;
+    font-size: 11PX;
+    background-color: #ffff;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    padding: 2% 3% 3% 3%;
+    margin-top: 1%;
+}
+.OrderSummarydataMapDiv img{
+    width: 40px;
+    height: 40px;
+}
+.OrderSummarydataMapDiv>div:nth-child(3){
+    text-align: end;
+}
+.OrderSummarydataMapDiv>div>p:nth-child(3){
+    color: #3ab55d;
+}
+.OrderSummarydataMapDiv>div>p:nth-child(2){
+    color: grey;
+}
+.ordersummaryheading{
+font-size: 17px;
+font-weight: 600;
+}
+.ordersummaryYourItemheading{
+    padding-top: 2%;
+    font-size: 14px;
+    font-size: 600;
+}
+.ordersummaryArrivingheading{
+    background-color: #ff6e611a;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    padding: 1% 2%;
+    font-size: 15px;
+    font-weight: bolder;
+    margin-top: 1%;
+}
+

@@ -5,6 +5,7 @@ import styles from "./Cart.module.css"
 import { Total } from "../components/CartComponents/Total";
 import Button from "../components/CartComponents/Button";
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const cartdata =[
   {
@@ -34,10 +35,29 @@ const OrderSummary = () => {
     const navigate = useNavigate()
 
 
+    // const [items, setItems] = useState([]);
+
+  // useEffect(() => {
+    const home = JSON.parse(localStorage.getItem('home'));
+    const office = JSON.parse(localStorage.getItem('office'));
+    const other = JSON.parse(localStorage.getItem('other'));
+    const landmark = JSON.parse(localStorage.getItem('landmark'));
+    const building = JSON.parse(localStorage.getItem('building'));
+    const mobileno = JSON.parse(localStorage.getItem('mobileno'));
+    const pincode = JSON.parse(localStorage.getItem('pincode'));
+    const locality = JSON.parse(localStorage.getItem('locality'));
+    const city = JSON.parse(localStorage.getItem('city'));
+    const customer = JSON.parse(localStorage.getItem('customer'));
+    const state = JSON.parse(localStorage.getItem('state'));
+
+    // if (items) {
+    // setItems(items);
+//   }
+// }, []);
 
     const handleCheckout = ()=>{
-        // navigate("/address");
-        // localStorage.setItem("subtotal",JSON.stringify(subTotal))
+        navigate("/payment");
+        
         
     }
     const button = {
@@ -64,7 +84,7 @@ const OrderSummary = () => {
 
         <div>
           <div className={styles.ordersummaryArrivingheading}>
-            <p>Arriving by wed, 31 Aug</p>
+            <p>Arriving tomorrow</p>
           </div>
           {cartdata.map((el)=>(
           <div key={el._id} className={styles.OrderSummarydataMapDiv}>
@@ -92,14 +112,14 @@ const OrderSummary = () => {
             
         <div className={styles.changeAddressDiv}>
             <div>Selected Address</div>
-            <div>CHANGE</div>
+            <div><Link to="/address">CHANGE</Link> </div>
         </div>
         <div className={styles.changeAddress}>
-            <p>HOME</p>
-            <p>Rahul Singh</p>
-            <p>1234567890</p>
-            <p>Address</p>
-            <p>pincode</p>
+            <p>{home || office || other}</p>
+            <p>{customer}</p>
+            <p>{mobileno}</p>
+            <p>{building} {locality} {landmark}</p>
+            <p>{city} {state}-{pincode}</p>
         </div>        
         <div className={styles.coins}>
           <div className={styles.coinsdata}>
@@ -121,8 +141,8 @@ const OrderSummary = () => {
         <div><Total/></div>
         <div className={styles.deliverylocation}>
           <div className={styles.location}>
-            <p>Your delivery location</p>
-            <p>New Delhi</p>
+            <p>{building} {locality} {landmark}</p>
+            <p>{city} {state} {pincode}</p>
           </div>
           <div className={styles.location1}>
           <Button styles={button} onClick={handleCheckout}/>

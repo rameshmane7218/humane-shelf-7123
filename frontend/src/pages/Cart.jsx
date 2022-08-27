@@ -4,6 +4,9 @@ import { useState, useEffect } from "react";
 import styles from "./Cart.module.css";
 import { Total } from "../components/CartComponents/Total";
 import Button from "../components/CartComponents/Button";
+
+
+
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -37,6 +40,7 @@ const AddToCartBtn = styled.button`
     color: #fff;
   }
 `;
+
 
 const CartDec = styled.button`
   background-color: #fff;
@@ -91,6 +95,7 @@ const CardCount = styled.div`
 //   },
 // ];
 const Cart = () => {
+
   const { data: cartData, getCartItems } = useSelector((state) => state.cart);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -114,7 +119,13 @@ const Cart = () => {
     fontSize: "18px",
   };
 
+
   return (
+
+
+
+
+
     <div className={styles.BlogContainer}>
       {/* left side */}
 
@@ -166,7 +177,7 @@ const Cart = () => {
           <div>
             <p>Check the health of your vital organs</p>
           </div>
-          <div>
+          <div >
             <label>
               <input type="checkbox" />
               Book Good Health Silver Package for just ₹649
