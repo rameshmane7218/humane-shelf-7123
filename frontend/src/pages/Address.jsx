@@ -58,7 +58,7 @@ const Address = () => {
           </div>
 
           <div onClick={handleaddAddress}>+ ADD NEW ADDRESS</div>
-          <div onClick={() => navigate("cart/summary-page")}>CONTINUE</div>
+          <div onClick={() => navigate("/cart/summary-page")}>CONTINUE</div>
           <Flex
             fontSize={"10px"}
             gap={"20px"}

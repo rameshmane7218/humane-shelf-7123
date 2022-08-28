@@ -3,10 +3,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import styles from "./Cart.module.css";
 import { Total } from "../components/CartComponents/Total";
-import Button from "../components/CartComponents/Button";
+// import Button from "../components/CartComponents/Button";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Box, Text, useToast } from "@chakra-ui/react";
+import { Box, Button, Text, useToast } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartItemAPI } from "../store/cart/cart.actions";
 
@@ -32,6 +32,7 @@ import { getCartItemAPI } from "../store/cart/cart.actions";
 // ];
 
 const OrderSummary = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useToast();
   // const [items, setItems] = useState([]);
@@ -39,7 +40,8 @@ const OrderSummary = () => {
   const [address, setAddress] = useState(
     JSON.parse(localStorage.getItem("address"))
   );
-  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  // console.log(address);
   // console.log("total:", getCartItems.withoutDiscountPrice);
   // console.log("discount:", getCartItems.withDiscountPrice);
   useEffect(() => {
@@ -53,17 +55,19 @@ const OrderSummary = () => {
   // }, []);
 
   const handleCheckout = () => {
+    setLoading(true);
     axios
       .post("http://localhost:5000/pay", {
-        description: "1mg product purchase test mode",
-        amount: "1000",
+        description: `Payment for purchase of ${cartData.length} items`,
+        amount: getCartItems.withDiscountPrice || "1000",
         name: "Ramesh Mane",
-        email: "ramesh@gmail.com",
+        email: "rameshmane7218@gmail.com",
         phone: "7218416746",
       })
       .then((res) => {
         console.log(res);
         if (res.data.success === true) {
+          localStorage.setItem("orderDetails", JSON.stringify(res.data));
           window.location.href = res.data.payment_request.longurl;
         } else {
           toast({
@@ -77,6 +81,9 @@ const OrderSummary = () => {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
   const button = {
@@ -112,11 +119,14 @@ const OrderSummary = () => {
                 </div>
                 <div>
                   <p>{el.productName}</p>
-                  <p>{el.des}</p>
+                  <p>{el.shortDesc}</p>
                 </div>
                 <div>
-                  <p>₹{el.price}</p>
-                  <p>MRP:{el.strikedPrice}</p>
+                  <p>₹{Number(el.price) * Number(el.count)}</p>
+                  <p>
+                    MRP: {" ₹"}
+                    <s>{Number(el.strikedPrice) * Number(el.count)}</s>
+                  </p>
                   <p>NeuCoins earned: 4</p>
                 </div>
               </div>
@@ -125,7 +135,8 @@ const OrderSummary = () => {
         <Box
           fontSize={"10px"}
           borderTop={["", "", "1px solid #CBD5E0"]}
-          marginTop="10px"
+          marginTop="20px"
+          p={"10px"}
         >
           <Text>
             *NeuCoins will be credited 7 days after your complete order is
@@ -189,7 +200,18 @@ const OrderSummary = () => {
         </div>
         <div className={styles.deliverylocation}>
           <div className={styles.location1}>
-            <Button styles={button} onClick={handleCheckout} />
+            <Button
+              isLoading={loading}
+              loadingText="Loading..."
+              width={"100%"}
+              background={"#ff6f61"}
+              color={"white"}
+              _hover={{ backgroundColor: "#ff6f61" }}
+              _active={{ backgroundColor: "#ff6f61" }}
+              onClick={handleCheckout}
+            >
+              PROCEED TO PAYMENT
+            </Button>
           </div>
         </div>
         <Box
@@ -198,6 +220,7 @@ const OrderSummary = () => {
           // p={["", "", "20px"]}
           borderTop={["", "", "1px solid #CBD5E0"]}
           fontSize={"10px"}
+          mb={"20px"}
         >
           Tata 1mg is a technology platform to facilitate transaction of
           business. The products and services are offered for sale by the
