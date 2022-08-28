@@ -34,7 +34,9 @@ const Address = () => {
     setChange(true);
     localStorage.setItem("address", JSON.stringify(address));
   };
-
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   return (
     <div>
       {change || add ? (

@@ -38,7 +38,6 @@ import {
   userLogoutAPI,
 } from "../../store/authentication/auth.actions";
 const Auth = () => {
-  
   const dispatch = useDispatch();
   const [data, setData] = useState(sliderData);
   const [successful, setSuccessful] = useState(false);
@@ -60,11 +59,13 @@ const Auth = () => {
     }
   }, [successful]);
   useEffect(() => {
-    dispatch(requireAuth(onOpenAuth));
+    dispatch(
+      requireAuth({ onOpenAuth, isOpenAuth, onCloseAuth, method, setMethod })
+    );
   }, []);
   return (
     <div>
-      Auth
+      {/* Auth
       <Button
         onClick={() => {
           setMethod(true);
@@ -89,7 +90,7 @@ const Auth = () => {
         }}
       >
         Logout
-      </Button>
+      </Button> */}
       <Modal
         isOpen={isOpenAuth}
         onClose={onCloseAuth}

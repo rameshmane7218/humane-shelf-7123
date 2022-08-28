@@ -34,16 +34,16 @@ const CartPlusIcon = styled.i`
 const AddToCartBtn = styled.button`
   border-radius: 15px;
   background-color: #fff;
-  color: #4fbb90;
+  color: #ff6f61;
   font-size: 12px;
   font-weight: 500;
   line-height: 15px;
   padding: 6px 16px;
   outline: 0;
-  border: 1px solid #4fbb90;
+  border: 1px solid #ff6f61;
   min-width: 80px;
   &:hover {
-    background-color: #4fbb90;
+    background-color: #ff6f61;
     color: #fff;
   }
 `;
@@ -53,12 +53,12 @@ const CartDec = styled.button`
   outline: 0;
   font-size: 10px;
   padding: 5px 7px 4px 9px;
-  color: #4fbb90;
+  color: #ff6f61;
   border-top-left-radius: 50%;
   border-bottom-left-radius: 50%;
-  border: 1px solid #4fbb90;
+  border: 1px solid #ff6f61;
   &:hover {
-    background-color: #4fbb90;
+    background-color: #ff6f61;
     color: #fff;
   }
 `;
@@ -67,12 +67,12 @@ const CartInc = styled.button`
   outline: 0;
   font-size: 10px;
   padding: 5px 9px 4px 7px;
-  color: #4fbb90;
+  color: #ff6f61;
   border-top-right-radius: 50%;
   border-bottom-right-radius: 50%;
-  border: 1px solid #4fbb90;
+  border: 1px solid #ff6f61;
   &:hover {
-    background-color: #4fbb90;
+    background-color: #ff6f61;
     color: #fff;
   }
 `;

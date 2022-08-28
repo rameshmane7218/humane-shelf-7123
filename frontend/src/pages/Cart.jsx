@@ -102,6 +102,7 @@ const CardCount = styled.div`
 //   },
 // ];
 const Cart = () => {
+  const { require, isAuth } = useSelector((store) => store.auth);
   const { data: cartData, getCartItems } = useSelector((state) => state.cart);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -110,10 +111,16 @@ const Cart = () => {
   useEffect(() => {
     dispatch(getCartItemAPI());
   }, [dispatch, getCartItemAPI]);
-
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   const handleCheckout = () => {
-    navigate("/cart/address-page");
-    // localStorage.setItem("subtotal",JSON.stringify(subTotal))
+    if (isAuth) {
+      navigate("/cart/address-page");
+    } else {
+      require.setMethod(true);
+      require.onOpenAuth();
+    }
   };
   const button = {
     bg: "#ff6f61",
@@ -237,7 +244,7 @@ const Cart = () => {
         <div className={styles.deliverylocation}>
           <div className={styles.location}>
             <p>Your delivery location</p>
-            <p>New Delhi</p>
+            <p>Gaya</p>
           </div>
           <div className={styles.location1}>
             <Buttons styles={button} onClick={handleCheckout} />
