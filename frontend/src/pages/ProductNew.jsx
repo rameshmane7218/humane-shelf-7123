@@ -198,7 +198,7 @@ const ProductNew = () => {
   return (
     <div>
       <Flex gap={"20px"}>
-        <Box w={"200px"} border={"1px solid black"}>
+        <Box w={"220px"}>
           <div className={prodstyles.prodpagediv}>
             <div className={prodstyles.filterdiv}>
               <div
@@ -301,7 +301,7 @@ const ProductNew = () => {
             </div>
           </div>
         </Box>
-        <Box flex={"1"} border={"1px solid red"}>
+        <Box flex={"1"}>
           <Text>All Products</Text>
           <Flex justifyContent={"flex-end"} mb="20px">
             <div className={prodstyles.prodsortdiv}>
