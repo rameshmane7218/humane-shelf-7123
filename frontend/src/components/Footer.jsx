@@ -68,7 +68,7 @@ const ListHeader = ({ children }) => {
 const Footer = () => {
   return (
     <Container
-      border = "1px solid red"
+   
       maxW="container.xl"
 
 
@@ -122,9 +122,12 @@ const Footer = () => {
           <SimpleGrid
             columns={{ base: 1, sm: 2, md: 5 }}
             // textAlign="left"
-            spacing={15}
+            spacing={55}
+            m="auto"
+            
+          
           >
-            <Stack align={"flex-start"}>
+            <Stack align={"center"}>
               <ListHeader>Known Us</ListHeader>
               {known.map((el) => (
                 <Link lineHeight="1.81" fontSize="11px" color="#666" href={"#"}>
@@ -133,7 +136,7 @@ const Footer = () => {
               ))}
             </Stack>
 
-            <Stack align={"flex-start"}>
+            <Stack align={"center"}>
               <ListHeader>Our Policies</ListHeader>
               {policy.map((el) => (
                 <Link lineHeight="1.81" fontSize="11px" color="#666" href={"#"}>
@@ -142,7 +145,7 @@ const Footer = () => {
               ))}
             </Stack>
 
-            <Stack align={"flex-start"}>
+            <Stack align={"center"}>
               <ListHeader>Our Services</ListHeader>
               {services.map((el) => (
                 <Link lineHeight="1.81" fontSize="11px" color="#666" href={"#"}>
@@ -151,7 +154,7 @@ const Footer = () => {
               ))}
 
             </Stack>
-            <Stack align={"flex-start"}>
+            <Stack align={"center"}>
               <ListHeader>Connect</ListHeader>
               <Link href={"#"} lineHeight="1.81" fontSize="12px" color="#666">Social Links</Link>
               <Stack direction={"row"} spacing={4}>
@@ -168,7 +171,7 @@ const Footer = () => {
 
             </Stack>
 
-            <Stack align={"flex-start"}>
+            <Stack align={"center"}>
               <ListHeader>Download App</ListHeader>
               <Button>App Store</Button>
               <Button>App Store</Button>

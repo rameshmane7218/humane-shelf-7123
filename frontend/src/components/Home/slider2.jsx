@@ -9,7 +9,7 @@ import { Box, Heading, Text, Image, Stack } from "@chakra-ui/react";
 export const Slider2 = ({ items }) => {
   // console.log(items);
   return (
-    <Box boxShadow="base" height="200px" mb="3%">
+    <Box boxShadow="base" height="200px" mb="5%">
       <Swiper
         slidesPerView={6}
         spaceBetween={10}

@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Auth from "./components/Navbar/Auth";
-import Slider from "./components/Home/slider";
+
 import Cart from "./pages/Cart";
 import Home from "./pages/Home";
 import Payment from "./pages/Payment";
@@ -33,9 +33,11 @@ function App() {
       >
         <Routes>
           <Route path="/" element={<Home />} />
+
           <Route path="/profile" element={<Profile />} />
 
           <Route path="/slider" element={<Slider />} />
+
           <Route path="/cart" element={<Cart />} />
           <Route path="/cart/address-page" element={<Address />} />
           <Route path="/cart/summary-page" element={<OrderSummary />} />
@@ -48,7 +50,7 @@ function App() {
         </Routes>
       </Container>
 
-      <footer>{/* <Footer/> */}</footer>
+      <footer><Footer/></footer>
     </Container>
   );
 }

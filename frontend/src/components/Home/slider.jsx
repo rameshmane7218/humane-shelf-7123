@@ -17,6 +17,8 @@ import {
 import ImageSlider from "./ImageSlider";
 import { Slider2 } from "./slider2";
 import { brands, popular, health } from "./data"
+import { Productslide } from "./Productslide";
+import { TopSellers,Trendingnow, dealoftheday} from "./SliderData"
 
 
 
@@ -26,8 +28,8 @@ const Slider = () => {
   return (
 
     <box>
-      <Flex >
-        <Box width="65%" color="white" >
+      <Flex  border="1px solid red" h="auto">
+        <Box width="65%" border="1px solid black"  >
 
           <ImageSlider />
 
@@ -47,12 +49,37 @@ const Slider = () => {
           <Image src="https://res.cloudinary.com/du8msdgbj/image/upload/v1647251796/ueyxzzku83yuvpqxyrwe.png" />
         </Center>
       </Box>
-      <Text fontWeight="bold">Featured brands</Text>
+    
+        <Box>
+        <Text fontWeight="bold">Featured brands</Text>
       <Slider2 items={brands} />
-
+        </Box>
+        <Box>
+        <Text fontWeight="bold">Popular Categories</Text>
       <Slider2 items={popular} />
-      <Slider2 items={health} />
+        </Box>
+        <Box>
+        <Text fontWeight="bold">Top Sellers From Healthvit</Text>
+        <Productslide items={TopSellers}/>
+        </Box>
+        <Box>
+        <Text fontWeight="bold">Trending now</Text>
+        <Productslide items={Trendingnow}/>
+        </Box>
+        <Box>
+        <Text fontWeight="bold">Shop by Health Concerns</Text>
+        <Slider2 items={health} />
+        </Box>
+        <Box>
+        <Text fontWeight="bold">Deals of the day</Text>
+        <Productslide items={dealoftheday}/>
+        </Box>
+    
 
+     
+       
+     
+    
 
     </box>
 
