@@ -12,14 +12,18 @@ ProductRouter.get("/alldata", async (req, res) => {
 });
 
 //getting specfic product data by productname
+
 //`http://localhost:8080/data/${productname}`
 ProductRouter.get("/data/:id", async (req, res) => {
-  let value = req.params.id;
-  const userObjectId = mongoose.Types.ObjectId(value);
-//   console.log(value);
-  let data = await Prod.findOne({ _id: userObjectId });
+  try{
+    const {id} = req.params;
+    const datas = await Prod.findById({_id:id});
+    console.log(datas)
+    res.status(201).send({ data: datas, message: "request successfull" });
+  }catch(error){
+       res.status(404).json(error)
+   }
 
-  res.send({ data: data, message: "request successfull" });
 });
 
 //filtering the ProductRouter

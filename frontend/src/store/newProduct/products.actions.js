@@ -332,7 +332,7 @@ const getSingleProductError = (payload) => {
 const getSingleProductAPI = (id) => (dispatch) => {
   dispatch(getSingleProductLoading());
   axios
-    .get(`/fraazo/${id}`)
+    .get(`/products/data/${id}`)
     .then((r) => {
       console.log(r.data, "from reducer function");
       dispatch(getSingleProductSuccess(r.data));

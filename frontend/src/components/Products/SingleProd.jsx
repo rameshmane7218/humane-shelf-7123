@@ -5,37 +5,78 @@ import alldata from "./alldata"
 import { StarIcon } from '@chakra-ui/icons'
 import { BiRupee } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-
-import { fetchdes, AddToCart } from "../../store/products/products.actions";
+import {
+    addItemToCartAPI,
+    updateCartItemAPI,
+  } from "../../store/cart/cart.actions";
+import { getSingleProductAPI,getAllProductsAPI } from "../../store/newProduct/products.actions";
+//import { fetchdata } from "../../store/newProduct/products.actions";
 const SingleProd = () => {
-    
+    const [countValue, setCountValue] = useState("");
+    const { data: backendData} = useSelector((store) => store.products);
+    // const { data: singleProduct } = useSelector(
+    //     (state) => state.products.singleProduct
+    //   );
+      //, loading: singleProductLoading
+
+    console.log(backendData)
+    const dispatch = useDispatch();
     const { id } = useParams();
     // var data = alldata.data
-    // data = data.filter((el) => el._id == id)
+      var p = backendData.filter((el) => el._id == id)
+      console.log(p)
     const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
-    let prod = useSelector((state) => state.desData);
-  let username = useSelector((state) => state.username);
-  console.log("prodss",username);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchdes(id));
-  }, [id, dispatch]);
-  console.log("prod",prod);
+    
+    
+      const {
+        data: cartData,
+        getCartItems,
+        addCartItem,
+        updateCartItem,
+      } = useSelector((state) => state.cart);
+    
+      const handleAddToCart = (item) => {
+        const addData = {
+          _productId: item._id,
+          productName: item.productName,
+          count: 1,
+          prodHighlights: item.prodHighlights,
+          longDesc: item.longDesc,
+          imageUrl: item.imageUrl,
+          shortDesc: item.shortDesc,
+          ratings: item.ratings,
+          numberOfRatings: item.numberOfRatings,
+          strikedPrice: item.strikedPrice,
+          price: item.price,
+          discount: item.discount,
+          brand: item.brand,
+        };
+        let ans = cartData.filter((data) => data._productId == item._id);
+        console.log("ans is:", ans);
+        if (ans.length === 0) {
+          dispatch(addItemToCartAPI(addData));
+          
+        }
+        //dispatch(addItemToCartAPI(addData));
+      };
+//getSingleProductAPI, dispatch,id
+useEffect(() => {
+        
+    dispatch(getAllProductsAPI());
 
-  let random = Math.floor(Math.random() * 150) + 50;
-  const quantarr = Array.from({ length: 30 }, (_, index) => index + 1);
-    // console.log(data)
+  }, [ ]);
+  
+    
     return (
         <div>
            
-            
             <Flex direction={isLargerThan768 ? "row" : "column"} position={"relative"} bg={"white"} left="0"  justifyContent="space-between" alignItems={"center"}>
                 <Flex bg={"white"} h={"400px"} w={"400px"} justifyContent="center" alignItems={"center"}>
-                    <Image src={prod.imageUrl} h={"400px"} w={"300px"} p="50" m={"50"}></Image>
+                    <Image src={p[0]?.imageUrl} h={"400px"} w={"300px"} p="50" m={"50"}></Image>
                 </Flex>
                 <Box bg={"white"} h={"400px"} w={"400px"}>
-                    <Text marginTop={"30px"} marginLeft={"10px"} fontSize="20px" fontWeight={"bold"} lineHeight="22px" color={"#212121"}>{prod.productName}</Text>
-                    <Text marginTop={"10px"} marginLeft={"10px"} fontSize="12px" fontWeight={"400"} lineHeight="17px" color={"#ff6f61"}>{prod.brand}</Text>
+                    <Text marginTop={"30px"} marginLeft={"10px"} fontSize="20px" fontWeight={"bold"} lineHeight="22px" color={"#212121"}>{p[0]?.productName}</Text>
+                    <Text marginTop={"10px"} marginLeft={"10px"} fontSize="12px" fontWeight={"400"} lineHeight="17px" color={"#ff6f61"}>{p[0]?.brand}</Text>
                     <Flex marginTop={"10px"} left="0" flexDirection={"row"} justifyContent="flex-start" alignItems={"center"}>
                         <Box
                             marginLeft={"10px"}
@@ -48,14 +89,14 @@ const SingleProd = () => {
                             color={"white"}
                             fontWeight={"bold"}
                             fontSize="14px"
-                        >{prod.ratings}
+                        >{p[0]?.ratings}
                             <StarIcon marginTop={"-3px"} color={"white"} fontSize="12px" />
-                        </Box><Text marginLeft={3} fontSize="12px" color={"#1aab2a"}>{prod.numberOfRatings}</Text>
+                        </Box><Text marginLeft={3} fontSize="12px" color={"#1aab2a"}>{p[0]?.numberOfRatings}</Text>
 
                     </Flex>
                     <Box>
                         <Text marginTop={"10px"} marginLeft={"10px"} fontSize="18px" fontWeight={"bold"} lineHeight="22px" color={"#212121"}>Product highlights</Text>
-                        {prod.prodHighlights.split("\n").map((el, i) => {
+                        {p[0]?.prodHighlights.split("\n").map((el, i) => {
                             return (
                                 <Text
                                     marginTop={"10px"}
@@ -85,21 +126,21 @@ const SingleProd = () => {
 
                     </Flex>
                     <Flex justifyContent={"flex-start"} alignItems={"center"} fontFamily={"Clear Sans"} mt={"10px"}>
-                        <input style={{ marginLeft: "15px", height: "20px", width: "20px" }} name="pcheck" value={prod.price} type="radio" />
+                        <input style={{ marginLeft: "15px", height: "20px", width: "20px" }} name="pcheck" value={p[0]?.price} type="radio" />
                         <BiRupee color={"#3b3b3b"} fontWeight={"500"} lineHeight={"33px"} fontSize={"23px"} ml={"10px"} />
-                        <Text color={"#3b3b3b"} fontWeight={"500"} lineHeight={"33px"} fontSize={"23px"}>{prod.price}</Text>
-                        <Text color={"#666666"} textDecoration={"line-through"} fontWeight={"400"} lineHeight={"23px"} fontSize={"16px"} ml={"10px"}>{prod.strikedPrice}</Text>
-                        <Text bg={"#edf9ee"} color={"#1aab2a"} fontWeight={"400"} lineHeight={"23px"} fontSize={"16px"} ml={"10px"}>{prod.discount}% off</Text>
+                        <Text color={"#3b3b3b"} fontWeight={"500"} lineHeight={"33px"} fontSize={"23px"}>{p[0]?.price}</Text>
+                        <Text color={"#666666"} textDecoration={"line-through"} fontWeight={"400"} lineHeight={"23px"} fontSize={"16px"} ml={"10px"}>{p[0]?.strikedPrice}</Text>
+                        <Text bg={"#edf9ee"} color={"#1aab2a"} fontWeight={"400"} lineHeight={"23px"} fontSize={"16px"} ml={"10px"}>{p[0]?.discount}% off</Text>
                     </Flex>
                     <Flex justifyContent={"flex-start"} alignItems={"center"} fontFamily={"Clear Sans"} mt={"10px"}>
                         <Box>
-                            <input style={{ marginLeft: "15px", height: "20px", width: "20px" }} type="radio" name="pcheck" value={prod.price} />
+                            <input style={{ marginLeft: "15px", height: "20px", width: "20px" }} type="radio" name="pcheck" value={p[0]?.price} />
                         </Box>
                         <Box>
 
-                            <Flex justifyContent={"flex-start"} alignItems={"center"} font-family={"Clear Sans"} mt={"10px"}>
+                            <Flex justifyContent={"flex-start"} alignItems={"center"} fontFamily={"Clear Sans"} mt={"10px"}>
                                 <BiRupee color={"#3b3b3b"} fontWeight={"500"} lineHeight={"33px"} fontSize={"23px"} ml={"10px"} />
-                                <Text color={"#3b3b3b"} fontWeight={"500"} lineHeight={"33px"} fontSize={"23px"}>{prod.price}</Text>
+                                <Text color={"#3b3b3b"} fontWeight={"500"} lineHeight={"33px"} fontSize={"23px"}>{p[0]?.price}</Text>
                                 <Text color={"#666666"} fontWeight={"400"} lineHeight={"23px"} fontSize={"16px"} ml={"10px"}> + free shipping and 5% Extra</Text>
                             </Flex>
                             <Flex>
@@ -111,13 +152,15 @@ const SingleProd = () => {
                     </Flex>
                     <Text mt={"20px"} color={"#666666"} fontWeight={"400"} lineHeight={"17px"} fontSize={"12px"} ml={"20px"} fontFamily={"Helvetica, Arial"}>Inclusive of all taxes</Text>
                     <Flex mt={"20px"} ml={"20px"} alignItems={"center"}>
-                        <Select  placeholder='Quentity' size='sm' borderRadius={"5px"} w={"150px"}>
+                        <Select  placeholder='Quentity' size='sm' borderRadius={"5px"} w={"150px"}
+                         onChange={(e) => {setCountValue(e.target.value)}}
+                  >
                             <option value='1'>1 Quentity</option>
                             <option value='2'>2 Quentity</option>
                             <option value='3'>3 Quentity</option>
                         </Select>
                         <Flex>
-                        {prod.shortDesc.split(" ").map((el, i) => {
+                        {p[0]?.shortDesc.split(" ").map((el, i) => {
                             if(i>=1){
                             return (
                                 
@@ -139,14 +182,10 @@ const SingleProd = () => {
                     </Flex>
                     <Flex justifyContent={"center"} alignItems={"center"}>
                     <Button 
-                    onClick={() => {
-                      dispatch(
-                        AddToCart({
-                          username: username,
-                          _id: prod._id,
-                        })
-                      );
-                    }}  bottom={"10"}  color={"white"} position={"absolute"} bg={"#ff6f61"} w={"25%"}>ADD TO CART</Button>
+                    key={p[0]?.id}
+                    onClick={() => handleAddToCart(p[0])}
+                    
+                    bottom={"10"}  color={"white"} position={"absolute"} bg={"#ff6f61"} w={"25%"}>ADD TO CART</Button>
                     </Flex>
                 </Box>
 
