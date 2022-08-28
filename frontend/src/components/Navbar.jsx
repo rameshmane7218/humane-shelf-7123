@@ -291,7 +291,7 @@ const MobileNav = () => {
         </Box>
       
 
-    >
+    
 
       {NAV_ITEMS.map((el) => (
         <MobileNavItem el={el} key={uuidv4()} />
