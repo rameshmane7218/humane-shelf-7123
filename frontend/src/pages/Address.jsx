@@ -1,134 +1,233 @@
-import React,{ useEffect, useState }  from 'react'
-import styles from "./Cart.module.css"
+import React, { useEffect, useState } from "react";
+import styles from "./Cart.module.css";
 import { useNavigate } from "react-router-dom";
-
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 
 const Address = () => {
+  const [address, setAddress] = useState({
+    landmark: "",
+    building: "",
+    mobileno: "",
+    pincode: "",
+    locality: "",
+    city: "",
+    customer: "",
+    state: "",
+    delivery: "",
+  });
 
-  const [form, setForm] = useState({});
-  const [addressData,setAddressData] = useState([])
   const [change, setChange] = useState(false);
   const [add, setAdd] = useState(false);
-  const navigate = useNavigate()
-
- 
-
-
+  const navigate = useNavigate();
 
   const handleaddAddress = () => {
     setChange(false);
   };
-  
-  const handleSave = () => {
-    setChange(true);
-
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setAddress({ ...address, [name]: value });
   };
-  
+
+  console.log(address);
+  const handleSave = (e) => {
+    e.preventDefault();
+    setChange(true);
+    localStorage.setItem("address", JSON.stringify(address));
+  };
+
   return (
     <div>
       {change || add ? (
         <div className={styles.addressdata}>
-        
           <div className={styles.addressdata1}>
             <div>
               <img
                 width="30px"
                 src="https://image.shutterstock.com/image-vector/screen-record-button-isolated-on-600w-1457333453.jpg"
               />
-              <p>Home</p>
+              <p>{address.delivery}</p>
             </div>
-            <p>Name</p>
+            <p>{address.customer}</p>
+            <p>{address.mobileno}</p>
             <p>
-              mobile no
+              {address.building} {address.locality} {address.landmark}
             </p>
-            <p>Address</p>
-            <p>Ratlam Madhya pradesh-457339</p>
+            <p>
+              {address.city} {address.state}-{address.pincode}
+            </p>
           </div>
-          
+
           <div onClick={handleaddAddress}>+ ADD NEW ADDRESS</div>
-          <div 
-          onClick={()=>navigate("/delivery")}
-          >CONTINUE</div>
+          <div onClick={() => navigate("/cart/summary-page")}>CONTINUE</div>
+          <Flex
+            fontSize={"10px"}
+            gap={"20px"}
+            mt="40px"
+            flexDirection={["column-reverse", "column-reverse", "row"]}
+          >
+            <Box
+              width={["100%", "100%", "60%"]}
+              p={["", "", "20px"]}
+              borderTop={["", "", "1px solid #CBD5E0"]}
+            >
+              Tata 1mg is a technology platform to facilitate transaction of
+              business. The products and services are offered for sale by the
+              sellers. The user authorizes the delivery personel to be his agent
+              for delivery of the goods. For details read{" "}
+              <Text
+                as="span"
+                color="#ff6f61"
+                cursor={"pointer"}
+                _hover={{ textDecoration: "underline" }}
+              >
+                terms and conditions.
+              </Text>
+            </Box>
+            <Box
+              width={["100%", "100%", "40%"]}
+              p={["", "", "20px"]}
+              borderTop={["", "", "1px solid #CBD5E0"]}
+            >
+              <Text>
+                *NeuCoins will be credited 7 days after your complete order is
+                delivered in case of Products and in case of Lab Services
+                NeuCoins will be credited within 24 hours from the time of
+                generation of test report. NeuCoins will not be credited in case
+                a return request is initiated for the order. NeuCoins are
+                rounded to the nearest integer and the value of NeuCoins earned
+                may change if total order value changes.
+              </Text>
+              <Text pt={"10px"}>
+                **Coupon Discount value may change if the total order value
+                changes.
+              </Text>
+              <Text pt={"10px"}>
+                ***Items in your cart will always reflect the most recent price
+                as compared to the prices in their product detail page.
+              </Text>
+            </Box>
+          </Flex>
         </div>
-      ) : ( 
-    
-    <div className={styles.address}>
+      ) : (
+        <div className={styles.address}>
           <p className={styles.addressPTag}>Add New Adddress</p>
           <div className={styles.addressform}>
-            <form className={styles.form}>
+            <form className={styles.form} onSubmit={handleSave}>
               <input
                 type="text"
-                name="address"
+                name="building"
                 placeholder="Flat Number Building Name , Street/Locality"
-                // onChange={(e)=>setBuilding(e.target.value)}
+                onChange={handleOnChange}
+                required
               />
               <br />
               <input
                 type="text"
+                name="landmark"
                 placeholder="Landmark(optional)"
-                // onChange={(e)=>setLandmark(e.target.value)}
+                onChange={handleOnChange}
               />
               <br />
               <input
                 type="number"
                 name="pincode"
                 placeholder="Pincode"
-                // onChange={(e)=>setPincode(e.target.value)}
+                onChange={handleOnChange}
+                required
               />
               <br />
               <input
                 type="text"
                 name="locality"
                 placeholder="Locality"
-                // onChange={(e)=>setLocality(e.target.value)}
+                onChange={handleOnChange}
               />
               <br />
               <input
                 type="text"
                 name="city"
                 placeholder="City"
-                // onChange={(e)=>setCity(e.target.value)}
-              />
-              <br />
-              <input type="text" name="state" placeholder="State"
-              // onChange={(e)=>setState(e.target.value)}
+                onChange={handleOnChange}
               />
               <br />
               <input
                 type="text"
-                name="username"
+                name="state"
+                placeholder="State"
+                onChange={handleOnChange}
+              />
+              <br />
+              <input
+                type="text"
+                name="customer"
                 placeholder="Customer Name"
-                // onChange={(e)=>setCustomer(e.target.value)}
+                onChange={handleOnChange}
+                required
               />
               <br />
               <input
                 type="number"
-                name="mobile"
+                name="mobileno"
                 placeholder="10 Digit Mobile Number"
-                // onChange={(e)=>setMobileno(e.target.value)}
+                onChange={handleOnChange}
+                required
               />
               <div className={styles.office}>
-                <p><input type="checkbox" className={styles.addressfromCheckBox} />HOME</p>
-                <p><input type="checkbox"  className={styles.addressfromCheckBox} />OFFICE</p>
-                <p><input type="checkbox"  className={styles.addressfromCheckBox} />OTHER</p>
-                 
+                <p>
+                  <input
+                    type="radio"
+                    name="delivery"
+                    className={styles.addressfromCheckBox}
+                    value="home"
+                    onChange={handleOnChange}
+                    required
+                  />
+                  HOME
+                </p>
+                <p>
+                  <input
+                    type="radio"
+                    name="delivery"
+                    className={styles.addressfromCheckBox}
+                    value="office"
+                    onChange={handleOnChange}
+                    required
+                  />
+                  OFFICE
+                </p>
+                <p>
+                  <input
+                    type="radio"
+                    name="delivery"
+                    className={styles.addressfromCheckBox}
+                    value="other"
+                    onChange={handleOnChange}
+                    required
+                  />
+                  OTHER
+                </p>
               </div>
               <div>
-              <div className={styles.savedata}>
-              <p>CANCEL</p>
-              <p  onClick={handleSave}>SAVE</p>
-            </div>
+                <div className={styles.savedata}>
+                  <p>CANCEL</p>
+                  <Button
+                    lineHeight={1}
+                    type="submit"
+                    background={"#ff6f61"}
+                    color={"white"}
+                    _hover={{ backgroundColor: "#ff6f61" }}
+                    _active={{ backgroundColor: "#ff6f61" }}
+                  >
+                    SAVE
+                  </Button>
+                </div>
               </div>
             </form>
-            
           </div>
         </div>
-
-
- )
-}
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Address
+export default Address;

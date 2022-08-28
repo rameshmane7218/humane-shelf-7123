@@ -19,11 +19,12 @@ PaymentRouter.post("/pay", async (req, res) => {
     data.currency = "INR";
     data.amount = req.body.amount;
     data.buyer_name = req.body.name;
-    data.redirect_url = "http://localhost:3000/payment";
+    data.redirect_url = "http://localhost:3000/";
     data.email = req.body.email;
     data.phone = req.body.phone || "1234567890";
     data.send_email = false;
     data.send_sms = false;
+    // data.webhook = `https://fraazo-clone-web-17.netlify.app`;
     data.webhook = `http://www.example.com/payment/webhook`;
     data.allow_repeated_payments = false;
 

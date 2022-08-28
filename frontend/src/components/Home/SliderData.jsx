@@ -1,6 +1,6 @@
-// Top Sellers
 
-[
+
+export const TopSellers= [
     {
 
       "imageUrl": "https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/xfiayqtoofqahefnpfoq.jpg",
@@ -103,11 +103,11 @@
 
 // Trending now
 
-[
+ export const Trendingnow= [
     {
-      "imageUrl": "https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/fnnbetu2wvz56ehdyblo.jpg",
-      "productName": "CoviSelf Covid 19 Rapid Antigen Self Test Kit",
-      "shortDesc": "1 Packet of1 Self Test Kit",
+      "imageUrl": "https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/gakjirkcnn7wvbyppdro.jpg",
+      "productName": "Brufen Power Pain Relief 800 Sprays",
+      "shortDesc": "1 Bottle of40 gm Spray",
       "ratings": 4.1,
       "numberOfRatings": "7 ratings",
       "strikedPrice":250,
@@ -116,9 +116,9 @@
       "brand": "Tata 1mg"
     },
     {
-        "imageUrl": "https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/dtaenio2oyxkv3ilbzcp.jpg",
-        "productName": "Seacod Cod Liver Oil Capsule",
-        "shortDesc": " 1 Bottle of 110 soft gelatin capsules",
+        "imageUrl": "https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/g3maimvrdml91wvwyps1.jpg",
+        "productName": "Brufen Power Pain Relief 800 Sprays",
+        "shortDesc": " 1 Bottle of40 gm Spray",
         "ratings": 4.6,
         "numberOfRatings": "7 ratings",
         "strikedPrice":352,
@@ -138,9 +138,9 @@
         "brand": "Tata 1mg"
       },
       {
-        "imageUrl": "https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/gsntxkwr1bcsvrrrddyi.jpg",
-        "productName": "Volini Spray",
-        "shortDesc": "1 Bottle of 100 gm Spray",
+        "imageUrl": "https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/gc3u9gfc331wtsipnljl.jpg",
+        "productName": "Tata 1mg Calcium + Vitamin D3, Zinc",
+        "shortDesc": "1 Bottle of 60 tablets",
         "ratings": 4.2,
         "numberOfRatings": "6 ratings",
         "strikedPrice":320,
@@ -149,9 +149,9 @@
         "brand": "Tata 1mg"
       },
       {
-        "imageUrl": "https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/onqhkrg9xwnxjh5j53bd.jpg",
-        "productName": "Vantej Toothpaste",
-        "shortDesc": "1 Tube of 100 gm Toothpaste",
+        "imageUrl": "https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/dqsctsosbmzve5bhnlkj.jpg",
+        "productName": "New A to Z Gold Soft Gelatin Capsule",
+        "shortDesc": "1 Strip of 15 soft gelatin capsules",
         "ratings": 4.6,
         "numberOfRatings": "7 ratings",
         "strikedPrice":317,
@@ -196,7 +196,7 @@
 
 // deal og the day
 
-[
+ export const dealoftheday=[
     {
       "imageUrl": "https://onemg.gumlet.io/a_ignore,w_380,h_380,c_fit,q_auto,f_auto/cropped/hnbmmi7t3jxjbd2uj8aq.png",
       "productName": "1mg Gokshura Pure Natural Extract 500mg Capsule",

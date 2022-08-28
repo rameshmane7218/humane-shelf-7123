@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Auth from "./components/Navbar/Auth";
-import Slider from "./components/Home/slider";
+
 import Cart from "./pages/Cart";
 import Home from "./pages/Home";
 import Payment from "./pages/Payment";
@@ -31,21 +31,20 @@ function App() {
       >
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/slider" element={<Slider />} />
+        
           <Route path="/cart" element={<Cart />} />
+          <Route path="/cart/address-page" element={<Address />} />
+          <Route path="/cart/summary-page" element={<OrderSummary />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/payment" element={<Payment />} />
           {/* <Route path="/products" element={<Products />} /> */}
           <Route path="/products" element={<ProductNew />} />
 
-          <Route path="/address" element={<Address />} />
-          <Route path="/ordersummary" element={<OrderSummary />} />
-
           <Route path={`/products/:id`} element={<SingleProd />} />
         </Routes>
       </Container>
 
-      <footer>{/* <Footer/> */}</footer>
+      <footer><Footer/></footer>
     </Container>
   );
 }
