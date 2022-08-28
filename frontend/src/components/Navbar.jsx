@@ -31,6 +31,7 @@ import {
   CloseIcon,
   ChevronDownIcon,
   ChevronRightIcon,
+  ArrowForwardIcon,
 } from "@chakra-ui/icons";
 import { v4 as uuidv4 } from "uuid";
 import { BsPerson, BsCart } from "react-icons/bs";
@@ -40,8 +41,9 @@ import { BiCurrentLocation } from "react-icons/bi";
 import style from "./navbar.module.css";
 import { IconCart } from "./icons";
 import { useNavigate } from "react-router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { userLogoutAPI } from "../store/authentication/auth.actions";
 
 const navdata = [
   "Health Resource Center",
@@ -52,6 +54,9 @@ const navdata = [
 ];
 
 export default function Navbar() {
+  const dispatch = useDispatch();
+  const { require, isAuth } = useSelector((store) => store.auth);
+
   const { isOpen, onToggle } = useDisclosure();
   const navigate = useNavigate();
   const { data: cartData, getCartItems } = useSelector((state) => state.cart);
@@ -101,7 +106,12 @@ export default function Navbar() {
           </Flex>
           <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
             <Box
-              onClick={() => navigate("/")}
+              onClick={() => {
+                if (isOpen) {
+                  onToggle();
+                }
+                navigate("/");
+              }}
               cursor={"pointer"}
               title={"1mg, India's Largest Healthcare Platform"}
             >
@@ -115,7 +125,15 @@ export default function Navbar() {
               <DesktopNav />
             </Flex>
           </Flex>
-          <Box display={{ base: "block", md: "none" }}>
+          <Box
+            display={{ base: "block", md: "none" }}
+            onClick={() => {
+              if (isOpen) {
+                onToggle();
+              }
+              navigate("/cart");
+            }}
+          >
             <IconCart />
           </Box>
 
@@ -126,25 +144,75 @@ export default function Navbar() {
             direction={"row"}
             spacing={6}
           >
-            <Popover trigger={"hover"}>
-              <PopoverTrigger>
-                <Box>
-                  <BsPerson
-                    fontSize="1.5rem"
-                    borderradius={"5px"}
-                    color="black"
-                  />
-                </Box>
-              </PopoverTrigger>
-              <PopoverContent width="100%">
-                <PopoverBody>Hii, there</PopoverBody>
-                <hr />
-                <PopoverBody>View Profile</PopoverBody>
-                <PopoverBody>Logout</PopoverBody>
-              </PopoverContent>
-            </Popover>
+            {isAuth ? (
+              <Popover trigger={"hover"}>
+                <PopoverTrigger>
+                  <Box>
+                    <BsPerson
+                      fontSize="1.5rem"
+                      borderradius={"5px"}
+                      color="black"
+                    />
+                  </Box>
+                </PopoverTrigger>
+                <PopoverContent width="100%">
+                  <PopoverBody cursor={"pointer"}>Hii, there</PopoverBody>
+                  <hr />
+                  <PopoverBody
+                    cursor={"pointer"}
+                    onClick={() => {
+                      navigate("/profile");
+                    }}
+                  >
+                    View Profile
+                  </PopoverBody>
+                  <PopoverBody
+                    cursor={"pointer"}
+                    onClick={() => {
+                      dispatch(
+                        userLogoutAPI(
+                          JSON.parse(localStorage.getItem("currentLogin"))._id
+                        )
+                      );
+                    }}
+                  >
+                    Logout
+                  </PopoverBody>
+                </PopoverContent>
+              </Popover>
+            ) : (
+              <Flex>
+                <Button
+                  fontSize="sm"
+                  fontWeight={"normal"}
+                  variant="link"
+                  color={"gray.600"}
+                  onClick={() => {
+                    require.setMethod(true);
+                    require.onOpenAuth();
+                  }}
+                >
+                  Login
+                </Button>
+                {"|"}
+                <Button
+                  fontSize="sm"
+                  fontWeight={"normal"}
+                  variant="link"
+                  color={"gray.600"}
+                  onClick={() => {
+                    require.setMethod(false);
+                    require.onOpenAuth();
+                  }}
+                >
+                  Signup
+                </Button>
+              </Flex>
+            )}
 
-            <Text fontSize="sm">Offers</Text>
+            <Flex cursor={"pointer"} alignItems={"center"} fontSize="sm">
+              Offers
+            </Flex>
             <Box position={"relative"} onClick={() => navigate("/cart")}>
               <Box mr={"10px"}>
                 <IconCart />
@@ -168,12 +236,14 @@ export default function Navbar() {
               </Flex>
             </Box>
             {/* <BsCart fontSize="1.5rem" borderradius={"5px"} color="black" /> */}
-            <Text fontSize="sm">Need.help?</Text>
+            <Flex cursor={"pointer"} alignItems={"center"} fontSize="sm">
+              Need.help?
+            </Flex>
           </Stack>
         </Flex>
 
         <Collapse in={isOpen} animateOpacity>
-          <MobileNav />
+          <MobileNav isOpen={isOpen} onToggle={onToggle} />
         </Collapse>
       </Box>
       {/* ************************************ */}
@@ -231,9 +301,11 @@ export default function Navbar() {
               size="md"
               height="40px"
               width="150px"
-              bg="#ff6f61"
-              color="white"
               mb="2%"
+              background={"#ff6f61"}
+              color={"white"}
+              _hover={{ backgroundColor: "#ff6f61" }}
+              _active={{ backgroundColor: "#ff6f61" }}
             >
               Quick Order
             </Button>
@@ -296,34 +368,51 @@ const DesktopNav = () => {
         </Box>
       ))}
       // Button from facebook.com
-      <Box
-        as="button"
-        height="24px"
-        lineHeight="1.2"
-        transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
-        border="1px"
-        px="8px"
-        borderRadius="2px"
-        fontSize="12px"
-        fontWeight="bold"
-        bg="#ff6f61"
-        borderColor="none"
-        color="white"
-      >
-        save more
-      </Box>
+      <Flex alignItems={"center"}>
+        <Box
+          as="button"
+          height="24px"
+          lineHeight="1.2"
+          transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
+          border="1px"
+          px="8px"
+          borderRadius="2px"
+          fontSize="12px"
+          fontWeight="bold"
+          bg="#ff6f61"
+          borderColor="none"
+          color="white"
+        >
+          save more
+        </Box>
+      </Flex>
     </Stack>
   );
 };
 
-const MobileNav = () => {
+const MobileNav = ({ isOpen, onToggle }) => {
+  const { require, isAuth } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
     <Stack
       bg={useColorModeValue("white", "gray.800")}
       p={4}
       display={{ md: "none" }}
     >
-      <Box display="flex" gap={2}>
+      <Box
+        display="flex"
+        gap={2}
+        onClick={() => {
+          onToggle();
+          if (!isAuth) {
+            require.setMethod(true);
+            require.onOpenAuth();
+          } else {
+            navigate("/profile");
+          }
+        }}
+      >
         <Box>
           <Image src="https://onemg.gumlet.io/ujhc0ajudwhuebwt5zsr.svg" />
         </Box>
@@ -332,48 +421,96 @@ const MobileNav = () => {
             {" "}
             Hi There!
           </Heading>
-          <Text fontSize="xs">Login/Signup</Text>
+          <Text fontSize="xs">{isAuth ? "View Profile" : "Login/Signup"}</Text>
         </Box>
       </Box>
 
-      {/* {NAV_ITEMS.map((el) => (
-        <MobileNavItem el={el} key={uuidv4()} />
-      ))} */}
+      {NAV_ITEMS.map((el, i) => (
+        <MobileNavItem
+          el={el}
+          i={i}
+          key={uuidv4()}
+          isOpen={(isOpen, onToggle)}
+          onToggle={(isOpen, onToggle)}
+        />
+      ))}
+      {isAuth && (
+        <Flex fontWeight={600} color={"gray.600"}>
+          <Button
+            rightIcon={<ArrowForwardIcon />}
+            colorScheme="teal"
+            variant="outline"
+            onClick={() => {
+              dispatch(
+                userLogoutAPI(
+                  JSON.parse(localStorage.getItem("currentLogin"))._id
+                )
+              );
+              onToggle();
+            }}
+          >
+            Logout
+          </Button>
+        </Flex>
+      )}
     </Stack>
   );
 };
 
-const MobileNavItem = ({ el, children, href }) => {
-  const { isOpen, onToggle } = useDisclosure();
-
+const MobileNavItem = ({ el, i, isOpen, onToggle }) => {
+  const { isOpen: mobIsOpen, onToggle: mobOnToggle } = useDisclosure();
+  const navigate = useNavigate();
   return (
-    <Stack spacing={4} onClick={children && onToggle}>
-      <Flex
-        py={2}
-        // as={Link}
-        // href={href ?? "#"}
-        justify={"space-between"}
-        align={"center"}
-        _hover={{
-          textDecoration: "none",
-        }}
-      >
-        <Text
-          fontWeight={600}
-          color={useColorModeValue("gray.600", "gray.200")}
+    <Stack spacing={4} onClick={mobOnToggle}>
+      {el.href != "#" && i == 0 ? (
+        <Flex
+          py={2}
+          onClick={() => {
+            navigate(el.href);
+            onToggle();
+          }}
+          justify={"space-between"}
+          align={"center"}
+          _hover={{
+            textDecoration: "none",
+          }}
         >
-          {el}
-        </Text>
-        {children && (
+          <Text fontWeight={600} color={"gray.600"}>
+            {el.name}
+          </Text>
+
           <Icon
             as={ChevronDownIcon}
             transition={"all .25s ease-in-out"}
-            transform={isOpen ? "rotate(180deg)" : ""}
+            transform={mobIsOpen ? "rotate(180deg)" : ""}
             w={6}
             h={6}
           />
-        )}
-      </Flex>
+        </Flex>
+      ) : (
+        <Flex
+          py={2}
+          // as={Link}
+          // href={href ?? "#"}
+          justify={"space-between"}
+          align={"center"}
+          _hover={{
+            textDecoration: "none",
+          }}
+        >
+          <Text fontWeight={600} color={"gray.600"}>
+            {el.name}
+          </Text>
+
+          <Icon
+            as={ChevronDownIcon}
+            transition={"all .25s ease-in-out"}
+            transform={mobIsOpen ? "rotate(180deg)" : ""}
+            w={6}
+            h={6}
+          />
+        </Flex>
+      )}
     </Stack>
   );
 };

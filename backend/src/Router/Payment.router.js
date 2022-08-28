@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const { Router } = require("express");
 const Insta = require("instamojo-nodejs");
+const PaymentModel = require("../Model/Payment.model");
 
 const PaymentRouter = Router();
 
@@ -39,6 +40,55 @@ PaymentRouter.post("/pay", async (req, res) => {
   } catch (err) {
     res.status(500).send(err.massage);
   }
+});
+PaymentRouter.get("/pay/:id", async (req, res) => {
+  const { id } = req.params;
+  const { userId } = req.body;
+  Insta.getPaymentRequestStatus(id, async function (error, response) {
+    if (error) {
+      // Some error
+    } else {
+      console.log(response);
+      if (response.success == true) {
+        const payload = {
+          id: id,
+          payment_id: response.payment_request.payments[0].payment_id,
+          status: response.payment_request.payments[0].status,
+          amount: response.payment_request.payments[0].amount,
+          buyer_name: response.payment_request.payments[0].buyer_name,
+          buyer_phone: response.payment_request.payments[0].buyer_phone,
+          buyer_email: response.payment_request.payments[0].buyer_email,
+          instrument_type: response.payment_request.payments[0].instrument_type,
+          billing_instrument:
+            response.payment_request.payments[0].billing_instrument,
+          created_at: response.payment_request.payments[0].created_at,
+        };
+        const payment = await PaymentModel.findOne({ userId: userId });
+        if (payment) {
+          const updatePayment = await PaymentModel.findOneAndUpdate(
+            { userId: userId },
+            { $push: { paymentDetails: payload } }
+          );
+        } else {
+          const UserPayment = new OtpModel({
+            userId: userId,
+            paymentDetails: [payload],
+          });
+
+          await UserPayment.save();
+        }
+
+        const getPayment = await PaymentModel.findOne({ userId: userId });
+        if (getPayment) {
+          res.status(200).send({
+            message: "Payment Details",
+            data: getPayment.paymentDetails,
+          });
+        }
+      }
+      res.status(404).send({ message: "some error", response });
+    }
+  });
 });
 
 module.exports = PaymentRouter;

@@ -32,7 +32,9 @@ const OrderSummary = () => {
   // setItems(items);
   //   }
   // }, []);
-
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   const handleCheckout = () => {
     setLoading(true);
     axios

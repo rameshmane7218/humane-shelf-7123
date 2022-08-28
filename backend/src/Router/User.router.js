@@ -33,11 +33,13 @@ UserRouter.post("/checkmobile", async (req, res) => {
     const user = await UserModel.findOne({ mobile: mobile });
     if (user) {
       res.status(200).send({
-        message: "User already exists",
+        message: "User already exists..",
         status: true,
       });
     } else {
-      return res.status(200).send({ message: "User not found", status: false });
+      return res
+        .status(200)
+        .send({ message: "User not found, Signup first", status: false });
     }
   } catch (err) {
     return res.status(404).send({ message: "Sometiong went wrong", err });

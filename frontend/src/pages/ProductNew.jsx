@@ -39,6 +39,7 @@ const ProductNew = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    window.scroll(0, 0);
     dispatch(getAllProductsAPI());
   }, []);
   useEffect(() => {

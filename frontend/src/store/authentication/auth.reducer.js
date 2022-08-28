@@ -3,7 +3,7 @@ let token = localStorage.getItem("isAuth") || false;
 let userDetails = JSON.parse(localStorage.getItem("currentLogin")) || false;
 const initialState = {
   userId: "",
-  isAuth: token,
+  isAuth: !!token,
   userData: userDetails,
   signUpData: {
     loading: false,
@@ -25,7 +25,11 @@ const initialState = {
     error: false,
   },
   require: {
-    open: "",
+    isOpenAuth: "",
+    onOpenAuth: "",
+    onCloseAuth: "",
+    method: "",
+    setMethod: "",
   },
 };
 
@@ -43,6 +47,7 @@ export const authReducer = (state = initialState, { type, payload }) => {
     case types.USER_SIGNUP_SUCCESS:
       localStorage.setItem("userId", payload.userId);
       localStorage.setItem("token", payload.token);
+      localStorage.setItem("isAuth", true);
 
       return {
         ...state,
@@ -75,7 +80,7 @@ export const authReducer = (state = initialState, { type, payload }) => {
     case types.USER_LOGIN_SUCCESS:
       localStorage.setItem("userId", payload.userId);
       localStorage.setItem("token", payload.token);
-
+      localStorage.setItem("isAuth", true);
       return {
         ...state,
         loginData: {
@@ -144,6 +149,7 @@ export const authReducer = (state = initialState, { type, payload }) => {
           loading: false,
           error: false,
         },
+        isAuth: false,
         userId: "",
         userData: false,
       };
@@ -160,7 +166,11 @@ export const authReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         require: {
-          open: payload,
+          isOpenAuth: payload.isOpenAuth,
+          onOpenAuth: payload.onOpenAuth,
+          onCloseAuth: payload.onCloseAuth,
+          method: payload.method,
+          setMethod: payload.setMethod,
         },
       };
     default:

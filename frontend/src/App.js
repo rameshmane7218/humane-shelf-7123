@@ -14,6 +14,7 @@ import OrderSummary from "./pages/OrderSummary";
 
 import SingleProd from "./components/Products/SingleProd";
 import ProductNew from "./pages/ProductNew";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <nav>
         <Navbar />
       </nav>
+      <Auth />
 
       <Container
         style={{ padding: "20px 0 0 0" }}
@@ -31,11 +33,15 @@ function App() {
       >
         <Routes>
           <Route path="/" element={<Home />} />
-        
+
+          <Route path="/profile" element={<Profile />} />
+
+          <Route path="/slider" element={<Slider />} />
+
           <Route path="/cart" element={<Cart />} />
           <Route path="/cart/address-page" element={<Address />} />
           <Route path="/cart/summary-page" element={<OrderSummary />} />
-          <Route path="/auth" element={<Auth />} />
+          {/* <Route path="/auth" element={<Auth />} /> */}
           <Route path="/payment" element={<Payment />} />
           {/* <Route path="/products" element={<Products />} /> */}
           <Route path="/products" element={<ProductNew />} />
