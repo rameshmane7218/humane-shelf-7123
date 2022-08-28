@@ -10,7 +10,6 @@ import {
   Heading,
   MenuButton,
   Icon,
-  Link,
   Popover,
   PopoverTrigger,
   PopoverContent,
@@ -40,6 +39,9 @@ import { FiSearch } from "react-icons/fi";
 import { BiCurrentLocation } from "react-icons/bi";
 import style from "./navbar.module.css";
 import { IconCart } from "./icons";
+import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const navdata = [
   "Health Resource Center",
@@ -51,6 +53,8 @@ const navdata = [
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
+  const navigate = useNavigate();
+  const { data: cartData, getCartItems } = useSelector((state) => state.cart);
 
   return (
     <Box
@@ -96,7 +100,11 @@ export default function Navbar() {
             />
           </Flex>
           <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-            <Box>
+            <Box
+              onClick={() => navigate("/")}
+              cursor={"pointer"}
+              title={"1mg, India's Largest Healthcare Platform"}
+            >
               <img
                 src="https://www.1mg.com/images/tata_1mg_logo.svg"
                 alt="logo"
@@ -137,7 +145,29 @@ export default function Navbar() {
             </Popover>
 
             <Text fontSize="sm">Offers</Text>
-            <BsCart fontSize="1.5rem" borderradius={"5px"} color="black" />
+            <Box position={"relative"} onClick={() => navigate("/cart")}>
+              <Box mr={"10px"}>
+                <IconCart />
+              </Box>
+              <Flex
+                position={"absolute"}
+                top={-1}
+                right={0}
+                border={"1px solid red"}
+                height={"17px"}
+                width={"17px"}
+                rounded={"md"}
+                background={"#ff6f61"}
+                color={"white"}
+                fontWeight={"bold"}
+                fontSize={"12px"}
+                justifyContent={"center"}
+                alignItems={"center"}
+              >
+                <Text>{cartData.length || "0"}</Text>
+              </Flex>
+            </Box>
+            {/* <BsCart fontSize="1.5rem" borderradius={"5px"} color="black" /> */}
             <Text fontSize="sm">Need.help?</Text>
           </Stack>
         </Flex>
@@ -227,23 +257,40 @@ export default function Navbar() {
 const DesktopNav = () => {
   return (
     <Stack direction={"row"} spacing={3} mt="1%">
-      {NAV_ITEMS.map((navItem) => (
-        <Box key={navItem}>
+      {NAV_ITEMS.map((navItem, i) => (
+        <Box key={navItem.name}>
           <Popover trigger={"hover"} placement={"bottom-start"}>
             <PopoverTrigger>
-              <Link
-                p={2}
-                href={navItem.href ?? "#"}
-                fontSize={{ md: "md" }}
-                fontWeight={700}
-                color="black"
-                _hover={{
-                  textDecoration: "none",
-                  color: "#ff6f61",
-                }}
-              >
-                {navItem}
-              </Link>
+              {navItem.href != "#" && i == 0 ? (
+                <Link to={navItem.href != "#" && i == 0 ? navItem.href : ""}>
+                  <Box
+                    p={2}
+                    fontSize={{ md: "md" }}
+                    fontWeight={700}
+                    color="black"
+                    _hover={{
+                      textDecoration: "none",
+                      color: "#ff6f61",
+                    }}
+                  >
+                    {navItem.name}
+                  </Box>
+                </Link>
+              ) : (
+                <Box
+                  p={2}
+                  fontSize={{ md: "md" }}
+                  fontWeight={700}
+                  color="black"
+                  cursor={"pointer"}
+                  _hover={{
+                    textDecoration: "none",
+                    color: "#ff6f61",
+                  }}
+                >
+                  {navItem.name}
+                </Box>
+              )}
             </PopoverTrigger>
           </Popover>
         </Box>
@@ -289,9 +336,9 @@ const MobileNav = () => {
         </Box>
       </Box>
 
-      {NAV_ITEMS.map((el) => (
+      {/* {NAV_ITEMS.map((el) => (
         <MobileNavItem el={el} key={uuidv4()} />
-      ))}
+      ))} */}
     </Stack>
   );
 };
@@ -303,8 +350,8 @@ const MobileNavItem = ({ el, children, href }) => {
     <Stack spacing={4} onClick={children && onToggle}>
       <Flex
         py={2}
-        as={Link}
-        href={href ?? "#"}
+        // as={Link}
+        // href={href ?? "#"}
         justify={"space-between"}
         align={"center"}
         _hover={{
@@ -332,10 +379,28 @@ const MobileNavItem = ({ el, children, href }) => {
 };
 
 const NAV_ITEMS = [
-  "Medicines",
-  "Lab Tests",
-  "Consult Doctors",
-  "Covid-19",
-  "Ayurveda",
-  "Careplan",
+  {
+    name: "Medicines",
+    href: "/products",
+  },
+  {
+    name: "Lab Tests",
+    href: "#",
+  },
+  {
+    name: "Consult Doctors",
+    href: "#",
+  },
+  {
+    name: "Covid-19",
+    href: "#",
+  },
+  {
+    name: "Ayurveda",
+    href: "#",
+  },
+  {
+    name: "Careplan",
+    href: "#",
+  },
 ];
