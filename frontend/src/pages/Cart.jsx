@@ -296,7 +296,10 @@ const CartComponent = ({ cartItem }) => {
         </Box>
         <div>
           <p>{cartItem.shortDesc}</p>
-          <s>MRP:{cartItem.strikedPrice}</s>
+          <p>
+            MRP: {" ₹"}
+            <s>{Number(cartItem.strikedPrice) * Number(cartItem?.count)}</s>
+          </p>
         </div>
         <div className={styles.removebuttondiv}>
           <div
