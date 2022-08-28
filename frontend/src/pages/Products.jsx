@@ -15,6 +15,7 @@ import {
   fetchfilterbrand,
   fetchfilterdiscount,
 } from "../store/products/products.actions";
+import Footer from "../components/Footer";
 const Products = () => {
   // let products = alldata.data;
   // var allproducts = alldata.data;
@@ -296,6 +297,7 @@ const Products = () => {
           </div>
         </Box>
       </Flex>
+      <Footer />
     </div>
   );
 };

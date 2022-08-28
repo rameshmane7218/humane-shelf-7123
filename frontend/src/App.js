@@ -36,8 +36,6 @@ function App() {
 
           <Route path="/profile" element={<Profile />} />
 
-          <Route path="/slider" element={<Slider />} />
-
           <Route path="/cart" element={<Cart />} />
           <Route path="/cart/address-page" element={<Address />} />
           <Route path="/cart/summary-page" element={<OrderSummary />} />
@@ -50,7 +48,9 @@ function App() {
         </Routes>
       </Container>
 
-      <footer><Footer/></footer>
+      {/* <footer>
+        <Footer />
+      </footer> */}
     </Container>
   );
 }

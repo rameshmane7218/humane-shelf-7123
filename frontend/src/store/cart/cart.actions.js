@@ -153,9 +153,20 @@ const removeItemFromCartAPI = (payload) => (dispatch) => {
   }, 100);
 };
 
+const removeAllItemFromCartSuccess = (payload) => {
+  return {
+    type: types.REMOVE_ALL_CART_ITEMS_SUCCESS,
+    payload,
+  };
+};
+const removeAllItemFromCartAPI = (payload) => (dispatch) => {
+  dispatch(removeAllItemFromCartSuccess(payload));
+};
+
 export {
   getCartItemAPI,
   addItemToCartAPI,
   updateCartItemAPI,
   removeItemFromCartAPI,
+  removeAllItemFromCartAPI,
 };

@@ -144,6 +144,7 @@ export const cartReducer = (state = cartInitalState, { type, payload }) => {
         },
         data: [...payload],
       };
+
     case types.REMOVE_CART_ITEMS_ERROR:
       return {
         ...state,
@@ -152,7 +153,17 @@ export const cartReducer = (state = cartInitalState, { type, payload }) => {
           error: true,
         },
       };
+    case types.REMOVE_ALL_CART_ITEMS_SUCCESS:
+      localStorage.removeItem("cartItem");
+      return {
+        ...state,
+        getCartItems: {
+          withoutDiscountPrice: 0,
+          withDiscountPrice: 0,
+        },
 
+        data: [],
+      };
     default:
       return state;
   }

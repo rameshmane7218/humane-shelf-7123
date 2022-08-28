@@ -8,7 +8,10 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Box, Button, Text, useToast } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCartItemAPI } from "../store/cart/cart.actions";
+import {
+  getCartItemAPI,
+  removeAllItemFromCartAPI,
+} from "../store/cart/cart.actions";
 
 const OrderSummary = () => {
   const dispatch = useDispatch();
@@ -49,6 +52,7 @@ const OrderSummary = () => {
         console.log(res);
         if (res.data.success === true) {
           localStorage.setItem("orderDetails", JSON.stringify(res.data));
+          dispatch(removeAllItemFromCartAPI());
           window.location.href = res.data.payment_request.longurl;
         } else {
           toast({

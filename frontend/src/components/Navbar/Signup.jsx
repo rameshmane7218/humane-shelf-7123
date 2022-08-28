@@ -24,7 +24,6 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignupAPI } from "../../store/authentication/auth.actions";
 const Signup = ({ setMethod, initialRef, finalRef, setSuccessful }) => {
- 
   const [stage, setStage] = useState(1);
   const [userDetails, setUserDetails] = useState({
     firstName: "",
@@ -379,7 +378,7 @@ const Stage2 = ({
                 Uh-oh! Incorrect OTP
               </Text>
 
-              <Text fontSize={"13px"} mt="20px">
+              {/* <Text fontSize={"13px"} mt="20px">
                 Resend in 0:30
               </Text>
               <Text
@@ -391,7 +390,7 @@ const Stage2 = ({
                 // onClick={() => ResendOtp(1000)}
               >
                 Resend OTP
-              </Text>
+              </Text> */}
             </Box>
           </Box>
           <Box>
