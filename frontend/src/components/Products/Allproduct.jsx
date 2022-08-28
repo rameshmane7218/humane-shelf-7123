@@ -85,11 +85,11 @@ const AllProduct = ({ product }) => {
   const [countValue, setCountValue] = useState(0);
   const { id } = useParams();
   
-  let username = useSelector((state) => state.name);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchdes(id));
-  }, [id, dispatch]);
+ let name = useSelector((state) => state.name);
+   const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(fetchdes(id));
+  // }, [id, dispatch]);
   
 
   
@@ -157,7 +157,7 @@ const AllProduct = ({ product }) => {
         <Text fontSize="12px" textDecoration={"line-through"} fontWeight={"400"} lineHeight="17px" color={"#757575"}>MRP {product.strikedPrice}</Text>
         <Text marginLeft={"5px"} color="#5ac265" fontSize="11px" lineHeight="16px">{product.discount}% off</Text>
       </Flex>
-      <Box >
+      <Box>
 
         <Flex
           position={"absolute"}
@@ -187,7 +187,7 @@ const AllProduct = ({ product }) => {
                     onClick={() => {
                       dispatch(
                         AddToCart({
-                          name: username,
+                          name: name,
                           _id: product._id,
                         })
                       );

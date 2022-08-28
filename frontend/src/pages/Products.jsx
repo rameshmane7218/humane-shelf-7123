@@ -6,7 +6,7 @@ import Allproduct from "../components/Products/Allproduct";
 import prodstyles from "./products.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import "./loader.css";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -33,12 +33,12 @@ const Products = () => {
  
   const products = useSelector((state) => state.productsData);
   const allproducts = useSelector((state) => state.allproducts);
-  dispatch(fetchdata());
+  // dispatch(fetchdata())
    console.log("j",allproducts);
    useEffect(() => {
     
     dispatch(fetchdata());
-  }, [products,allproducts]);
+  }, []);
  // filter by brand
   let obj1 = {};
   allproducts.map((el) => {
@@ -131,6 +131,27 @@ const Products = () => {
 
 
   return <div>
+    
+    {products.length === 0 ? (
+        <div id="loaderdiv">
+          <div className="loadingio-spinner-spinner-hwqa8bbtkw9">
+            <div className="ldio-2ho1tpded2u">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <>
     <Flex>
       <Box>
       <div className={prodstyles.prodpagediv}>
@@ -260,10 +281,10 @@ const Products = () => {
         templateColumns={["repeat(2, 1fr)", "repeat(3, 1fr)", "repeat(4, 1fr)"]}
         gap={4}
       >
-        {prodarr.map((el) => (
+        {prodarr.map((el,i) => (
         // {data.map((product) => (
 
-          <Allproduct product={el} key={el._id} />
+          <Allproduct product={el} key={i} />
         ))}
       </Grid>
       <div
@@ -300,6 +321,8 @@ const Products = () => {
           
       </Box>
     </Flex>
+    </>
+      )}
   </div>;
 };
 

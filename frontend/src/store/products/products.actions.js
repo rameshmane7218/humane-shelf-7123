@@ -1,13 +1,4 @@
-// import * as types from "./products.types";
-// import axios from "axios";
 
-// Get Mangoes Api call ##########################################
-// const getMangoesLoading = (payload) => {
-//   return {
-//     type: types.GET_MANGOES_LOADING,
-//     payload,
-//   };
-// };
 import { USEROTP,
    USERNAME ,
    USERCART,
@@ -70,7 +61,7 @@ export const fetchdata = () => async(dispatch) => {
   let res = await axios.get(
     "http://localhost:5000/alldata"
   );
-  console.log(res.data.data)
+  console.log("jjj",res.data.data)
   dispatch(getdata(res.data.data));
 };
 
