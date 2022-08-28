@@ -366,7 +366,7 @@ const Stage2 = ({ userNumber, setStage, result, setSuccessful }) => {
                 Uh-oh! Incorrect OTP
               </Text>
 
-              <Text fontSize={"13px"} mt="20px">
+              {/* <Text fontSize={"13px"} mt="20px">
                 Resend in 0:30
               </Text>
               <Text
@@ -378,7 +378,7 @@ const Stage2 = ({ userNumber, setStage, result, setSuccessful }) => {
                 // onClick={() => ResendOtp(1000)}
               >
                 Resend OTP
-              </Text>
+              </Text> */}
             </Box>
           </Box>
           <Box>

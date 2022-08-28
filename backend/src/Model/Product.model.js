@@ -12,6 +12,8 @@ const productSchema = mongoose.Schema({
   numberOfRatings: String,
   discount: Number,
   brand: String,
+  slider: String,
+  isSlider: Boolean,
 });
 
 const Prod = mongoose.model("tataprod", productSchema);

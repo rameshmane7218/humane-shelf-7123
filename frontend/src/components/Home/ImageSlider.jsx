@@ -34,7 +34,7 @@ const ImageSlider = () => {
 
   return (
     <Swiper
-    height="200px"
+      height="200px"
       spaceBetween={30}
       centeredSlides={true}
       loop={true}
@@ -47,7 +47,6 @@ const ImageSlider = () => {
       }}
       navigation={false}
       modules={[Autoplay, Pagination, Navigation]}
-     
     >
       {imges.map((item, index) => (
         <SwiperSlide key={item.id}>

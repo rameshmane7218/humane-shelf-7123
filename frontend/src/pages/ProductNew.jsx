@@ -16,6 +16,7 @@ import {
   fetchfilterdiscount,
 } from "../store/products/products.actions";
 import { getAllProductsAPI } from "../store/newProduct/products.actions";
+import Footer from "../components/Footer";
 const ProductNew = () => {
   let dispatch = useDispatch();
 
@@ -35,7 +36,7 @@ const ProductNew = () => {
     numdiscounts: [],
     selectedDiscounts: [],
   });
-  console.log("backendData", backendData);
+  // console.log("backendData", backendData);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -394,6 +395,7 @@ const ProductNew = () => {
           </Box>
         </Box>
       </Flex>
+      <Footer />
     </div>
   );
 };

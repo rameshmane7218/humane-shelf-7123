@@ -9,22 +9,30 @@ import { Box, Heading, Text, Image, Stack } from "@chakra-ui/react";
 export const Slider2 = ({ items }) => {
   // console.log(items);
   return (
-    <Box boxShadow="base" height="200px" mb="5%">
+    <Box height="200px">
       <Swiper
         slidesPerView={6}
         spaceBetween={10}
         slidesPerGroup={3}
-        loop={true}
+        loop={false}
         loopFillGroupWithBlank={true}
         pagination={{
           clickable: false,
         }}
         breakpoints={{
-          270: {
+          200: {
+            slidesPerView: 1,
+            spaceBetween: 5,
+          },
+          380: {
             slidesPerView: 2,
             spaceBetween: 5,
           },
-          425: {
+          485: {
+            slidesPerView: 3,
+            spaceBetween: 5,
+          },
+          585: {
             slidesPerView: 3,
             spaceBetween: 5,
           },
@@ -32,7 +40,7 @@ export const Slider2 = ({ items }) => {
             slidesPerView: 4,
             spaceBetween: 5,
           },
-          768: {
+          798: {
             slidesPerView: 5,
             spaceBetween: 5,
           },
@@ -43,37 +51,49 @@ export const Slider2 = ({ items }) => {
         }}
         navigation={true}
         modules={[Navigation]}
-        className="mainSwiper"
+        // className="mainSwiper"
+        style={{
+          paddingTop: "20px",
+          paddingBottom: "20px",
+        }}
       >
         {items?.map((d, i) => {
           {
             if (d.title) {
               return (
-                <SwiperSlide key={i} className="swiperProducts">
-                  <Box
-                    rounded={"lg"}
-                    p={"1rem"}
-                    pos={"relative"}
-                    height={"160px"}
-                  >
-                    <Image
+                <SwiperSlide
+                  key={i}
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Box className="swiperProducts" width={"190px"}>
+                    <Box
                       rounded={"lg"}
-                      height={110}
-                      width={212}
-                      objectFit={"cover"}
-                      src={d.img}
-                      className={"swiperImage"}
-                    />
-                  </Box>
-                  <Stack align={"center"} pb={4}>
-                    <Heading
-                      fontSize={"1rem"}
-                      fontFamily={"body"}
-                      fontWeight={500}
+                      p={"1rem"}
+                      pos={"relative"}
+                      height={"160px"}
                     >
-                      {d.title}
-                    </Heading>
-                  </Stack>
+                      <Image
+                        rounded={"lg"}
+                        height={110}
+                        width={212}
+                        objectFit={"cover"}
+                        src={d.img}
+                        className={"swiperImage"}
+                      />
+                    </Box>
+                    <Stack textAlign={"center"} pb={4}>
+                      <Heading
+                        fontSize={"1rem"}
+                        fontFamily={"body"}
+                        fontWeight={500}
+                      >
+                        {d.title}
+                      </Heading>
+                    </Stack>
+                  </Box>
                 </SwiperSlide>
               );
             }
