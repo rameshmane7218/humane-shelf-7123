@@ -66,7 +66,32 @@ The application is available as a web portal– www.1mg.com and as mobile app ac
 <div>
  <h2>Payment Page</h2>
 </div>
-<hr/>
+
+---
+
+### _Following are the Screenshots for the reference_
+
+- **Landing Page**
+  ![Landing Page](https://i.postimg.cc/vZDK5QHz/Screenshot-269.png)
+
+- **Log-in Page**
+
+  ![Landing Page](https://i.postimg.cc/pLxQKvQS/Screenshot-270.png)
+
+- **Footer**
+
+  ![Landing Page](https://i.postimg.cc/mktpfspj/Screenshot-268.png)
+
+
+- **Products Page**
+
+  ![Landing Page](https://i.postimg.cc/1zzyng83/Screenshot-271.png)
+
+- **Cart Page**
+
+  ![Landing Page](https://i.postimg.cc/ZK933Ryj/Screenshot-272.png)
+
+---
 <h2>Contributors name:</h2>
  <ul>
  <ol>◉ Ramesh Mane</ol>
