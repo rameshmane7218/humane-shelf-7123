@@ -1,5 +1,5 @@
 import { Container } from "@chakra-ui/react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Auth from "./components/Navbar/Auth";
@@ -15,8 +15,13 @@ import OrderSummary from "./pages/OrderSummary";
 import SingleProd from "./components/Products/SingleProd";
 import ProductNew from "./pages/ProductNew";
 import Profile from "./pages/Profile";
+import { useEffect } from "react";
 
 function App() {
+  const { pathname } = useLocation();
+  // useEffect(() => {
+  //   console.log(location);
+  // }, [location]);
   return (
     <Container className="App" maxW={"none"} p={0}>
       <nav>
@@ -48,9 +53,13 @@ function App() {
         </Routes>
       </Container>
 
-      {/* <footer>
-        <Footer />
-      </footer> */}
+      {(pathname == "/" ||
+        pathname == "/profile" ||
+        pathname == "/products") && (
+        <footer>
+          <Footer />
+        </footer>
+      )}
     </Container>
   );
 }

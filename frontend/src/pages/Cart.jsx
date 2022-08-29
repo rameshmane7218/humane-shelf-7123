@@ -16,6 +16,7 @@ import {
   Box,
   Button,
   Container,
+  Divider,
   Flex,
   Heading,
   Image,
@@ -24,6 +25,9 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 import styled from "styled-components";
+import ProductSlider2 from "../components/Home/ProductSlider2";
+import { getSliderProductAPI } from "../store/newProduct/products.actions";
+import ProductSliderCart from "../components/Cart/ProductSliderCart";
 const ToolTip = styled.i`
   font-size: 12px;
   cursor: pointer;
@@ -108,6 +112,14 @@ const Cart = () => {
   const dispatch = useDispatch();
   // console.log("total:", getCartItems.withoutDiscountPrice);
   // console.log("discount:", getCartItems.withDiscountPrice);
+  const { loading, TopSellers, Trendingnow, dealoftheday } = useSelector(
+    (store) => store.products.getSlider
+  );
+  useEffect(() => {
+    if (!TopSellers.length) {
+      dispatch(getSliderProductAPI());
+    }
+  }, [dispatch, getSliderProductAPI]);
   useEffect(() => {
     dispatch(getCartItemAPI());
   }, [dispatch, getCartItemAPI]);
@@ -134,7 +146,7 @@ const Cart = () => {
 
   if (!cartData.length) {
     return (
-      <Container width={"100%"}>
+      <Container width={"100%"} pb={"200px"}>
         <Box textAlign="center" mt={"50px"}>
           <Image src={emptyCart} m={"auto"} height={"150px"} />
           <Heading fontSize={"22px"} mt="10px">
@@ -166,6 +178,21 @@ const Cart = () => {
           {cartData.length &&
             cartData.map((el, i) => <CartComponent cartItem={el} key={i} />)}
         </div>
+
+        <Box mt={"35px"}>
+          <Text fontSize={"3xl"} textAlign={"left"} fontWeight={300}>
+            Top Sellers From Healthvit
+          </Text>
+          <Divider color={"#ccc"} />
+          <ProductSliderCart data={TopSellers} loading={loading} />
+        </Box>
+        <Box mt={"35px"}>
+          <Text fontSize={"3xl"} textAlign={"left"} fontWeight={300}>
+            Deals of the day
+          </Text>
+          <Divider color={"#ccc"} />
+          <ProductSliderCart data={dealoftheday} loading={loading} />
+        </Box>
       </div>
 
       {/* right side */}

@@ -19,7 +19,7 @@ const Profile = () => {
   }, []);
   return (
     <Box>
-      <Box width="80%" margin={"auto"}>
+      <Box width="80%" margin={"auto"} pb={"200px"}>
         <Flex gap={"20px"} flexDirection={["column", "column", "row"]}>
           <Box
             boxShadow={"0 0 4px rgb(0 0 0 / 8%), 0 4px 4px rgb(0 0 0 / 8%);"}
@@ -202,7 +202,6 @@ const Profile = () => {
           </Flex>
         </Flex>
       </Box>
-      <Footer />
     </Box>
   );
 };

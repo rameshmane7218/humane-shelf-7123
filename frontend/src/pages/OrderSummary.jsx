@@ -22,6 +22,8 @@ const OrderSummary = () => {
   const [address, setAddress] = useState(
     JSON.parse(localStorage.getItem("address"))
   );
+  const { userData } = useSelector((store) => store.auth);
+
   const [loading, setLoading] = useState(false);
   // console.log(address);
   // console.log("total:", getCartItems.withoutDiscountPrice);
@@ -41,12 +43,12 @@ const OrderSummary = () => {
   const handleCheckout = () => {
     setLoading(true);
     axios
-      .post("http://localhost:5000/pay", {
+      .post("/pay", {
         description: `Payment for purchase of ${cartData.length} items`,
         amount: getCartItems.withDiscountPrice || "1000",
-        name: "Ramesh Mane",
-        email: "rameshmane7218@gmail.com",
-        phone: "7218416746",
+        name: `${address.customer}`,
+        email: `${userData.email}`,
+        phone: `${address.mobileno}`,
       })
       .then((res) => {
         console.log(res);
@@ -57,6 +59,7 @@ const OrderSummary = () => {
         } else {
           toast({
             title: "Something went wrong",
+            description: `${JSON.stringify(res.data.message)}`,
             status: "error",
             position: "top-right",
             duration: 3000,

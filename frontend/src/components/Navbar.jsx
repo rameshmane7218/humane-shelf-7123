@@ -247,71 +247,75 @@ export default function Navbar() {
         </Collapse>
       </Box>
       {/* ************************************ */}
-
-      <Stack
-        maxW="container.xl"
-        margin={"auto"}
-        display={{ base: "none", xl: "flex" }}
-        flexDirection="row"
-        justifyContent="space-between"
-        borderBottom="1px solid rgb(238, 235, 235)"
-        p={".5rem 1rem 0 2rem"}
+      <Box
+        borderBottom={1}
+        borderStyle={"solid"}
+        borderColor={useColorModeValue("gray.200", "gray.900")}
       >
-        <Flex className={style.bottomLeftNav} gap={2} flex={6}>
-          <InputGroup w={"70%"} flex={2}>
-            <InputLeftElement
-              pointerEvents="none"
-              children={<SiGooglemaps color="gray" />}
-            />
-            <Input
-              type="text"
-              bg={"#f1f3f9"}
-              placeholder="Gaya"
-              _placeholder={{ opacity: 1, color: "black" }}
-              focusBorderColor="none"
-            />
-            <InputRightElement
-              pointerEvents="none"
-              children={<BiCurrentLocation color="gray" />}
-            />
-          </InputGroup>
-          <InputGroup flex={5}>
-            <Input
-              type="text"
-              bg={"#f1f3f9"}
-              _placeholder={{ opacity: 1, color: "grey", fontSize: "sm" }}
-              focusBorderColor="none"
-              placeholder="Search for Medicines and Health Products"
-            />
-            <InputRightElement
-              pointerEvents="none"
-              children={<FiSearch color="gray.800" />}
-            />
-          </InputGroup>
+        <Stack
+          maxW="container.xl"
+          margin={"auto"}
+          display={{ base: "none", xl: "flex" }}
+          flexDirection="row"
+          justifyContent="space-between"
+          p={".5rem 1rem 0 2rem"}
+        >
+          <Flex className={style.bottomLeftNav} gap={2} flex={6}>
+            <InputGroup w={"70%"} flex={2}>
+              <InputLeftElement
+                pointerEvents="none"
+                children={<SiGooglemaps color="gray" />}
+              />
+              <Input
+                type="text"
+                bg={"#f1f3f9"}
+                placeholder="Gaya"
+                _placeholder={{ opacity: 1, color: "black" }}
+                focusBorderColor="none"
+              />
+              <InputRightElement
+                pointerEvents="none"
+                children={<BiCurrentLocation color="gray" />}
+              />
+            </InputGroup>
+            <InputGroup flex={5}>
+              <Input
+                type="text"
+                bg={"#f1f3f9"}
+                _placeholder={{ opacity: 1, color: "grey", fontSize: "sm" }}
+                focusBorderColor="none"
+                placeholder="Search for Medicines and Health Products"
+              />
+              <InputRightElement
+                pointerEvents="none"
+                children={<FiSearch color="gray.800" />}
+              />
+            </InputGroup>
 
-          <Flex minWidth="max-content" alignItems="center" gap="2">
-            <Box p="2">
-              <Text fontSize="xs" fontWeight="bold" color="grey">
-                QUICK BUY! Get 25% off on medicines*
-              </Text>
-            </Box>
-            {/* <Spacer /> */}
+            <Flex minWidth="max-content" alignItems="center" gap="2">
+              <Box p="2">
+                <Text fontSize="xs" fontWeight="bold" color="grey">
+                  QUICK BUY! Get 25% off on medicines*
+                </Text>
+              </Box>
+              {/* <Spacer /> */}
 
-            <Button
-              size="md"
-              height="40px"
-              width="150px"
-              mb="2%"
-              background={"#ff6f61"}
-              color={"white"}
-              _hover={{ backgroundColor: "#ff6f61" }}
-              _active={{ backgroundColor: "#ff6f61" }}
-            >
-              Quick Order
-            </Button>
+              <Button
+                size="md"
+                height="40px"
+                width="150px"
+                mb="2%"
+                background={"#ff6f61"}
+                color={"white"}
+                _hover={{ backgroundColor: "#ff6f61" }}
+                _active={{ backgroundColor: "#ff6f61" }}
+              >
+                Quick Order
+              </Button>
+            </Flex>
           </Flex>
-        </Flex>
-      </Stack>
+        </Stack>
+      </Box>
       {/* ************************************************ */}
 
       {/* <Stack direction={['column', 'row']} spacing='24px'>

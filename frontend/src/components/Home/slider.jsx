@@ -33,7 +33,7 @@ const Slider = () => {
     }
   }, [dispatch, getSliderProductAPI]);
   return (
-    <box>
+    <Box>
       <Flex h="auto" flexDirection={["column", "column", "row"]}>
         <Box width={["100%", "100%", "65%"]}>
           <ImageSlider />
@@ -101,7 +101,7 @@ const Slider = () => {
         <Divider color={"#ccc"} />
         <ProductSlider2 data={dealoftheday} loading={loading} />
       </Box>
-    </box>
+    </Box>
   );
 };
 

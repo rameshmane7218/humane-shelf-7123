@@ -86,57 +86,70 @@ const ListHeader = ({ children }) => {
 
 const Footer = () => {
   return (
-    <Container maxW="container.xl">
-      <Stack>
-        <Flex flexDirection={"column"} className={style.footerStack}>
-          <Center>
-            <Text
-              as="h6"
-              fontSize={{ base: "1rem", md: "1.5rem" }}
-              fontFamily="monospace"
-              fontWeight={{ base: "bold", sm: "bold", md: "light" }}
-            >
-              INDIA’S LARGEST HEALTHCARE PLATFORM
-            </Text>
-          </Center>
+    <Box>
+      <Box border={"2px solid #e6e9f0"}>
+        <Container maxW="container.xl" pt={"10px"}>
+          <Stack>
+            <Flex flexDirection={"column"} className={style.footerStack}>
+              <Center>
+                <Text
+                  as="h6"
+                  fontSize={{ base: "1rem", md: "1.5rem" }}
+                  fontFamily="monospace"
+                  fontWeight={{ base: "bold", sm: "bold", md: "light" }}
+                >
+                  INDIA’S LARGEST HEALTHCARE PLATFORM
+                </Text>
+              </Center>
 
-          <Flex justifyContent={"space-around"} textAlign="center" p={"2rem 0"}>
-            <Text fontWeight="bold" fontSize="1.7rem">
-              160m+
-              <br />
-              <Text fontWeight="400" fontSize="1.2rem">
-                Visitors
-              </Text>
-            </Text>
-            <Text fontWeight="bold" fontSize="1.7rem">
-              27m+
-              <br />
-              <Text fontWeight="400" fontSize="1.2rem">
-                Orders Delivered
-              </Text>
-            </Text>
-            <Text fontWeight="bold" fontSize="1.7rem">
-              1800+
-              <br />
-              <Text fontWeight="400" fontSize="1.2rem">
-                Cities
-              </Text>
-            </Text>
-          </Flex>
-        </Flex>
-      </Stack>
-      <Box className={style.footerLine}></Box>
-      <Center>
-        <Box fontSize={"1.3rem"}>Get the link to download App</Box>
-        <Box>
-          <SendLink />
-        </Box>
-      </Center>
+              <Flex
+                justifyContent={"space-around"}
+                textAlign="center"
+                p={"2rem 0"}
+              >
+                <Box fontWeight="bold" fontSize="1.7rem">
+                  160m+
+                  <br />
+                  <Text fontWeight="400" fontSize="1.2rem">
+                    Visitors
+                  </Text>
+                </Box>
+                <Box fontWeight="bold" fontSize="1.7rem">
+                  27m+
+                  <br />
+                  <Text fontWeight="400" fontSize="1.2rem">
+                    Orders Delivered
+                  </Text>
+                </Box>
+                <Box fontWeight="bold" fontSize="1.7rem">
+                  1800+
+                  <br />
+                  <Text fontWeight="400" fontSize="1.2rem">
+                    Cities
+                  </Text>
+                </Box>
+              </Flex>
+            </Flex>
+          </Stack>
+          <Box className={style.footerLine}></Box>
+          <Center>
+            <Box fontSize={"1.3rem"}>Get the link to download App</Box>
+            <Box>
+              <SendLink />
+            </Box>
+          </Center>
+        </Container>
+      </Box>
       <Box
-        bg={useColorModeValue("gray.50", "gray.900")}
+        background={"#fffcf8"}
         color={useColorModeValue("gray.700", "gray.200")}
       >
-        <Container as={Stack} maxW={"10xl"} py={10} background={"#fffcf8"}>
+        <Container
+          as={Stack}
+          maxW={"container.xl"}
+          py={10}
+          background={"#fffcf8"}
+        >
           <SimpleGrid
             columns={{ base: 1, sm: 2, md: 5 }}
             // textAlign="left"
@@ -195,7 +208,7 @@ const Footer = () => {
               <Stack direction={"row"} spacing={4}>
                 <GrFacebook fontSize="1.5rem" borderradius={"5px"} />
 
-                <FaTwitterSquare fontSize="1.6rem" borderradius={"5px"} s />
+                <FaTwitterSquare fontSize="1.6rem" borderradius={"5px"} />
 
                 <FaYoutubeSquare fontSize="1.7rem" borderradius={"5px"} />
 
@@ -230,7 +243,7 @@ const Footer = () => {
         </Container>
         <Container
           as={Stack}
-          maxW={"10xl"}
+          maxW={"container.xl"}
           py={8}
           borderY="1px solid #D3D3D3"
           background={"#fffcf8"}
@@ -270,6 +283,8 @@ const Footer = () => {
           </Center>
         </Stack>
         <Accordion
+          margin={"auto"}
+          maxW={"container.xl"}
           defaultIndex={[0]}
           allowMultiple
           pt="20px"
@@ -306,20 +321,21 @@ const Footer = () => {
             </AccordionPanel>
           </AccordionItem>
         </Accordion>
-
-        <Text
-          as="h6"
-          pt={"20px"}
-          color="#536971"
-          background={"#fffcf8"}
-          textAlign="center"
-        >
-          © 2022 Tata 1mg. All rights reserved. In compliance with Drugs and
-          Cosmetics Act, 1940 and Drugs and Cosmetics Rules, 1945, we don't
-          process requests for Schedule X and other habit forming drugs.
-        </Text>
+        <Box maxW={"container.xl"} margin={"auto"}>
+          <Text
+            as="h6"
+            pt={"20px"}
+            color="#536971"
+            background={"#fffcf8"}
+            textAlign="center"
+          >
+            © 2022 Tata 1mg. All rights reserved. In compliance with Drugs and
+            Cosmetics Act, 1940 and Drugs and Cosmetics Rules, 1945, we don't
+            process requests for Schedule X and other habit forming drugs.
+          </Text>
+        </Box>
       </Box>
-    </Container>
+    </Box>
   );
 };
 

@@ -10,7 +10,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/store.js";
 import axios from "axios";
 // default url
-axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = "https://tata1mg-backend-nem201.herokuapp.com";
 axios.defaults.headers["Content-Type"] = "application/json";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

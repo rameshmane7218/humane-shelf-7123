@@ -1,34 +1,22 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import "./slider2.css";
 import { v4 as uuidv4 } from "uuid";
 import { Navigation } from "swiper";
-import {
-  Box,
-  Heading,
-  Text,
-  Image,
-  Stack,
-  Link,
-  Flex,
-  Skeleton,
-} from "@chakra-ui/react";
-import { TopSellers } from "./SliderData";
-import { StarIcon } from "@chakra-ui/icons";
-import { BiAlignJustify, BiRupee } from "react-icons/bi";
-import SliderComp from "./SliderComp";
-import { useRef } from "react";
+import { Box, Skeleton } from "@chakra-ui/react";
 
-export const ProductSlider2 = ({ data, loading }) => {
+import { useRef } from "react";
+import SliderComp from "../Home/SliderComp";
+
+export const ProductSliderCart = ({ data, loading }) => {
   const loadingItems = useRef(new Array(6).fill({ loading: true }));
 
   return (
     <Box>
       <Swiper
-        slidesPerView={6}
-        spaceBetween={10}
-        slidesPerGroup={3}
+        slidesPerView={2}
+        spaceBetween={5}
+        slidesPerGroup={1}
         loop={false}
         loopFillGroupWithBlank={true}
         pagination={{
@@ -47,22 +35,6 @@ export const ProductSlider2 = ({ data, loading }) => {
           640: {
             slidesPerView: 2,
             spaceBetween: 5,
-          },
-          700: {
-            slidesPerView: 3,
-            spaceBetween: 5,
-          },
-          930: {
-            slidesPerView: 4,
-            spaceBetween: 5,
-          },
-          1024: {
-            slidesPerView: 4,
-            spaceBetween: 10,
-          },
-          1180: {
-            slidesPerView: 5,
-            spaceBetween: 10,
           },
         }}
         navigation={true}
@@ -102,4 +74,4 @@ export const ProductSlider2 = ({ data, loading }) => {
   );
 };
 
-export default ProductSlider2;
+export default ProductSliderCart;

@@ -3,10 +3,10 @@
   padding: 0%;
 }
 .BlogContainer {
-  padding: 0% 10% 0% 8%;
+  padding: 0% 8% 0% 5%;
   display: grid;
   grid-template-columns: 55% 45%;
-  gap: 8%;
+  gap: 5%;
 }
 
 .cartdata {

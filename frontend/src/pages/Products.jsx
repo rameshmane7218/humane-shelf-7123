@@ -297,7 +297,6 @@ const Products = () => {
           </div>
         </Box>
       </Flex>
-      <Footer />
     </div>
   );
 };
