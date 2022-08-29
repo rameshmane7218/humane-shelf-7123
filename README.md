@@ -17,9 +17,12 @@ The application is available as a web portal– www.1mg.com and as mobile app ac
  <ol>◉ Javascript</ol>
  <ol>◉ React</ol>
  <ol>◉ Redux</ol>
+ <ol>◉ Chakra ui</ol>
  <ol>◉ Nodejs</ol>
  <ol>◉ Express</ol>
  <ol>◉ Mongodb</ol>
+ <ol>◉ Firebase</ol>
+ <ol>◉ Instamojo</ol>
 </ul>
 <hr/>
 <h2 align="center">Features</h2>
