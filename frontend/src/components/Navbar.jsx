@@ -44,6 +44,8 @@ import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { userLogoutAPI } from "../store/authentication/auth.actions";
+import SearchBox from "./Navbar/SearchBox";
+import MobileSearchBox from "./Navbar/MobileSearchBox";
 
 const navdata = [
   "Health Resource Center",
@@ -104,7 +106,11 @@ export default function Navbar() {
               aria-label={"Toggle Navigation"}
             />
           </Flex>
-          <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
+          <Flex
+            flex={{ base: 1 }}
+            justify={{ base: "center", md: "start" }}
+            alignItems={"center"}
+          >
             <Box
               onClick={() => {
                 if (isOpen) {
@@ -125,7 +131,11 @@ export default function Navbar() {
               <DesktopNav />
             </Flex>
           </Flex>
+          <Box display={{ base: "block", md: "none" }} mr={"20px"}>
+            <MobileSearchBox />
+          </Box>
           <Box
+            position={"relative"}
             display={{ base: "block", md: "none" }}
             onClick={() => {
               if (isOpen) {
@@ -134,7 +144,26 @@ export default function Navbar() {
               navigate("/cart");
             }}
           >
-            <IconCart />
+            <Box mr={"10px"}>
+              <IconCart />
+            </Box>
+            <Flex
+              position={"absolute"}
+              top={-1}
+              right={0}
+              border={"1px solid red"}
+              height={"17px"}
+              width={"17px"}
+              rounded={"md"}
+              background={"#ff6f61"}
+              color={"white"}
+              fontWeight={"bold"}
+              fontSize={"12px"}
+              justifyContent={"center"}
+              alignItems={"center"}
+            >
+              <Text>{cartData.length || "0"}</Text>
+            </Flex>
           </Box>
 
           <Stack
@@ -147,13 +176,13 @@ export default function Navbar() {
             {isAuth ? (
               <Popover trigger={"hover"}>
                 <PopoverTrigger>
-                  <Box>
+                  <Flex alignItems={"center"}>
                     <BsPerson
                       fontSize="1.5rem"
                       borderradius={"5px"}
                       color="black"
                     />
-                  </Box>
+                  </Flex>
                 </PopoverTrigger>
                 <PopoverContent width="100%">
                   <PopoverBody cursor={"pointer"}>Hii, there</PopoverBody>
@@ -278,7 +307,8 @@ export default function Navbar() {
                 children={<BiCurrentLocation color="gray" />}
               />
             </InputGroup>
-            <InputGroup flex={5}>
+
+            {/* <InputGroup flex={5}>
               <Input
                 type="text"
                 bg={"#f1f3f9"}
@@ -290,7 +320,10 @@ export default function Navbar() {
                 pointerEvents="none"
                 children={<FiSearch color="gray.800" />}
               />
-            </InputGroup>
+            </InputGroup> */}
+            <Box flex={5}>
+              <SearchBox />
+            </Box>
 
             <Flex minWidth="max-content" alignItems="center" gap="2">
               <Box p="2">
@@ -332,7 +365,7 @@ export default function Navbar() {
 
 const DesktopNav = () => {
   return (
-    <Stack direction={"row"} spacing={3} mt="1%">
+    <Stack direction={"row"} spacing={3}>
       {NAV_ITEMS.map((navItem, i) => (
         <Box key={navItem.name}>
           <Popover trigger={"hover"} placement={"bottom-start"}>

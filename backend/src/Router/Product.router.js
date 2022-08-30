@@ -67,18 +67,43 @@ ProductRouter.get("/slider", async (req, res) => {
   }
 });
 
-// add all product
-ProductRouter.post("/addall", async (req, res) => {
-  // res.send(req.body);
+// // add all product
+// ProductRouter.post("/addall", async (req, res) => {
+//   // res.send(req.body);
 
-  const addData = async (payload) => {
-    const product = new Prod(payload);
-    await product.save();
-  };
-  for (let i = 0; i < req.body.length; i++) {
-    addData(req.body[i]);
+//   const addData = async (payload) => {
+//     const product = new Prod(payload);
+//     await product.save();
+//   };
+//   for (let i = 0; i < req.body.length; i++) {
+//     addData(req.body[i]);
+//   }
+//   res.send("All items added");
+// });
+
+// search functionality
+
+ProductRouter.get("/search", async (req, res) => {
+  try {
+    let result = await Prod.aggregate([
+      {
+        $search: {
+          autocomplete: {
+            query: `${req.query.q}`,
+            path: "productName",
+            fuzzy: {
+              maxEdits: 2,
+              prefixLength: 3,
+            },
+          },
+        },
+      },
+    ]);
+    // .toArray();
+    res.status(200).send(result);
+  } catch (e) {
+    res.status(500).send({ message: e.message });
   }
-  res.send("All items added");
 });
 
 module.exports = ProductRouter;

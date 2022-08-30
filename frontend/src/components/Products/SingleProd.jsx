@@ -338,7 +338,7 @@ const SingleProd = () => {
             </Text>
             <Flex mt={"20px"} ml={"20px"} alignItems={"center"}>
               <Select
-                //   placeholder="Quentity"
+                //   placeholder="Quantity"
                 size="sm"
                 borderRadius={"5px"}
                 w={"150px"}
@@ -346,11 +346,11 @@ const SingleProd = () => {
                   setCountValue(e.target.value);
                 }}
               >
-                <option value="1">1 Quentity</option>
-                <option value="2">2 Quentity</option>
-                <option value="3">3 Quentity</option>
-                <option value="4">4 Quentity</option>
-                <option value="5">5 Quentity</option>
+                <option value="1">1 Quantity</option>
+                <option value="2">2 Quantity</option>
+                <option value="3">3 Quantity</option>
+                <option value="4">4 Quantity</option>
+                <option value="5">5 Quantity</option>
               </Select>
               <Flex>
                 {singleProduct?.shortDesc.split(" ").map((el, i) => {

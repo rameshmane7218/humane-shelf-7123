@@ -200,7 +200,7 @@ const ProductNew = () => {
   return (
     <div>
       <Flex gap={"20px"}>
-        <Box w={"220px"}>
+        <Box w={"220px"} display={{ base: "none", md: "block" }}>
           <div className={prodstyles.prodpagediv}>
             <div className={prodstyles.filterdiv}>
               <div
@@ -304,8 +304,8 @@ const ProductNew = () => {
           </div>
         </Box>
         <Box flex={"1"}>
-          <Text>All Products</Text>
-          <Flex justifyContent={"flex-end"} mb="20px">
+          <Flex justifyContent={"space-between"} mb="20px">
+            <Text fontWeight={600}>All Products</Text>
             <div className={prodstyles.prodsortdiv}>
               <p>Sort By &nbsp;</p>
               <div>
