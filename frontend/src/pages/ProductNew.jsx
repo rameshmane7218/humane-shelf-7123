@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import prodstyles from "./products.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Skeleton, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -15,16 +16,30 @@ import {
   fetchfilterbrand,
   fetchfilterdiscount,
 } from "../store/products/products.actions";
-import { getAllProductsAPI } from "../store/newProduct/products.actions";
-import Footer from "../components/Footer";
+import {
+  getAllProductsAPI,
+  getFilteredProductsAPI,
+} from "../store/newProduct/products.actions";
+
+let array = new Array(16).fill(0);
 const ProductNew = () => {
   let dispatch = useDispatch();
 
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const [allData, setAllData] = useState([]);
   const [pageno, setPageno] = useState([]);
-  const [page, setpage] = React.useState(1);
-  const { data: backendData } = useSelector((store) => store.products);
+  const [page, setpage] = useState(1);
+  const [filterQuery, setFilterQuery] = useState({
+    brand: "",
+    discount: "",
+    sort: "",
+  });
+  const {
+    data: backendData,
+    allProducts,
+    filteredData: data,
+    filteredProducts,
+  } = useSelector((store) => store.products);
 
   const [brandFilter, setBrandFilter] = useState({
     brands: [],
@@ -42,13 +57,13 @@ const ProductNew = () => {
   useEffect(() => {
     window.scroll(0, 0);
     dispatch(getAllProductsAPI());
+    dispatch(getFilteredProductsAPI("_page=1"));
   }, []);
   useEffect(() => {
     setAllData(backendData);
-    setData(backendData);
   }, [backendData]);
   useEffect(() => {
-    if (allData.length) {
+    if (allData && allData.length) {
       let obj1 = {};
       allData.map((el) => {
         if (obj1[el.brand] === undefined) {
@@ -59,20 +74,20 @@ const ProductNew = () => {
       });
       let brand = Object.keys(obj1);
       let numbrand = Object.values(obj1);
-      let filter = new Array(brand.length).fill(false);
+      let filterB = new Array(brand.length).fill(false);
       setBrandFilter({
         ...brandFilter,
         brands: [...brand],
         numbrands: [...numbrand],
-        selectedBrands: [...filter],
+        selectedBrands: [...filterB],
       });
     }
   }, [allData]);
   useEffect(() => {
-    if (allData.length) {
+    if (data && data.length) {
       //filter by discount
       var obj2 = {};
-      allData.map((el) => {
+      data.map((el) => {
         let num = parseInt(el.discount);
         if (num >= 10) {
           if (obj2["10% and above"] === undefined) {
@@ -98,18 +113,18 @@ const ProductNew = () => {
       });
       let discount = Object.keys(obj2);
       let numdiscount = Object.values(obj2);
-      let filter = new Array(discount.length).fill(false);
+      let filterD = new Array(discount.length).fill(false);
       setDiscountFilter({
-        ...brandFilter,
+        ...discountFilter,
         discounts: [...discount],
         numdiscounts: [...numdiscount],
-        selectedDiscounts: [...filter],
+        selectedDiscounts: [...filterD],
       });
     }
-  }, [allData]);
+  }, [data]);
 
   useEffect(() => {
-    if (data.length) {
+    if (data && data.length) {
       let last = Math.ceil(data.length / 12);
       let pagenoArr = [];
       for (let i = 1; i <= last; i++) {
@@ -118,28 +133,12 @@ const ProductNew = () => {
       setPageno([...pagenoArr]);
     }
   }, [data]);
-  /*
- 
 
- 
-
-
-
-  const filterbydiscount = (e) => {
-    console.log(e.target.value, e.target.checked);
-    if (e.target.checked) {
-      dispatch(fetchfilterdiscount(e.target.value));
-    } else {
-      dispatch(fetchdata());
-    }
-  };
-
-
-  
-*/
   const filterbybrand = (e) => {
     const { value, checked } = e.target;
-    console.log(value, checked);
+    // console.log(value, checked);
+    // console.log(discountFilter);
+    // console.log(brandFilter);
 
     let temp = new Array(brandFilter.brands.length).fill("");
     for (let i = 0; i < brandFilter.brands.length; i++) {
@@ -160,8 +159,92 @@ const ProductNew = () => {
         return el;
       }
     });
-    // console.log(temp.join("&").trim());
+    // console.log(temp.join("&2C").trim());
+    setFilterQuery({
+      ...filterQuery,
+      ["brand"]: `${temp.join(",").trim()}`,
+    });
+    let finalQuery = "";
+    if (temp.join(",").trim() == "") {
+      if (
+        filterQuery.discount.trim().length == 0 &&
+        filterQuery.sort.trim().length == 0
+      ) {
+        finalQuery = ``;
+      } else if (filterQuery.discount.trim().length == 0) {
+        finalQuery = `sort=${filterQuery.sort}`;
+      } else if (filterQuery.sort.trim().length == 0) {
+        finalQuery = `discount=${filterQuery.discount}`;
+      } else {
+        finalQuery = `sort=${filterQuery.sort}&discount=${filterQuery.discount}`;
+      }
+    } else {
+      if (
+        filterQuery.discount.trim().length == 0 &&
+        filterQuery.sort.trim().length == 0
+      ) {
+        finalQuery = `brand=${temp.join(",").trim()}`;
+      } else if (filterQuery.discount.trim().length == 0) {
+        finalQuery = `brand=${temp.join(",").trim()}&sort=${filterQuery.sort}`;
+      } else if (filterQuery.sort.trim().length == 0) {
+        finalQuery = `brand=${temp.join(",").trim()}&discount=${
+          filterQuery.discount
+        }`;
+      } else {
+        finalQuery = `brand=${temp.join(",").trim()}&sort=${
+          filterQuery.sort
+        }&discount=${filterQuery.discount}`;
+      }
+    }
+    // console.log(finalQuery);
+    dispatch(getFilteredProductsAPI(finalQuery + "&_page=1"));
   };
+
+  const filterbydiscount = (e) => {
+    const { value, checked } = e.target;
+    // console.log(value, checked);
+    // console.log(brandFilter, discountFilter);
+    let finalQuery = "";
+    if (value.trim().length == 0) {
+      setFilterQuery({
+        ...filterQuery,
+        ["discount"]: "",
+      });
+      if (
+        filterQuery.brand.trim().length == 0 &&
+        filterQuery.sort.trim().length == 0
+      ) {
+        finalQuery = ``;
+      } else if (filterQuery.brand.trim().length == 0) {
+        finalQuery = `sort=${filterQuery.sort}`;
+      } else if (filterQuery.sort.trim().length == 0) {
+        finalQuery = `brand=${filterQuery.brand}`;
+      } else {
+        finalQuery = `brand=${filterQuery.brand}&sort=${filterQuery.sort}`;
+      }
+    } else {
+      setFilterQuery({
+        ...filterQuery,
+        ["discount"]: `${value}`,
+      });
+
+      if (
+        filterQuery.brand.trim().length == 0 &&
+        filterQuery.sort.trim().length == 0
+      ) {
+        finalQuery = `discount=${value}`;
+      } else if (filterQuery.brand.trim().length == 0) {
+        finalQuery = `discount=${value}&sort=${filterQuery.sort}`;
+      } else if (filterQuery.sort.trim().length == 0) {
+        finalQuery = `discount=${value}&brand=${filterQuery.brand}`;
+      } else {
+        finalQuery = `discount=${value}&brand=${filterQuery.brand}&sort=${filterQuery.sort}`;
+      }
+    }
+    // console.log(finalQuery);
+    dispatch(getFilteredProductsAPI(finalQuery + "&_page=1"));
+  };
+
   //pagination
 
   const decrpage = (value) => {
@@ -179,24 +262,55 @@ const ProductNew = () => {
   const handleSort = (e) => {
     const { value } = e.target;
     console.log("soted by", value);
-    if (value == "rel") {
-      if (allData.length) {
-        setData([...allData]);
-      }
-    } else if (value == "plth") {
-      let temp = data.sort((a, b) => Number(a.price) - Number(b.price));
-      setData([...temp]);
-    } else if (value == "phtl") {
-      let temp = data.sort((a, b) => Number(b.price) - Number(a.price));
-      setData([...temp]);
-    } else if (value == "rlth") {
-      let temp = data.sort((a, b) => Number(a.ratings) - Number(b.ratings));
-      setData([...temp]);
-    } else if (value == "rhtl") {
-      let temp = data.sort((a, b) => Number(b.ratings) - Number(a.ratings));
-      setData([...temp]);
+
+    setFilterQuery({
+      ...filterQuery,
+      ["sort"]: `${value}`,
+    });
+    let finalQuery = "";
+
+    if (
+      filterQuery.brand.trim().length == 0 &&
+      filterQuery.discount.trim().length == 0
+    ) {
+      finalQuery = `sort=${value}`;
+    } else if (filterQuery.brand.trim().length == 0) {
+      finalQuery = `discount=${filterQuery.discount}&sort=${value}`;
+    } else if (filterQuery.discount.trim().length == 0) {
+      finalQuery = `brand=${filterQuery.brand}&sort=${value}`;
+    } else {
+      finalQuery = `discount=${filterQuery.discount}&brand=${filterQuery.brand}&sort=${value}`;
     }
+    // console.log(finalQuery);
+    dispatch(getFilteredProductsAPI(finalQuery + "&_page=1"));
   };
+
+  if (allProducts.loading)
+    return (
+      <Flex gap={10}>
+        <Box w={"250px"} display={{ base: "none", md: "block" }}>
+          <Skeleton height="40px" />
+          <SkeletonText mt="4" noOfLines={9} spacing="4" />
+          <Skeleton height="40px" mt={"50px"} />
+          <SkeletonText mt="4" noOfLines={8} spacing="4" />
+        </Box>
+        <Box flex={1}>
+          <Grid
+            templateColumns={[
+              "repeat(2, 1fr)",
+              "repeat(3, 1fr)",
+              "repeat(4, 1fr)",
+            ]}
+            gap={4}
+          >
+            {array.map((el, i) => (
+              <Skeleton key={uuidv4()} height="280px" />
+            ))}
+          </Grid>
+        </Box>
+      </Flex>
+    );
+
   return (
     <div>
       <Flex gap={"20px"}>
@@ -268,6 +382,32 @@ const ProductNew = () => {
                 >
                   DISCOUNTS
                 </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    fontSize: "12px",
+                    paddingTop: "10px",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <input
+                      defaultChecked={true}
+                      type="radio"
+                      name="discount"
+                      value={""}
+                      onChange={filterbydiscount}
+                      style={{ width: "15px", height: "15px" }}
+                    />
+                    <p style={{ paddingLeft: "10px" }}>{"Reset Filter"}</p>
+                  </div>
+                </div>
                 {discountFilter.discounts.length &&
                   discountFilter.discounts.map((el, i) => {
                     return (
@@ -288,9 +428,10 @@ const ProductNew = () => {
                           }}
                         >
                           <input
-                            type="checkbox"
+                            type="radio"
+                            name="discount"
                             value={parseInt(el)}
-                            // onChange={filterbydiscount}
+                            onChange={filterbydiscount}
                             style={{ width: "15px", height: "15px" }}
                           />
                           <p style={{ paddingLeft: "10px" }}>{el}</p>
@@ -331,7 +472,8 @@ const ProductNew = () => {
             ]}
             gap={4}
           >
-            {data.length &&
+            {data &&
+              data.length &&
               data.map((el) => <Allproduct product={el} key={el._id} />)}
           </Grid>
           <Box>

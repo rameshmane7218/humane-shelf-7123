@@ -11,6 +11,7 @@ import { store } from "./store/store.js";
 import axios from "axios";
 // default url
 axios.defaults.baseURL = "https://tata1mg-backend-nem201.herokuapp.com";
+// axios.defaults.baseURL = "http://localhost:8080/";
 axios.defaults.headers["Content-Type"] = "application/json";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

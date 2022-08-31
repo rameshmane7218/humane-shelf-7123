@@ -1,7 +1,7 @@
 import * as types from "./products.types";
 import axios from "axios";
 
-// Get Mangoes Api call ##########################################
+// Get all products Api call ##########################################
 const getAllProductsLoading = (payload) => {
   return {
     type: types.GET_ALL_PRODUCTS_LOADING,
@@ -27,6 +27,33 @@ const getAllProductsAPI = (payload) => (dispatch) => {
     .get(`/products/alldata`)
     .then((r) => dispatch(getAllProductsSuccess(r.data.data)))
     .catch((e) => dispatch(getAllProductsError(e.data)));
+};
+// Get filtered products Api call ##########################################
+const getFilteredProductsLoading = (payload) => {
+  return {
+    type: types.GET_FILTERED_PRODUCTS_LOADING,
+    payload,
+  };
+};
+const getFilteredProductsSuccess = (payload) => {
+  return {
+    type: types.GET_FILTERED_PRODUCTS_SUCCESS,
+    payload,
+  };
+};
+const getFilteredProductsError = (payload) => {
+  return {
+    type: types.GET_FILTERED_PRODUCTS_ERROR,
+    payload,
+  };
+};
+
+const getFilteredProductsAPI = (payload) => (dispatch) => {
+  dispatch(getFilteredProductsLoading(payload));
+  axios
+    .get(`/products/filter?${payload}`)
+    .then((r) => dispatch(getFilteredProductsSuccess(r.data.data)))
+    .catch((e) => dispatch(getFilteredProductsError(e.data)));
 };
 
 const getSingleProductLoading = (payload) => {
@@ -88,4 +115,9 @@ const getSliderProductAPI = (id) => (dispatch) => {
     .catch((e) => dispatch(getSliderProductError(e.data)));
 };
 
-export { getAllProductsAPI, getSingleProductAPI, getSliderProductAPI };
+export {
+  getAllProductsAPI,
+  getSingleProductAPI,
+  getSliderProductAPI,
+  getFilteredProductsAPI,
+};

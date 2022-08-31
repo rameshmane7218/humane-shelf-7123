@@ -2,7 +2,13 @@ import * as types from "./products.types";
 
 const initialState = {
   data: [],
+  filteredData: [],
   allProducts: {
+    loading: false,
+    error: false,
+    data: [],
+  },
+  filteredProducts: {
     loading: false,
     error: false,
     data: [],
@@ -37,7 +43,7 @@ const initialState = {
 
 export const newProductsReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    // Get mangoes Api call ##########################################
+    // Get all products call ##########################################
     case types.GET_ALL_PRODUCTS_LOADING:
       return {
         ...state,
@@ -60,6 +66,34 @@ export const newProductsReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         allProducts: {
+          loading: false,
+          error: true,
+        },
+      };
+
+    // Get filtered products call ##########################################
+    case types.GET_FILTERED_PRODUCTS_LOADING:
+      return {
+        ...state,
+        filteredProducts: {
+          loading: true,
+          error: false,
+        },
+      };
+    case types.GET_FILTERED_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        filteredProducts: {
+          loading: false,
+          error: false,
+          data: payload,
+        },
+        filteredData: payload,
+      };
+    case types.GET_FILTERED_PRODUCTS_ERROR:
+      return {
+        ...state,
+        filteredProducts: {
           loading: false,
           error: true,
         },

@@ -16,6 +16,6 @@ const productSchema = mongoose.Schema({
   isSlider: Boolean,
 });
 
-const Prod = mongoose.model("tataprod", productSchema);
+const ProductModel = mongoose.model("tataprod", productSchema);
 
-module.exports = Prod;
+module.exports = ProductModel;
