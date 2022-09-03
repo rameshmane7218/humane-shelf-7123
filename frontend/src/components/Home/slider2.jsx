@@ -13,7 +13,7 @@ export const Slider2 = ({ items }) => {
       <Swiper
         slidesPerView={6}
         spaceBetween={10}
-        slidesPerGroup={3}
+        slidesPerGroup={1}
         loop={false}
         loopFillGroupWithBlank={true}
         pagination={{
