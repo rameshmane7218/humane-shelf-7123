@@ -28,7 +28,7 @@ export const ProductSlider2 = ({ data, loading }) => {
       <Swiper
         slidesPerView={6}
         spaceBetween={10}
-        slidesPerGroup={3}
+        slidesPerGroup={1}
         loop={false}
         loopFillGroupWithBlank={true}
         pagination={{
