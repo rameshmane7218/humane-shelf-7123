@@ -40,6 +40,9 @@
 <h3 align="center"><a href="https://tata1mg-clone-nem201.vercel.app/"><strong>Want to see live preview »</strong></a></h3>
 
 Tata 1mg is India’s leading consumer health platform. It provides services, including e-pharmacy, diagnostics, e-consultation and health content.
+
+![cover](./screenshots/tata1mg.png)
+
 <br/>
 
 ## 🚀 Features
