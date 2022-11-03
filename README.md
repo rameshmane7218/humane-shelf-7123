@@ -27,7 +27,7 @@
 <h4 align="center">Payment Gateway:</h4>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/-Instamojo-blue" alt="Instamojo" />
+  <img src="https://img.shields.io/badge/instamojo--nodejs-(0.0.5)-blue?style=for-the-badge&logo=instamojo&logoColor=white" alt="Instamojo" />
 </p>
 
 <h4 align="center">Deployed On:</h4>
