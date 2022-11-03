@@ -81,6 +81,13 @@ On this page, you can register a user. If the user is already registered, you ca
 
 ![Sign In](./screenshots/login.PNG)
 
+### Search Functionality
+
+If you type any `keyword` the list of product will appear in the modal component. You can add it to cart directly from here or you can see more details by clicking on the product.
+We have added debouncing functionality on searching products.
+
+![Search Product](./screenshots/search.png)
+
 ### Products Page -
 
 Here users can browse, `filter` the product based on `brand and discound`, `sort` by `price or rating`, filter and sort will work togather and add items to the cart by clicking on the `Add to Cart` button.
@@ -113,7 +120,7 @@ For payment, we have used `Instamojo Payment Gateway`. So, users need to add req
 
 ### Payment Status
 
-After submitting the payment details you will get `Payment Successful` or `Payment Failed` depending on the `status of the payment`.
+After submitting the payment details you will get `Payment Successful` or `Payment Failed` depending on the `status of the payment`. Also, you received mail of bill details of order.
 
 <table>
   <tr>
