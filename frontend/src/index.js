@@ -11,7 +11,8 @@ import { store } from "./store/store.js";
 import axios from "axios";
 // default url
 //axios.defaults.baseURL = "https://tata1mg-backend-nem201.herokuapp.com"; //old
-axios.defaults.baseURL = "https://tata1mg-backend-nem201.up.railway.app"; //new
+//axios.defaults.baseURL = "https://tata1mg-backend-nem201.up.railway.app"; //new
+axios.defaults.baseURL = "https://tatabackend.vercel.app"; //new
 // axios.defaults.baseURL = "http://localhost:8080/";
 axios.defaults.headers["Content-Type"] = "application/json";
 
